@@ -1,39 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app_project/utils/app_router.dart';
+import 'package:mobile_app_project/utils/app_theme.dart';
 
 void main() {
-  runApp(const BooksNBox());
+  runApp(BooksNBox());
 }
 
 class BooksNBox extends StatelessWidget {
-  const BooksNBox({Key? key}) : super(key: key);
-
+  BooksNBox({Key? key,AppRouter? appRouter})
+      : _appRouter = appRouter ?? AppRouter() ,super(key: key);
+   final AppRouter _appRouter;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomePage(title: 'BooksNBox App'),
+    return MaterialApp.router(
+      routerConfig: _appRouter.router,
+      theme: AppThemeData.materialTheme,
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title)
-      ),
-    );
-  }
-}
