@@ -1,5 +1,7 @@
+//import 'dart:html';
+
 import 'package:flutter/material.dart';
-import 'package:mobile_app_project/utils/constants/app_colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -7,9 +9,37 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-          color: AppColors.primaryColor,
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(padding: const EdgeInsets.symmetric(vertical: 140)),
+                  Image.asset(
+                    'assets/Logo_Blue.png',
+                    width: 320,
+                  )
+                ],
+              ),
+              //Padding(padding: const EdgeInsets.symmetric(vertical: 10)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Log In",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.rubik(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
