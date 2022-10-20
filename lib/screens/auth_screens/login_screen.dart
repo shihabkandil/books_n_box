@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_project/utils/constants/app_colors.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -9,7 +8,9 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-          color: AppColors.primaryColor,
+        color: Theme
+            .of(context)
+            .primaryColor,
       ),
     );
   }
