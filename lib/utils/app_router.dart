@@ -1,7 +1,6 @@
 import 'package:go_router/go_router.dart';
 import '../screens/auth_screens/login_screen.dart';
 import '../screens/auth_screens/register_screen.dart';
-
 /// To navigate use
 /// onTap: () => GoRouter.of(context).go('/page_path')
 /// OR
