@@ -33,7 +33,7 @@ class GoogleButton extends StatelessWidget {
             Text(
               _text,
               textAlign: TextAlign.center,
-              style: GoogleFonts.cabin(
+              style: GoogleFonts.roboto(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.black),

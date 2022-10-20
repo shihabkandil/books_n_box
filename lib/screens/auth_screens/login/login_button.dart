@@ -26,7 +26,7 @@ class LoginButton extends StatelessWidget {
         child: Text(
           _text,
           textAlign: TextAlign.center,
-          style: GoogleFonts.cabin(
+          style: GoogleFonts.roboto(
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         style: ElevatedButton.styleFrom(
