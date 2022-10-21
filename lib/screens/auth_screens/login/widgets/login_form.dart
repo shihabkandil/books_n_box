@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_project/screens/auth_screens/login/center_logo.dart';
-import 'package:mobile_app_project/screens/auth_screens/login/center_title.dart';
-import 'package:mobile_app_project/screens/auth_screens/login/login_button.dart';
-import 'package:mobile_app_project/screens/auth_screens/login/google_button.dart';
-import 'package:mobile_app_project/screens/auth_screens/login/remember_me_row.dart';
+import 'center_logo.dart';
+import 'center_title.dart';
+import 'google_button.dart';
+import 'login_button.dart';
 import 'outlined_textfield.dart';
+import 'remember_me_row.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({Key? key}) : super(key: key);

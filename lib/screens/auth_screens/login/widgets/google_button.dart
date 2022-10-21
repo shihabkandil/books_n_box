@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 class GoogleButton extends StatelessWidget {
   final String _text;
-
   const GoogleButton(this._text, {Key? key}) : super(key: key);
 
   @override
