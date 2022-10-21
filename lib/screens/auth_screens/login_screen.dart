@@ -9,7 +9,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-          color: AppColors.primaryColor,
+          color: Color.fromARGB(248, 8, 4, 226),
       ),
     );
   }
