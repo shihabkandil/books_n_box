@@ -15,6 +15,7 @@ class BooksNBox extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: _appRouter.router,
       theme: AppThemeData.materialTheme,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

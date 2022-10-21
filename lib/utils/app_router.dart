@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:mobile_app_project/screens/main_screens/home_screen/home_screen.dart';
 import '../screens/auth_screens/login_screen.dart';
 import '../screens/auth_screens/register_screen.dart';
 /// To navigate use
@@ -7,16 +8,20 @@ import '../screens/auth_screens/register_screen.dart';
 /// onTap: () => context.go('/page_path')
 class AppRouter {
   final GoRouter router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const LoginScreen(),
-      ),
-      // GoRoute(
-      //   path: '/page2',
-      //   builder: (context, state) => const Page2Screen(),
-      // ),
-    ],
-    // errorBuilder: (context, state) => ErrorScreen(state.error),
-  );
+
+        routes: [
+          GoRoute(
+            path: '/',
+            builder: (context, state) => const  LoginScreen(),
+          ),
+
+           GoRoute(
+             path: '/home',
+             builder: (context, state) => const HomeScreen(),
+           ),
+
+        ],
+      // errorBuilder: (context, state) => ErrorScreen(state.error),
+    );
 }
+
