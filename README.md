@@ -1,16 +1,4 @@
-# mobile_app_project
+# BooksNBox
 
-A new Flutter project.
+BooksNBox app was created using Flutter and is clearly targeting  book readers. It serves as an electronic library that allows readers to search for books, filter them, record their selections, and arrange them. Readers can also use the app to look up book reviews by taking a photo of the book's cover as for now it supports three different APIs: Google, the New York Times, and Marvel.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
