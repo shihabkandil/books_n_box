@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../utils/constants/cache_keys.dart';
 import '../models/user.dart';
 
@@ -12,11 +11,11 @@ class UserDataCache{
 }
 
   void writeUserDataCachePreferences(User user) async {
-    _localUserData.setString(userCacheKey, jsonEncode(user.toJson()));
+    _localUserData.setString(userGlobalCacheKey, jsonEncode(user.toJson()));
   }
 
   User readUserDataCachePreferences() {
-      Map<String,dynamic> userModel = jsonDecode(_localUserData.getString(userCacheKey)??'');
+      Map<String,dynamic> userModel = jsonDecode(_localUserData.getString(userGlobalCacheKey)??'');
       User user = User.fromJson(userModel);
     print(user);
     return user;

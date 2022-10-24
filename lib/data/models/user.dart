@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 
 import '../../utils/constants/cache_keys.dart';
@@ -25,18 +24,18 @@ class User extends Equatable{
   factory User.fromJson(Map<String, dynamic> jsonModel) {
     return User(
         name: jsonModel[userCacheName],
-        id: jsonModel[userCacheId] ?? '',
+        id: jsonModel[userCacheID] ?? '',
         email: jsonModel[userCacheEmail],
-        profilePicturePath: jsonModel[userCachePhoto],
+        profilePicturePath: jsonModel[userCacheProfilePicture],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       userCacheName: name,
-      userCacheId:id,
+      userCacheID:id,
       userCacheEmail:email,
-      userCachePhoto:profilePicturePath,
+      userCacheProfilePicture:profilePicturePath,
     };
   }
 
