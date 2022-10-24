@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "367666058900",
+    "project_id": "books-n-box",
+    "storage_bucket": "books-n-box.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367666058900:android:2722e5c09b5fa4c0a28681",
+        "android_client_info": {
+          "package_name": "eg.edu.miuegypt.booksnbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367666058900-b4puh3nt5q7cv3atj5969d0691tg54bg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "eg.edu.miuegypt.booksnbox",
+            "certificate_hash": "44eaaed6309fee802afb776903d9a8e05b807a6a"
+          }
+        },
+        {
+          "client_id": "367666058900-d8ij5pbn8u4q0mq8lujgn1rlf6ql9b2v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-B4AySmZWmbeI5pTwManNFMmFXlW2zEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367666058900-d8ij5pbn8u4q0mq8lujgn1rlf6ql9b2v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
 
 class GoogleButton extends StatelessWidget {
   final String _text;
-
   const GoogleButton(this._text, {Key? key}) : super(key: key);
 
   @override
@@ -22,7 +23,7 @@ class GoogleButton extends StatelessWidget {
         ],
       ),
       child: ElevatedButton(
-        onPressed: (() {}),
+        onPressed: (() => BlocProvider.of<AuthCubit>(context).logInWithGoogle()),
         child: Row(
           children: [
             Image.asset(
