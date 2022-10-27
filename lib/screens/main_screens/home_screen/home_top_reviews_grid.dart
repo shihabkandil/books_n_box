@@ -48,8 +48,7 @@ class HomeTopReviewsGrid extends StatelessWidget {
                                 icon:Icon(Icons.favorite,color: Colors.white), onPressed: () {  },
                                 )
                                 ),
-                            ),
-                         
+                            ), 
                       
                           Stack(
                               
