@@ -513,6 +513,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+  responsive_builder:
+    dependency: "direct main"
+    description:
+      name: responsive_builder
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.3"
   shared_preferences:
     dependency: "direct main"
     description:
