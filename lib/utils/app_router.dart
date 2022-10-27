@@ -1,10 +1,11 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_app_project/screens/main_screens/profile_screen/profile_screen.dart';
 import '../business_logic/cubit/auth_cubit/auth_cubit.dart';
 import '../data/repository/auth_repository.dart';
-import '../screens/auth_screens/login_screen.dart';
+import '../screens/auth_screens/login/login_screen.dart';
 import '../screens/home_screen/home/home_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../business_logic/cubit/auth_cubit/auth_cubit.dart';
 /// To navigate use
 /// onTap: () => GoRouter.of(context).go('/page_path')
 /// OR
