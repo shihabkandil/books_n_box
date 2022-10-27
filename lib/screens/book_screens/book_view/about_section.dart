@@ -12,7 +12,7 @@ class AboutSection extends StatelessWidget {
     return Container(
       //height: 435,
       decoration: BoxDecoration(
-          color: Color.fromARGB(255, 219, 231, 255),
+          color: Color.fromARGB(255, 223, 234, 255),
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(35),
             topLeft: Radius.circular(35),
@@ -42,17 +42,17 @@ class AboutSection extends StatelessWidget {
             child: Container(
               constraints: BoxConstraints(maxWidth: 325),
               child: Text(
-                description + description + description,
+                description,
                 textAlign: TextAlign.justify,
-                style: GoogleFonts.rubik(
-                    color: Colors.black38,
+                style: GoogleFonts.roboto(
+                    color: Colors.black45,
                     fontSize: 18,
                     fontWeight: FontWeight.w500),
               ),
             ),
           ),
           SizedBox(
-            height: 30,
+            height: 6,
           )
         ],
       ),

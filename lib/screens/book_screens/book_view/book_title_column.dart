@@ -45,7 +45,7 @@ class BookTitleColumn extends StatelessWidget {
               ),
               Text(
                 '${book.getBook().avgRating}',
-                style: GoogleFonts.ptSans(
+                style: GoogleFonts.roboto(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -56,7 +56,7 @@ class BookTitleColumn extends StatelessWidget {
               ),
               Text(
                 '(${book.getBook().ratingsCount})',
-                style: GoogleFonts.ptSans(
+                style: GoogleFonts.roboto(
                   color: Colors.white,
                   //fontWeight: FontWeight.bold,
                   fontSize: 18,
