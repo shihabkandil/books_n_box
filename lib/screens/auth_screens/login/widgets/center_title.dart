@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class CenterTitle extends StatelessWidget {
   final String _title;
   static const Padding _padding =
-      Padding(padding: EdgeInsets.symmetric(vertical: 75));
+  Padding(padding: EdgeInsets.symmetric(vertical: 75));
 
   const CenterTitle(this._title, {Key? key}) : super(key: key);
 
