@@ -33,7 +33,7 @@ class LoginButton extends StatelessWidget {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(90))),
           fixedSize: const Size(250, 50),
-          backgroundColor: const Color.fromARGB(255, 45, 42, 218),
+          backgroundColor: Theme.of(context).primaryColor,
         ),
       ),
     );
