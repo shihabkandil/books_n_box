@@ -11,6 +11,8 @@ class BookViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //resizeToAvoidBottomInset: true,
+      backgroundColor: Color.fromARGB(255, 219, 231, 255),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primaryColor,
         onPressed: () {},
@@ -37,10 +39,12 @@ class BookViewScreen extends StatelessWidget {
             //onPressed: () {},
             ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          color: Color.fromARGB(230, 20, 14, 187),
+      body: Container(
+        color: Color.fromARGB(230, 20, 14, 187),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.only(bottom: 0),
           child: SafeArea(
+            bottom: false,
             child: Stack(children: [
               BookImageRow(bookData),
               AboutSection(bookData.getBook().description!),
