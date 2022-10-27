@@ -1,7 +1,6 @@
 import 'models/book.dart';
 
 class BookData {
-
   Book book = Book(
     id: 'zyTCAlFPjgYC',
     title: 'The Google story',
@@ -15,13 +14,21 @@ class BookData {
       "smallThumbnail":
           "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
       "small":
-          "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=2&edge=curl&source=gbs_api"
+          "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=2&edge=curl&source=gbs_api",
+      "large":
+          "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=4&edge=curl&source=gbs_api"
     },
     authors: ["David A. Vise", "Mark Malseed"],
   );
 
   Book getBook() {
     return book;
+  }
+
+  String getAuthors() {
+    String auth = book.authors.toString();
+    auth = auth.substring(1, auth.length - 1);
+    return auth;
   }
 
   void setBookmark(int? status) {

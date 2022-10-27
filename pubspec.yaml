@@ -45,6 +45,7 @@ dependencies:
   firebase_auth: ^4.0.2
   google_sign_in: ^5.4.2
   equatable: ^2.0.5
+  responsive_builder: ^0.4.3
 
   # Bloc State management
   flutter_bloc: ^8.1.1

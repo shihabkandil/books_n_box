@@ -4,7 +4,8 @@ import 'package:equatable/equatable.dart';
 
 import '../../utils/constants/cache_keys.dart';
 
-class Book  { //extends Equatable
+class Book extends Equatable {
+  //
   @override
   List<Object?> get props => [id];
 

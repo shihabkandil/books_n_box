@@ -17,44 +17,46 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
-      if(state.status == AuthenticationStatus.googleSignInSuccess){
-        context.go('/home');
-      }
-      else{
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Sign in with google failed')));
-      }
-    },
-    child:Form(
-      child: Center(
-        child: Column(
-          children: const [
-            Padding(padding: EdgeInsets.symmetric(vertical: 30)),
-            CenterLogo(),
-            CenterTitle('Log In'),
-            CustomTextField(
-                'Email Address',
-                Icon(
-                  Icons.email_sharp,
-                  color: iconColor,
-                ),
-                false),
-            Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-            CustomTextField(
-                'Password',
-                Icon(
-                  Icons.visibility,
-                  color: iconColor,
-                ),
-                true),
-            RememberMeRow(),
-            Padding(padding: EdgeInsets.symmetric(vertical: 20)),
-            LoginButton('Log In'),
-            Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-            GoogleButton('Log In with Google'),
-          ],
-        ),
-      ),
-    )
+          if(state.status == AuthenticationStatus.googleSignInSuccess){
+            context.go("/home");
+          }
+          else{
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Sign in with google failed")));
+          }
+        },
+        child:Form(
+          child: Center(
+            child: Column(
+              children: [
+                Padding(padding: EdgeInsets.symmetric(vertical: 30)),
+                CenterLogo(),
+                Container(
+                    margin: EdgeInsets.all(20),
+                    child: CenterTitle("Log In")),
+                CustomTextField(
+                    "Email Address",
+                    Icon(
+                      Icons.email_sharp,
+                      color: iconColor,
+                    ),
+                    false),
+                Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+                CustomTextField(
+                    "Password",
+                    Icon(
+                      Icons.visibility,
+                      color: iconColor,
+                    ),
+                    true),
+                RememberMeRow(),
+                Padding(padding: EdgeInsets.symmetric(vertical: 20)),
+                LoginButton("Log In"),
+                Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+                GoogleButton("Log In with Google"),
+              ],
+            ),
+          ),
+        )
     );
   }
 }

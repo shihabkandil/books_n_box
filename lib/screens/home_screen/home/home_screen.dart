@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app_project/utils/constants/app_colors.dart';
 import '../../shared/widgets/app_bottom_navigator.dart';
 import '../widgets/api_tabbar.dart';
 import '../widgets/header_text.dart';
@@ -8,43 +9,52 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-  
     return SafeArea(
-
       child: Scaffold(
-        extendBody: true,
-        backgroundColor: const Color(0xFFF3F3FF),
-
-        appBar: PreferredSize(preferredSize: const Size.fromHeight(60),
-          child: AppBar(
-        
-            backgroundColor: const Color.fromARGB(255, 24, 4, 243),
-            flexibleSpace: Image.asset('assets/images/Logo White.png',),
-            leading: const IconButton(icon: Icon(Icons.settings,color: Colors.white,), onPressed: null,),
-            // ignore: prefer_const_literals_to_create_immutables
-            actions: [
-              const IconButton(
-                 onPressed: null,
-                 icon: Icon(Icons.search,color: Colors.white,),
-                ),
-            ],
-            
+      extendBody: true,
+      backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          backgroundColor: Colors.white,
+          flexibleSpace: Image.asset(
+            'assets/Logo_Blue.png',
           ),
+          leading: IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.black,
+            ),
+            onPressed: () {},
+          ),
+
+          actions: [
+            const IconButton(
+              onPressed: null,
+              icon: Icon(
+                Icons.search,
+                color: Colors.black,
+              ),
+            ),
+          ],
+
         ),
+      ),
 
-        body:
-         SingleChildScrollView(
-           physics: const NeverScrollableScrollPhysics(),
-           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-             children :[
-                Container(padding: const EdgeInsets.all(10),child: const HeaderText(text: "Choose Source")),
-                const ApiTabbar(),
-             ], 
-           ),
-         ),
-
+      drawer: Drawer(),
+      body: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+                padding: EdgeInsets.all(10),
+                child: HeaderText(text: "Choose Source")
+                ),
+            ApiTabbar(),
+          ],
+        ),
+      ),
         bottomNavigationBar: const AppBottomNavigator(),
 
     )
