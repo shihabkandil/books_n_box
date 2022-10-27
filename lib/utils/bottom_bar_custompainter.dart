@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 
 class BNBCustomPainter extends CustomPainter{
 
-    final Color borderColor;
-
-    final double borderThickness;
-
-    BNBCustomPainter({required this.borderColor,required this.borderThickness});
+    BNBCustomPainter();
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -14,7 +10,7 @@ class BNBCustomPainter extends CustomPainter{
     Paint paint = Paint()..color = Colors.white..style = PaintingStyle.fill;
     Path path = Path()..moveTo(0, 20);
 
-    final borderpaint = Paint()..color = borderColor..style = PaintingStyle.stroke..strokeWidth = borderThickness;
+   
 
     path.quadraticBezierTo(size.width*0.20, 0, size.width*0.35, 0);
     path.quadraticBezierTo(size.width*0.40, 0, size.width*0.40, 20);
@@ -25,9 +21,9 @@ class BNBCustomPainter extends CustomPainter{
     path.lineTo(0, size.height);
     path.close();
 
-    canvas.drawShadow(path, Colors.black, 5, true);
+    canvas.drawShadow(path, Colors.black, 20, false);
     canvas.drawPath(path, paint);
-    canvas.drawPath(path, borderpaint);
+  
 
   }
 

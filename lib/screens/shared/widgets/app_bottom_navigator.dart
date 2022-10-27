@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../utils/bottom_bar_custompainter.dart';
@@ -19,7 +20,7 @@ class AppBottomNavigator extends StatelessWidget {
 
                   CustomPaint(
                     size: Size(size.width,80),
-                    painter: BNBCustomPainter(borderColor: Colors.black , borderThickness: 0.3) ,
+                    painter: BNBCustomPainter() ,
                   ),
 
                   Center(
@@ -37,11 +38,11 @@ class AppBottomNavigator extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const IconButton(onPressed: null, icon: Icon(Icons.home,color: Colors.black,)),
-                        const IconButton(onPressed: null, icon: Icon(Icons.favorite,color: Colors.black,)),
+                        IconButton(onPressed: () => context.go('/home'), icon: Icon(Icons.home,color: Colors.black,)),
+                        //const IconButton(onPressed: null, icon: Icon(Icons.favorite,color: Colors.black,)),
                         Container(width: size.width*0.20,),
-                        const IconButton(onPressed: null, icon: Icon(Icons.menu_book_sharp,color: Colors.black,)),
-                        const IconButton(onPressed: null, icon: Icon(Icons.person,color: Colors.black,)),
+                        //const IconButton(onPressed: null, icon: Icon(Icons.menu_book_sharp,color: Colors.black,)),
+                        IconButton(onPressed: () => context.go('/home/profile'), icon: Icon(Icons.person,color: Colors.black,)),
                     ]),
                   )
 
