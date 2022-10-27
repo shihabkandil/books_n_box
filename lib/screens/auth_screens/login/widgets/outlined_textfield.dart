@@ -6,9 +6,9 @@ class CustomTextField extends StatelessWidget {
   //const CustomTextField({Key? key}) : super(key: key);
   final String _label;
   final Icon _icon;
-  bool isHidden;
+  final bool isHidden;
 
-  CustomTextField(this._label, this._icon, this.isHidden, {Key? key})
+  const CustomTextField(this._label, this._icon, this.isHidden, {Key? key})
       : super(key: key);
 
   @override

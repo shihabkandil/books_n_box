@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_project/screens/main_screens/home_screen/api_tabbar.dart';
-import 'package:mobile_app_project/screens/main_screens/home_screen/header_text.dart';
-import 'package:mobile_app_project/screens/shared/widgets/app_bottom_navigator.dart';
+import 'package:mobile_app_project/utils/constants/app_colors.dart';
+import '../../shared/widgets/app_bottom_navigator.dart';
+import '../widgets/api_tabbar.dart';
+import '../widgets/header_text.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,17 +10,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-
       child: Scaffold(
       extendBody: true,
-      backgroundColor: Theme.of(context).primaryColor.withOpacity(1),
-
+      backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
-
           backgroundColor: Colors.white,
-
           flexibleSpace: Image.asset(
             'assets/Logo_Blue.png',
           ),
@@ -45,10 +42,8 @@ class HomeScreen extends StatelessWidget {
       ),
 
       drawer: Drawer(),
-
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -60,10 +55,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-
-
-      bottomNavigationBar: const AppBottomNavigator(),
-
+        bottomNavigationBar: const AppBottomNavigator(),
 
     )
     );

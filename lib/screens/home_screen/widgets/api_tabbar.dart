@@ -13,18 +13,16 @@ class ApiTabbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-               DefaultTabController(
+    return DefaultTabController(
           length: 3,
           child: SizedBox(
            height: MediaQuery.of(context).size.height,
             child: Stack(
               children: [
-
-                Align(alignment: Alignment.center,child: GridBackGround()),
-                
-                  Column(
-            
+                Container(
+                    alignment: Alignment.center,
+                    child: GridBackGround()),
+                Column(
                 children: <Widget>[
                   ButtonsTabBar(
                     height: 75,
@@ -57,8 +55,8 @@ class ApiTabbar extends StatelessWidget {
                             ),
                         ),],
                   ),
-            
-                  
+
+
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Container(padding: EdgeInsets.all(10),child: HeaderText(text: "Top Reviews"))
@@ -67,16 +65,16 @@ class ApiTabbar extends StatelessWidget {
                     Expanded(
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 10),
-            
+
                       child: TabBarView(
                         children: [
                           HomeTopReviewsGrid(),
-            
+
                           Container(
-                            
+
                           ),
                           Container(
-                            
+
                           ),
                         ],
                       )
@@ -85,7 +83,7 @@ class ApiTabbar extends StatelessWidget {
                 ],
               ),
 
-              
+
 
               ],
             ),

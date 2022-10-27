@@ -1,30 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_project/screens/main_screens/home_screen/header_text.dart';
-
-
 import '../../../utils/constants/app_colors.dart';
 import 'dart:math' as math;
 
 class HomeTopReviewsGrid extends StatelessWidget {
-  
-  HomeTopReviewsGrid ({Key? key}) : super(key: key);
-  
+  const HomeTopReviewsGrid ({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return 
           GridView.builder(
 
             itemCount: 8,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2 , mainAxisSpacing: 4 , crossAxisSpacing: 4,) ,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2 , mainAxisSpacing: 4 , crossAxisSpacing: 4,) ,
 
             itemBuilder:(context, index) => Material(
 
-            borderRadius:BorderRadius.all(Radius.circular(20)),
+            borderRadius:const BorderRadius.all(Radius.circular(20)),
             elevation: 3.5,
 
             child: Container(
-                 padding: EdgeInsets.all(5),
-                 decoration: BoxDecoration(
+                 padding: const EdgeInsets.all(5),
+                 decoration: const BoxDecoration(
                  color: Colors.white,
                  borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
@@ -38,14 +33,14 @@ class HomeTopReviewsGrid extends StatelessWidget {
                            child: Container(
                               width: 30, 
                               height: 20,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: AppColors.favorite_color,
                               ),
                               child: IconButton(
-                                padding: EdgeInsets.all(3),
+                                padding: const EdgeInsets.all(3),
                                 iconSize: 15,
-                                icon:Icon(Icons.favorite,color: Colors.white), onPressed: () {  },
+                                icon:const Icon(Icons.favorite,color: Colors.white), onPressed: () {  },
                                 )
                                 ),
                             ), 
@@ -62,7 +57,7 @@ class HomeTopReviewsGrid extends StatelessWidget {
                                       child: Opacity(
                                         opacity: 0.2,
                                         child: Container(
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             color: Color.fromARGB(255, 9, 215, 208),
                                             borderRadius: BorderRadius.all(Radius.circular(20))
                                           ),
@@ -86,25 +81,20 @@ class HomeTopReviewsGrid extends StatelessWidget {
 
                               ],
                             ),
-
-                            SizedBox(height: 15),
-
+                            const SizedBox(height: 15),
                             Container(
-                              padding: EdgeInsets.only(left: 5),
-                              child: Align(
+                              padding: const EdgeInsets.only(left: 5),
+                              child: const Align(
                                 alignment: Alignment.center,
                                 child: Text("Book Name"),
                                 ),
                               ),
-
-                             
-                            
                                 Align(
                                   alignment: Alignment.center,
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 120,
                                     child: Row(
-                                        children: [
+                                        children: const [
                                           Icon(Icons.star,color: Colors.yellow,),
                                           Icon(Icons.star,color: Colors.yellow,),
                                           Icon(Icons.star,color: Colors.yellow,),
@@ -114,10 +104,7 @@ class HomeTopReviewsGrid extends StatelessWidget {
                                       ),
                                   ),
                                 ),
-                                 
-                    ]
-
-                    ),
+                    ]),
                 ),
           ),
 
