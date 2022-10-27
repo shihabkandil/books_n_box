@@ -17,7 +17,7 @@ class RememberMeRow extends StatelessWidget {
             title: Transform.translate(
               offset: const Offset(-20, 0),
               child: Text(
-                "Remember Me",
+                'Remember Me',
                 style: GoogleFonts.cairo(
                     fontWeight: FontWeight.bold, color: Colors.black45),
               ),
@@ -30,7 +30,7 @@ class RememberMeRow extends StatelessWidget {
         TextButton(
           onPressed: () => {},
           child: Text(
-            "Forgot Password?",
+            'Forgot Password?',
             style: GoogleFonts.cairo(
                 fontWeight: FontWeight.bold,
                 color: Colors.black45,

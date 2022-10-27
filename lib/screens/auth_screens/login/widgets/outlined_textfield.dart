@@ -17,11 +17,11 @@ class CustomTextField extends StatelessWidget {
       width: 300,
       child: TextField(
         obscureText: isHidden,
-        controller: TextEditingController(text: ""),
+        controller: TextEditingController(text: ''),
         enabled: true,
         cursorColor: AppColors.primaryColor,
         decoration: InputDecoration(
-          hintText: "Enter " + _label,
+          hintText: 'Enter ' + _label,
           suffixIcon: _icon,
           contentPadding: const EdgeInsetsDirectional.only(start: 25),
           focusedBorder: customInputBorder(Colors.black),

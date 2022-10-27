@@ -18,10 +18,10 @@ class LoginForm extends StatelessWidget {
     return BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
       if(state.status == AuthenticationStatus.googleSignInSuccess){
-        context.go("/home");
+        context.go('/home');
       }
       else{
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Sign in with google failed")));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Sign in with google failed')));
       }
     },
     child:Form(
@@ -30,9 +30,9 @@ class LoginForm extends StatelessWidget {
           children: const [
             Padding(padding: EdgeInsets.symmetric(vertical: 30)),
             CenterLogo(),
-            CenterTitle("Log In"),
+            CenterTitle('Log In'),
             CustomTextField(
-                "Email Address",
+                'Email Address',
                 Icon(
                   Icons.email_sharp,
                   color: iconColor,
@@ -40,7 +40,7 @@ class LoginForm extends StatelessWidget {
                 false),
             Padding(padding: EdgeInsets.symmetric(vertical: 10)),
             CustomTextField(
-                "Password",
+                'Password',
                 Icon(
                   Icons.visibility,
                   color: iconColor,
@@ -48,9 +48,9 @@ class LoginForm extends StatelessWidget {
                 true),
             RememberMeRow(),
             Padding(padding: EdgeInsets.symmetric(vertical: 20)),
-            LoginButton("Log In"),
+            LoginButton('Log In'),
             Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-            GoogleButton("Log In with Google"),
+            GoogleButton('Log In with Google'),
           ],
         ),
       ),
