@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app_project/utils/constants/app_colors.dart';
 import '../../data/book_data.dart';
 import 'book_view/book_image_row.dart';
 import '../../screens/book_screens/book_view/about_section.dart';
@@ -10,6 +11,11 @@ class BookViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.primaryColor,
+        onPressed: () {},
+        child: Icon(Icons.create),
+      ),
       extendBodyBehindAppBar: true,
       //backgroundColor: Color.fromARGB(248, 148, 144, 255),
       appBar: AppBar(
@@ -33,14 +39,10 @@ class BookViewScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          color: Color.fromARGB(249, 26, 19, 235),
+          color: Color.fromARGB(230, 20, 14, 187),
           child: SafeArea(
             child: Stack(children: [
-              BookImageRow(
-                bookData.getAuthors(),
-                bookData.getBook().imageLinks!['smallThumbnail']!,
-                bookData.getBook().title!,
-              ),
+              BookImageRow(bookData),
               AboutSection(bookData.getBook().description!),
             ]),
           ),

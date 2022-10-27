@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_app_project/data/book_data.dart';
 
 class BookTitleColumn extends StatelessWidget {
-  BookTitleColumn(String this.authors, this.title, {Key? key})
-      : super(key: key);
+  BookTitleColumn(this.book, {Key? key}) : super(key: key);
 
-  final String authors;
-  final String title;
+  BookData book;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class BookTitleColumn extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         //mainAxisSize: MainAxisSize.max,
         children: [
-          Text(title,
+          Text(book.getBook().title!,
               style: GoogleFonts.robotoSlab(
                   color: Colors.white,
                   fontSize: 22,
@@ -25,12 +24,46 @@ class BookTitleColumn extends StatelessWidget {
             height: 10,
           ),
           Text(
-            'By ' + authors, //-----------
+            'By ' + book.getAuthors(),
             style: GoogleFonts.ptSans(
               color: Colors.white,
               fontSize: 16,
             ),
           ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              Icon(
+                Icons.star,
+                color: Colors.yellow,
+                size: 26,
+              ),
+              SizedBox(
+                width: 3,
+              ),
+              Text(
+                '${book.getBook().avgRating}',
+                style: GoogleFonts.ptSans(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Text(
+                '(${book.getBook().ratingsCount})',
+                style: GoogleFonts.ptSans(
+                  color: Colors.white,
+                  //fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );
