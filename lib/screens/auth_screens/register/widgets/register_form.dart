@@ -23,10 +23,7 @@ class _RegisterFormState extends State<RegisterForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const CenterTitle(
-            title: "Sign Up",
-            margin: EdgeInsets.symmetric(vertical: 20),
-          ),
+          CenterTitle("Sign Up",),
           CustomTextField(
             label: "Username",
             icon: Icon(
