@@ -6,7 +6,7 @@ import 'center_logo.dart';
 import 'center_title.dart';
 import 'google_button.dart';
 import 'login_button.dart';
-import 'outlined_textfield.dart';
+import '../../../shared/widgets/custom_text_field.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({Key? key}) : super(key: key);
