@@ -1,37 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app_project/utils/screen_block_size.dart';
 import '../../../utils/constants/app_colors.dart';
 import 'dart:math' as math;
 
 class HomeTopReviewsGrid extends StatelessWidget {
-  const HomeTopReviewsGrid ({Key? key}) : super(key: key);
+  const HomeTopReviewsGrid ({Key? key,required this.screenBlockSize}) : super(key: key);
+  final ScreenBlockSize screenBlockSize;
   @override
   Widget build(BuildContext context) {
-    return 
-          GridView.builder(
-
-            itemCount: 8,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2 , mainAxisSpacing: 4 , crossAxisSpacing: 4,) ,
-
+    return GridView.builder(
+            padding: EdgeInsets.symmetric(horizontal: screenBlockSize.horizontalBlockSize*4),
+            itemCount: 20,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: screenBlockSize.horizontalBlockSize*3,
+              crossAxisSpacing: screenBlockSize.horizontalBlockSize*3,
+              childAspectRatio: screenBlockSize.horizontalBlockSize / screenBlockSize.horizontalBlockSize * 0.8
+            ),
             itemBuilder:(context, index) => Material(
-
             borderRadius:const BorderRadius.all(Radius.circular(20)),
             elevation: 3.5,
-
             child: Container(
                  padding: const EdgeInsets.all(5),
                  decoration: const BoxDecoration(
                  color: Colors.white,
                  borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
-    
                   child: Column(
-                    
                     children: [
-                      
                          Align(
                            alignment: Alignment.topRight,
                            child: Container(
-                              width: 30, 
+                              width: 30,
                               height: 20,
                               decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
@@ -43,15 +43,10 @@ class HomeTopReviewsGrid extends StatelessWidget {
                                 icon:const Icon(Icons.favorite,color: Colors.white), onPressed: () {  },
                                 )
                                 ),
-                            ), 
-                      
+                            ),
                           Stack(
-                              
                               alignment: Alignment.center,
-                              
-                              
                               children: [
-
                                     Transform.rotate(
                                       angle:  -math.pi / 4,
                                       child: Opacity(
@@ -66,9 +61,7 @@ class HomeTopReviewsGrid extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-
                                     Transform.rotate(
-
                                      angle:  -math.pi / 12,
                                       child: SizedBox(
                                       height: 105,
@@ -78,7 +71,6 @@ class HomeTopReviewsGrid extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-
                               ],
                             ),
                             const SizedBox(height: 15),

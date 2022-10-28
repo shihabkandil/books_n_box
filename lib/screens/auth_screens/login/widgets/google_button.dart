@@ -10,7 +10,8 @@ class GoogleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
+        border: Border.all(width: 2,color: Theme.of(context).primaryColor),
         borderRadius: BorderRadius.all(
           Radius.circular(25.0),
         ),
@@ -34,9 +35,8 @@ class GoogleButton extends StatelessWidget {
             Text(
               _text,
               textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(
+              style: TextStyle(
                   fontSize: 20,
-                  fontWeight: FontWeight.bold,
                   color: Colors.black),
             ),
           ],

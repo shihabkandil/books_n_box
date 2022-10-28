@@ -6,6 +6,7 @@ class AppThemeData {
     return ThemeData(
       fontFamily: 'Default-Font',
       primaryColor: AppColors.primaryColor,
+      backgroundColor: AppColors.backgroundColor
       //canvasColor: Colors.white,
       //primaryColorDark: Constants.GREY_COLOR,
       // Theme.of(context).primaryColor this is the usage
