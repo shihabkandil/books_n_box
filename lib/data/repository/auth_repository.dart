@@ -43,6 +43,9 @@ class AuthRepository {
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw GoogleSignInFailure(e.code);
     }
+    catch (_){
+      throw GoogleSignInFailure();
+    }
   }
 
   Future<void> logOut() async {

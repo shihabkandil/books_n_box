@@ -35,7 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   go_router: ^5.1.0
-
+  responsive_builder: ^0.4.3
   buttons_tabbar: ^1.3.6
   image_picker: ^0.8.6
   google_fonts: ^3.0.1
@@ -45,7 +45,7 @@ dependencies:
   firebase_auth: ^4.0.2
   google_sign_in: ^5.4.2
   equatable: ^2.0.5
-  responsive_builder: ^0.4.3
+  readmore: ^2.1.0
 
   # Bloc State management
   flutter_bloc: ^8.1.1

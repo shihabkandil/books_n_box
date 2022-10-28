@@ -1,93 +1,83 @@
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app_project/utils/grid_bg.dart';
-
+import 'package:mobile_app_project/utils/screen_block_size.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'header_text.dart';
 import 'home_top_reviews_grid.dart';
 
-
-class ApiTabbar extends StatelessWidget {
-  const ApiTabbar({super.key});
+class ApiTabBar extends StatelessWidget {
+  const ApiTabBar({super.key});
 
 
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return ResponsiveBuilder(
+      builder: (context, sizingInformation) {
+        final ScreenBlockSize _screenBlockSize = ScreenBlockSize(screenSizeConfig: sizingInformation);
+        return DefaultTabController(
           length: 3,
           child: SizedBox(
-           height: MediaQuery.of(context).size.height,
-            child: Stack(
-              children: [
-                Container(
-                    alignment: Alignment.center,
-                    child: GridBackGround()),
-                Column(
-                children: <Widget>[
-                  ButtonsTabBar(
-                    height: 75,
-                    backgroundColor: Color.fromARGB(255, 85, 85, 85).withOpacity(0.3),
-                    unselectedBackgroundColor: Color.fromARGB(255, 255, 255, 255),
-                    borderWidth: 0,
-                    radius: 9,
-                    buttonMargin: EdgeInsets.all(4),
-                    elevation: 3.5,
-                    tabs: [
-                        Tab(
-                          child: SizedBox(
-                            width: 100,
-                            height: 35,
-                            child: Image.asset('assets/images/Symbol-New-York-Times.png')
+            height: _screenBlockSize.verticalBlockSize * 100,
+            child: Column(
+                    children: <Widget>[
+                      ButtonsTabBar(
+                        backgroundColor: Colors.white,
+                        height: 65,
+                        borderWidth: 2,
+                        unselectedBorderColor: Colors.white,
+                        unselectedBackgroundColor: Colors.white,
+                        radius: _screenBlockSize.horizontalBlockSize * 5,
+                        buttonMargin: EdgeInsets.all(4),
+                        elevation: 2,
+                        splashColor: Colors.white,
+                        tabs: [
+                          Tab(
+                            icon: SizedBox(
+                                width: 100,
+                                height: 35,
+                                child: Image.asset('assets/images/Symbol-New-York-Times.png',)
                             ),
-                        ),
-                        Tab(
-                          child: SizedBox(
-                            width: 100,
-                            height: 35,
-                            child: Image.asset('assets/images/Marvel-Comics-Logo.svg.png')
-                            ),
-                        ),
-                        Tab(
-                          child: SizedBox(
-                            width: 100,
-                            height: 35,
-                            child: Image.asset('assets/images/Google_Books_logo_2015.svg.png')
-                            ),
-                        ),],
-                  ),
-
-
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(padding: EdgeInsets.all(10),child: HeaderText(text: "Top Reviews"))
-                    ),
-                    SizedBox(height: 30,),
-                    Expanded(
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-
-                      child: TabBarView(
-                        children: [
-                          HomeTopReviewsGrid(),
-
-                          Container(
-
                           ),
-                          Container(
-
+                          Tab(
+                            icon: SizedBox(
+                                width: 100,
+                                height: 35,
+                                child: Image.asset('assets/images/Marvel-Comics-Logo.svg.png')
+                            ),
                           ),
-                        ],
-                      )
-                      )
+                          Tab(
+                            icon: SizedBox(
+                                width: 100,
+                                height: 35,
+                                child: Image.asset('assets/images/Google_Books_logo_2015.svg.png')
+                            ),
+                          ),],
                       ),
-                ],
-              ),
-
-
-
-              ],
-            ),
+                      Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(child: HeaderText(text: "Top Reviews"))
+                      ),
+                      Expanded(
+                          child: TabBarView(
+                            children: [
+                              Container(
+                                  color:Colors.white.withOpacity(0.95),
+                                  child: HomeTopReviewsGrid(screenBlockSize: _screenBlockSize,),
+                              ),
+                              Container(
+                              ),
+                              Container(
+                              ),
+                            ],
+                          )
+                      ),
+                    ],
+                  ),
           ),
         );
+      }
+    );
   }
 }
