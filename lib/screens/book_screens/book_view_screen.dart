@@ -47,7 +47,7 @@ class BookViewScreen extends StatelessWidget {
             bottom: false,
             child: Stack(children: [
               BookImageRow(bookData),
-              AboutSection(bookData.getBook().description!),
+              AboutSection(bookData.getBook().volumeInfo!.description!),
             ]),
           ),
         ),

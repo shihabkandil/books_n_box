@@ -18,7 +18,7 @@ class BookImageRow extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: Image.network(
-              book.getBook().imageLinks!['smallThumbnail']!,
+              book.getBook().volumeInfo!.imageLinks!.smallThumbnail!,
               scale: 0.2,
             ),
           ),

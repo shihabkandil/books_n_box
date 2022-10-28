@@ -15,7 +15,7 @@ class BookTitleColumn extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         //mainAxisSize: MainAxisSize.max,
         children: [
-          Text(book.getBook().title!,
+          Text(book.getBook().volumeInfo!.title!,
               style: GoogleFonts.robotoSlab(
                   color: Colors.white,
                   fontSize: 22,
@@ -44,7 +44,7 @@ class BookTitleColumn extends StatelessWidget {
                 width: 3,
               ),
               Text(
-                '${book.getBook().avgRating}',
+                '${book.getBook().volumeInfo!.averageRating}',
                 style: GoogleFonts.roboto(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -55,7 +55,7 @@ class BookTitleColumn extends StatelessWidget {
                 width: 8,
               ),
               Text(
-                '(${book.getBook().ratingsCount})',
+                '(${book.getBook().volumeInfo!.ratingsCount})',
                 style: GoogleFonts.roboto(
                   color: Colors.white,
                   //fontWeight: FontWeight.bold,

@@ -1,59 +1,103 @@
-import 'dart:io';
+// To parse this JSON data, do
+//
+//     final book = bookFromJson(jsonString);
 
-import 'package:equatable/equatable.dart';
+import 'dart:convert';
 
-import '../../utils/constants/cache_keys.dart';
+Book bookFromJson(String str) => Book.fromJson(json.decode(str));
 
-class Book extends Equatable {
-  //
-  @override
-  List<Object?> get props => [id];
+String bookToJson(Book data) => json.encode(data.toJson());
 
-  final String? selfLink;
-  final String? title;
-  final String? description;
-  final String? category;
-  final double? avgRating;
-  final int? ratingsCount;
-  bool isBookmarked = false;
-  int status = 0; //0 is none, 1 is TBR, 2 is buy etc
-  final List<String>? authors;
-  final Map<String, String>? imageLinks;
-  final String id;
-
+class Book {
   Book(
       {required this.id,
-      this.title,
       this.selfLink,
-      this.authors,
-      this.description,
-      this.avgRating,
-      this.ratingsCount,
-      this.category,
-      this.imageLinks,
-      this.isBookmarked = false,
-      this.status = 0});
+      this.volumeInfo,
+      this.isBookmarked = false,this.status=0});
 
-  //static const empty = Book(id: '');
+  String id;
+  String? selfLink;
+  VolumeInfo? volumeInfo;
+  bool isBookmarked;
+  int status;
 
-  //bool get isAuthenticated => this != Book.empty;
-  //bool get isNotAuthenticated => this == Book.empty;
-/*
-  factory Book.fromJson(Map<String, dynamic> jsonModel) {
-    return Book(
-      selfLink: jsonModel[userCacheName],
-      id: jsonModel[userCacheID] ?? '',
-      email: jsonModel[userCacheEmail],
-      profilePicturePath: jsonModel[userCacheProfilePicture],
-    );
-  }
+  factory Book.fromJson(Map<String, dynamic> json) => Book(
+        id: json["id"],
+        selfLink: json["selfLink"],
+        volumeInfo: VolumeInfo.fromJson(json["volumeInfo"]),
+      );
 
-  Map<String, dynamic> toJson() {
-    return {
-      userCacheName: selfLink,
-      userCacheID: id,
-      userCacheEmail: email,
-      userCacheProfilePicture: profilePicturePath,
-    };
-  }*/
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "selfLink": selfLink,
+        "volumeInfo": volumeInfo!.toJson(),
+      };
+}
+
+class VolumeInfo {
+  VolumeInfo({
+    this.title,
+    this.authors,
+    this.description,
+    this.pageCount,
+    this.mainCategory,
+    this.averageRating,
+    this.ratingsCount,
+    this.imageLinks,
+  });
+
+  String? title;
+  List<String>? authors;
+  String? description;
+  int? pageCount;
+  String? mainCategory;
+  double? averageRating;
+  int? ratingsCount;
+  ImageLinks? imageLinks;
+
+  factory VolumeInfo.fromJson(Map<String, dynamic> json) => VolumeInfo(
+        title: json["title"],
+        authors: List<String>.from(json["authors"].map((x) => x)),
+        description: json["description"],
+        pageCount: json["pageCount"],
+        mainCategory: json["mainCategory"],
+        averageRating: json["averageRating"].toDouble(),
+        ratingsCount: json["ratingsCount"],
+        imageLinks: ImageLinks.fromJson(json["imageLinks"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "title": title,
+        "authors": List<dynamic>.from(authors!.map((x) => x)),
+        "description": description,
+        "pageCount": pageCount,
+        "mainCategory": mainCategory,
+        "averageRating": averageRating,
+        "ratingsCount": ratingsCount,
+        "imageLinks": imageLinks!.toJson(),
+      };
+}
+
+class ImageLinks {
+  ImageLinks({
+    this.smallThumbnail,
+    this.small,
+    this.large,
+  });
+
+  String? smallThumbnail;
+  String? small;
+  String? large;
+
+  factory ImageLinks.fromJson(Map<String, dynamic> json) => ImageLinks(
+        smallThumbnail: json["smallThumbnail"],
+        small: json["small"],
+        large: json["large"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "smallThumbnail": smallThumbnail,
+        "small": small,
+        "large": large,
+      };
 }
