@@ -25,9 +25,7 @@ class AppRouter {
           child: const LoginScreen(),
         ),
       ),
-      GoRoute(
-          path: '/home',
-          builder: (context, state) => const RegisterScreen(), //HomeScreen
+      GoRoute(path: '/home', builder: (context, state) => const HomeScreen(), //
           routes: [
             GoRoute(
               path: 'book_details',

@@ -75,6 +75,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 _password = value;
                 if (value!.isEmpty) {
                   return "Please enter password";
+                } else if (value.length < 8) {
+                  return "Password must be at least 8 characters";
                 }
                 return null;
               },
