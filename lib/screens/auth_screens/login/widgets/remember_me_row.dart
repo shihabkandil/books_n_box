@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_app_project/utils/screen_block_size.dart';
 
 class RememberMeRow extends StatelessWidget {
-  const RememberMeRow({Key? key}) : super(key: key);
+  const RememberMeRow({Key? key,required this.sizingConfig}) : super(key: key);
+  final ScreenBlockSize sizingConfig;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Padding(padding: EdgeInsets.only(left: 25)),
-        SizedBox(
-          width: 190,
-          child: CheckboxListTile(
-            controlAffinity: ListTileControlAffinity.leading,
-            title: Transform.translate(
-              offset: const Offset(-20, 0),
-              child: Text(
-                'Remember Me',
-                style: GoogleFonts.cairo(
-                    fontWeight: FontWeight.bold, color: Colors.black45),
-              ),
+        Row(
+          children: [
+            Checkbox(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(sizingConfig.horizontalBlockSize * 1.5)),
+              visualDensity: VisualDensity.compact,
+              onChanged: (value) => {},
+              value: true,
             ),
-            value: false,
-            selected: false,
-            onChanged: (value) => {},
-          ),
+            Text(
+                "Remember me",
+                style: TextStyle(fontSize: sizingConfig.verticalBlockSize * 2,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black45,)
+            ),
+          ],
         ),
         TextButton(
           onPressed: () => {},
@@ -34,7 +34,7 @@ class RememberMeRow extends StatelessWidget {
             style: GoogleFonts.cairo(
                 fontWeight: FontWeight.bold,
                 color: Colors.black45,
-                fontSize: 16),
+                fontSize: sizingConfig.verticalBlockSize * 1.6),
           ),
         ),
       ],

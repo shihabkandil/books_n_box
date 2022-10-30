@@ -8,8 +8,9 @@ class HeaderText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-                child:  Text(text , style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold , fontSize: 20,fontFamily: 'Exo'),)
-               );
+    return Text(
+      text,
+      style: TextStyle(color: Theme.of(context).primaryColor,fontWeight: FontWeight.bold , fontSize: 20,fontFamily: 'Exo'),
+    );
   }
 }
