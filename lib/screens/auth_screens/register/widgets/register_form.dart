@@ -16,58 +16,99 @@ class _RegisterFormState extends State<RegisterForm> {
   final _passwordFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
   final _confirmPasswordFocusNode = FocusNode();
+  final _formKey = GlobalKey<FormState>();
+  String? _password;
+  TextEditingController _pass = TextEditingController();
+  TextEditingController _confirmPass = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          CenterTitle("Sign Up",),
-          CustomTextField(
-            label: "Username",
-            icon: Icon(
-              Icons.account_circle_rounded,
-              color: iconColor,
+      child: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            CenterTitle(
+              "Sign Up",
             ),
-            isHidden: false,
-            onSubmitted: (username_value) => _emailFocusNode.requestFocus(),
-          ),
-          const SizedBox(height: 20),
-          CustomTextField(
-            focusNode: _emailFocusNode,
-            label: "Email Address",
-            icon: Icon(
-              Icons.email_sharp,
-              color: iconColor,
+            CustomTextField(
+              label: "Username",
+              validator: (value) {
+                _password = value;
+                if (value!.isEmpty) {
+                  return "Please enter username";
+                }
+                return null;
+              },
+              icon: Icon(
+                Icons.account_circle_rounded,
+                color: iconColor,
+              ),
+              isHidden: false,
+              onSubmitted: (username_value) => _emailFocusNode.requestFocus(),
             ),
-            isHidden: false,
-            onSubmitted: (user_name_value) => _passwordFocusNode.requestFocus(),
-          ),
-          const SizedBox(height: 20),
-          CustomTextField(
-            focusNode: _passwordFocusNode,
-            label: "Password",
-            icon: Icon(
-              Icons.visibility,
-              color: iconColor,
+            const SizedBox(height: 20),
+            CustomTextField(
+              focusNode: _emailFocusNode,
+              label: "Email Address",
+              validator: (value) {
+                _password = value;
+                if (value!.isEmpty) {
+                  return "Please enter email";
+                }
+                return null;
+              },
+              icon: Icon(
+                Icons.email_sharp,
+                color: iconColor,
+              ),
+              isHidden: false,
+              onSubmitted: (user_name_value) =>
+                  _passwordFocusNode.requestFocus(),
             ),
-            isHidden: true,
-            onSubmitted: (password_value) =>
-                _confirmPasswordFocusNode.requestFocus(),
-          ),
-          const SizedBox(height: 20),
-          CustomTextField(
-            focusNode: _confirmPasswordFocusNode,
-            label: "Confirm Password",
-            icon: Icon(
-              Icons.visibility,
-              color: iconColor,
+            const SizedBox(height: 20),
+            CustomTextField(
+              focusNode: _passwordFocusNode,
+              label: "Password",
+              validator: (value) {
+                _password = value;
+                if (value!.isEmpty) {
+                  return "Please enter password";
+                }
+                return null;
+              },
+              controller: _pass,
+              icon: Icon(
+                Icons.visibility,
+                color: iconColor,
+              ),
+              isHidden: true,
+              onSubmitted: (password_value) =>
+                  _confirmPasswordFocusNode.requestFocus(),
             ),
-            isHidden: true,
-          ),
-          const AgreeToTerms()
-        ],
+            const SizedBox(height: 20),
+            CustomTextField(
+              controller: _confirmPass,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "Please confirm password";
+                } else if (value != _password) {
+                  return "Incorrect password";
+                }
+                return null;
+              },
+              focusNode: _confirmPasswordFocusNode,
+              label: "Confirm Password",
+              icon: Icon(
+                Icons.visibility,
+                color: iconColor,
+              ),
+              isHidden: true,
+            ),
+            AgreeToTerms(_formKey)
+          ],
+        ),
       ),
     );
   }

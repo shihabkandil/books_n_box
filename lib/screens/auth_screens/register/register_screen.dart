@@ -19,16 +19,18 @@ class RegisterScreen extends StatelessWidget {
                   width: 336,
                 ),
               ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(20),
-                        topLeft: Radius.circular(20)),
+              SingleChildScrollView(
+                child: Expanded(
+                  flex: 2,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(20),
+                          topLeft: Radius.circular(20)),
+                    ),
+                    child: RegisterForm(),
                   ),
-                  child: RegisterForm(),
                 ),
               )
             ],
