@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:mobile_app_project/screens/auth_screens/register/register_screen.dart';
 import 'package:mobile_app_project/screens/Settings%20Screen/settings_screen.dart';
 import 'package:mobile_app_project/screens/book_details_screen/book_details_screen.dart';
 import '../business_logic/cubit/auth_cubit/auth_cubit.dart';
@@ -14,9 +15,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// onTap: () => context.go('/page_path')
 class AppRouter {
   final GoRouter router = GoRouter(
-
-    initialLocation: "/home",
-    
         routes: [
           GoRoute(
             path: '/',
@@ -24,6 +22,12 @@ class AppRouter {
               create: (context)=>AuthCubit(authRepository: context.read<AuthRepository>()),
               child: const LoginScreen(),
             ),
+            routes: [
+              GoRoute(
+                path: 'register',
+                builder: (context, state) => RegisterScreen(),
+              ),
+            ]
           ),
            GoRoute(
              path: '/home',
@@ -39,7 +43,6 @@ class AppRouter {
             ),
             ]
            ),
-          
         ],
       // errorBuilder: (context, state) => ErrorScreen(state.error),
     );

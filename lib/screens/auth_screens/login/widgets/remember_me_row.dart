@@ -23,7 +23,7 @@ class RememberMeRow extends StatelessWidget {
                 "Remember me",
                 style: TextStyle(fontSize: sizingConfig.verticalBlockSize * 2,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black45,)
+                  color: Colors.grey,)
             ),
           ],
         ),
@@ -33,7 +33,7 @@ class RememberMeRow extends StatelessWidget {
             'Forgot Password?',
             style: GoogleFonts.cairo(
                 fontWeight: FontWeight.bold,
-                color: Colors.black45,
+                color: Colors.grey,
                 fontSize: sizingConfig.verticalBlockSize * 1.6),
           ),
         ),

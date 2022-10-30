@@ -11,12 +11,9 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-  get iconColor => null;
-
   final _passwordFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
   final _confirmPasswordFocusNode = FocusNode();
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -28,7 +25,7 @@ class _RegisterFormState extends State<RegisterForm> {
             label: "Username",
             icon: Icon(
               Icons.account_circle_rounded,
-              color: iconColor,
+              color: Colors.grey,
             ),
             isHidden: false,
             onSubmitted: (username_value) => _emailFocusNode.requestFocus(),
@@ -39,7 +36,7 @@ class _RegisterFormState extends State<RegisterForm> {
             label: "Email Address",
             icon: Icon(
               Icons.email_sharp,
-              color: iconColor,
+              color: Colors.grey,
             ),
             isHidden: false,
             onSubmitted: (user_name_value) => _passwordFocusNode.requestFocus(),
@@ -50,7 +47,7 @@ class _RegisterFormState extends State<RegisterForm> {
             label: "Password",
             icon: Icon(
               Icons.visibility,
-              color: iconColor,
+              color: Colors.grey,
             ),
             isHidden: true,
             onSubmitted: (password_value) =>
@@ -62,7 +59,7 @@ class _RegisterFormState extends State<RegisterForm> {
             label: "Confirm Password",
             icon: Icon(
               Icons.visibility,
-              color: iconColor,
+              color: Colors.grey,
             ),
             isHidden: true,
           ),
@@ -74,7 +71,6 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _confirmPasswordFocusNode.dispose();
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();

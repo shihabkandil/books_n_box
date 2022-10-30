@@ -38,7 +38,6 @@ dependencies:
   responsive_builder: ^0.4.3
   image_picker: ^0.8.6
   google_fonts: ^3.0.1
-  flutter_native_splash: ^2.2.11
   shared_preferences: ^2.0.15
   firebase_core: ^2.1.0
   firebase_auth: ^4.0.2
@@ -60,6 +59,7 @@ dependencies:
 dev_dependencies:
   flutter_launcher_icons: ^0.10.0
   change_app_package_name: ^1.1.0
+  flutter_native_splash: ^2.2.11
   flutter_test:
     sdk: flutter
 flutter_icons:
@@ -90,7 +90,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - assets/images/app_logo/logo_white.png
+    - assets/images/app_logo/splash.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
