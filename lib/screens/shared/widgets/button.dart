@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginButton extends StatelessWidget {
+class Button extends StatelessWidget {
   final String _text;
 
-  const LoginButton(this._text, {Key? key}) : super(key: key);
+  const Button(this._text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

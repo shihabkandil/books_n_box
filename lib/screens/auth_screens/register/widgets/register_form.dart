@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+import '../../../../utils/screen_block_size.dart';//
 import '../../../shared/widgets/custom_text_field.dart';
+import '../../login/widgets/center_logo.dart';
 import '../../login/widgets/center_title.dart';
-import 'agree_to_terms_widget.dart';
+import '../../../shared/widgets/button.dart';
 
 class RegisterForm extends StatefulWidget {
   RegisterForm({super.key});
@@ -16,56 +19,53 @@ class _RegisterFormState extends State<RegisterForm> {
   final _confirmPasswordFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          CenterTitle("Sign Up",),
-          CustomTextField(
-            label: "Username",
-            icon: Icon(
-              Icons.account_circle_rounded,
-              color: Colors.grey,
+    return ResponsiveBuilder(
+        builder: (context,screenConfig) {
+          final ScreenBlockSize sizeConfig = ScreenBlockSize(screenSizeConfig: screenConfig);
+          return Form(
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: sizeConfig.verticalBlockSize * 3.5),
+              child: Column(
+                children: [
+                  CenterLogo(width: sizeConfig.horizontalBlockSize * 94),
+                  SizedBox(height: sizeConfig.verticalBlockSize,),
+                  CenterTitle("Register"),
+                  CustomTextField(
+                      label: "Username",
+                      icon: Icon(
+                        Icons.person,
+                        color: Colors.white.withOpacity(0.8),
+                      ),
+                      isHidden: false),
+                  SizedBox(height: sizeConfig.verticalBlockSize,),
+                  CustomTextField(
+                      label: "Email Address",
+                      icon: Icon(
+                        Icons.email_sharp,
+                        color: Colors.white.withOpacity(0.8),
+                      ),
+                      isHidden: false),
+                  SizedBox(height: sizeConfig.verticalBlockSize,),
+                  CustomTextField(
+                      icon: Icon(
+                        Icons.visibility,
+                        color: Colors.white.withOpacity(0.8),
+                      ),
+                      isHidden: true, label: 'Password',),
+                  SizedBox(height: sizeConfig.verticalBlockSize,),
+                  CustomTextField(
+                    icon: Icon(
+                      Icons.visibility,
+                      color: Colors.white.withOpacity(0.8),
+                    ),
+                    isHidden: true, label: 'Confirm Password',),
+                  SizedBox(height: sizeConfig.verticalBlockSize * 5,),
+                  Button("Register"),
+                ],
+              ),
             ),
-            isHidden: false,
-            onSubmitted: (username_value) => _emailFocusNode.requestFocus(),
-          ),
-          const SizedBox(height: 20),
-          CustomTextField(
-            focusNode: _emailFocusNode,
-            label: "Email Address",
-            icon: Icon(
-              Icons.email_sharp,
-              color: Colors.grey,
-            ),
-            isHidden: false,
-            onSubmitted: (user_name_value) => _passwordFocusNode.requestFocus(),
-          ),
-          const SizedBox(height: 20),
-          CustomTextField(
-            focusNode: _passwordFocusNode,
-            label: "Password",
-            icon: Icon(
-              Icons.visibility,
-              color: Colors.grey,
-            ),
-            isHidden: true,
-            onSubmitted: (password_value) =>
-                _confirmPasswordFocusNode.requestFocus(),
-          ),
-          const SizedBox(height: 20),
-          CustomTextField(
-            focusNode: _confirmPasswordFocusNode,
-            label: "Confirm Password",
-            icon: Icon(
-              Icons.visibility,
-              color: Colors.grey,
-            ),
-            isHidden: true,
-          ),
-          const AgreeToTerms()
-        ],
-      ),
+          );
+        }
     );
   }
 
