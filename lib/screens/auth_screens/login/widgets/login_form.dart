@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_app_project/business_logic/cubit/auth_cubit/auth_cubit.dart';
+import 'package:mobile_app_project/utils/screen_block_size.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'center_logo.dart';
 import 'center_title.dart';
 import 'google_button.dart';
@@ -24,38 +26,43 @@ class LoginForm extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Sign in with google failed")));
           }
         },
-        child:Form(
-          child: Center(
-            child: Column(
-              children: [
-                Padding(padding: EdgeInsets.symmetric(vertical: 30)),
-                CenterLogo(),
-                Container(
-                    margin: EdgeInsets.all(20),
-                    child: CenterTitle("Log In")),
-                CustomTextField(
-                    "Email Address",
-                    Icon(
-                      Icons.email_sharp,
-                      color: iconColor,
-                    ),
-                    false),
-                Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-                CustomTextField(
-                    "Password",
-                    Icon(
-                      Icons.visibility,
-                      color: iconColor,
-                    ),
-                    true),
-                RememberMeRow(),
-                Padding(padding: EdgeInsets.symmetric(vertical: 20)),
-                LoginButton("Log In"),
-                Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-                GoogleButton("Log In with Google"),
-              ],
-            ),
-          ),
+        child:ResponsiveBuilder(
+          builder: (context,screenConfig) {
+            final ScreenBlockSize sizeConfig = ScreenBlockSize(screenSizeConfig: screenConfig);
+            return Form(
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: sizeConfig.verticalBlockSize * 3.5),
+                child: Column(
+                  children: [
+                    Padding(padding: EdgeInsets.symmetric(
+                        vertical: sizeConfig.verticalBlockSize)),
+                    CenterLogo(width: sizeConfig.horizontalBlockSize * 94),
+                    CenterTitle("Log In"),
+                    CustomTextField(
+                        "Email Address",
+                        Icon(
+                          Icons.email_sharp,
+                          color: iconColor,
+                        ),
+                        false),
+                    Padding(padding: EdgeInsets.symmetric(vertical: sizeConfig.verticalBlockSize)),
+                    CustomTextField(
+                        "Password",
+                        Icon(
+                          Icons.visibility,
+                          color: iconColor,
+                        ),
+                        true),
+                    RememberMeRow(sizingConfig: sizeConfig),
+                    Padding(padding: EdgeInsets.symmetric(vertical: sizeConfig.verticalBlockSize * 2)),
+                    LoginButton("Log In"),
+                    Padding(padding: EdgeInsets.symmetric(vertical: sizeConfig.verticalBlockSize)),
+                    GoogleButton("Log In with Google"),
+                  ],
+                ),
+              ),
+            );
+          }
         )
     );
   }
