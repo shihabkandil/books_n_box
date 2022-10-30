@@ -5,6 +5,8 @@ import '../data/repository/auth_repository.dart';
 import '../screens/auth_screens/login/login_screen.dart';
 import '../screens/home_screen/home/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../screens/book_screens/book_view_screen.dart';
+
 /// To navigate use
 /// onTap: () => GoRouter.of(context).go('/page_path')
 /// OR
@@ -37,4 +39,3 @@ class AppRouter {
       // errorBuilder: (context, state) => ErrorScreen(state.error),
     );
 }
-

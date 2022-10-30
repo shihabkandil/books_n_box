@@ -30,7 +30,7 @@ class RememberMeRow extends StatelessWidget {
         TextButton(
           onPressed: () => {},
           child: Text(
-            "Forgot Password?",
+            'Forgot Password?',
             style: GoogleFonts.cairo(
                 fontWeight: FontWeight.bold,
                 color: Colors.black45,
