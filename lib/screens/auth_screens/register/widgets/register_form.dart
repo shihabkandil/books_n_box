@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+import '../../../../utils/screen_block_size.dart'; //
 import '../../../shared/widgets/custom_text_field.dart';
+import '../../login/widgets/center_logo.dart';
 import '../../login/widgets/center_title.dart';
-import 'agree_to_terms_widget.dart';
+import '../../../shared/widgets/button.dart';
 
 class RegisterForm extends StatefulWidget {
   RegisterForm({super.key});
@@ -21,94 +24,102 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Form(
+    return ResponsiveBuilder(builder: (context, screenConfig) {
+      final ScreenBlockSize sizeConfig =
+          ScreenBlockSize(screenSizeConfig: screenConfig);
+      return Form(
         key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            CenterTitle(
-              "Sign Up",
-            ),
-            CustomTextField(
-              label: "Username",
-              icon: Icon(
-                Icons.account_circle_rounded,
-                color: Colors.grey,
+        child: Container(
+          margin: EdgeInsets.symmetric(
+              horizontal: sizeConfig.verticalBlockSize * 3.5),
+          child: Column(
+            children: [
+              CenterLogo(width: sizeConfig.horizontalBlockSize * 94),
+              SizedBox(
+                height: sizeConfig.verticalBlockSize,
               ),
-              isHidden: false,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Please enter username";
-                }
-                return null;
-              },
-              onSubmitted: (username_value) => _emailFocusNode.requestFocus(),
-            ),
-            const SizedBox(height: 20),
-            CustomTextField(
-              focusNode: _emailFocusNode,
-              label: "Email Address",
-              icon: Icon(
-                Icons.email_sharp,
-                color: Colors.grey,
+              CenterTitle("Register"),
+              CustomTextField(
+                  label: "Username",
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Please enter username";
+                    }
+                    return null;
+                  },
+                  icon: Icon(
+                    Icons.person,
+                    color: Colors.white.withOpacity(0.8),
+                  ),
+                  isHidden: false),
+              SizedBox(
+                height: sizeConfig.verticalBlockSize,
               ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Please enter email";
-                }
-                return null;
-              },
-              isHidden: false,
-              onSubmitted: (user_name_value) =>
-                  _passwordFocusNode.requestFocus(),
-            ),
-            const SizedBox(height: 20),
-            CustomTextField(
-              controller: _pass,
-              focusNode: _passwordFocusNode,
-              label: "Password",
-              validator: (value) {
-                _password = value;
-                if (value!.isEmpty) {
-                  return "Please enter password";
-                } else if (value.length < 8) {
-                  return "Password must be at least 8 characters";
-                }
-                return null;
-              },
-              icon: Icon(
-                Icons.visibility,
-                color: Colors.grey,
+              CustomTextField(
+                  label: "Email Address",
+                  icon: Icon(
+                    Icons.email_sharp,
+                    color: Colors.white.withOpacity(0.8),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Please enter email";
+                    }
+                    return null;
+                  },
+                  isHidden: false),
+              SizedBox(
+                height: sizeConfig.verticalBlockSize,
               ),
-              isHidden: true,
-              onSubmitted: (password_value) =>
-                  _confirmPasswordFocusNode.requestFocus(),
-            ),
-            const SizedBox(height: 20),
-            CustomTextField(
-              controller: _confirmPass,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Please confirm password";
-                } else if (value != _password) {
-                  return "Incorrect password";
-                }
-                return null;
-              },
-              focusNode: _confirmPasswordFocusNode,
-              label: "Confirm Password",
-              icon: Icon(
-                Icons.visibility,
-                color: Colors.grey,
+              CustomTextField(
+                controller: _pass,
+                icon: Icon(
+                  Icons.visibility,
+                  color: Colors.white.withOpacity(0.8),
+                ),
+                validator: (value) {
+                  _password = value;
+                  if (value!.isEmpty) {
+                    return "Please enter password";
+                  } else if (value.length < 8) {
+                    return "Password must be at least 8 characters";
+                  }
+                  return null;
+                },
+                isHidden: true,
+                label: 'Password',
               ),
-              isHidden: true,
-            ),
-            AgreeToTerms(_formKey)
-          ],
+              SizedBox(
+                height: sizeConfig.verticalBlockSize,
+              ),
+              CustomTextField(
+                controller: _confirmPass,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please confirm password";
+                  } else if (value != _password) {
+                    return "Incorrect password";
+                  }
+                  return null;
+                },
+                icon: Icon(
+                  Icons.visibility,
+                  color: Colors.white.withOpacity(0.8),
+                ),
+                isHidden: true,
+                label: 'Confirm Password',
+              ),
+              SizedBox(
+                height: sizeConfig.verticalBlockSize * 5,
+              ),
+              Button(_formKey, "Register"),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
+//////////////////////////
+        );
   }
 
   @override

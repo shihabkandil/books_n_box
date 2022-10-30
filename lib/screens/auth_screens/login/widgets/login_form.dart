@@ -4,12 +4,14 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile_app_project/business_logic/cubit/auth_cubit/auth_cubit.dart';
 import 'package:mobile_app_project/utils/screen_block_size.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import '../../../shared/widgets/custom_text_field.dart';
 import 'center_logo.dart';
 import 'center_title.dart';
 import 'dont_have_Account_text.dart';
 import 'google_button.dart';
 import 'login_button.dart';
 import '../../../shared/widgets/custom_text_field.dart';
+import '../../../shared/widgets/button.dart';
 import 'remember_me_row.dart';
 
 class LoginForm extends StatefulWidget {
@@ -59,33 +61,41 @@ class _LoginFormState extends State<LoginForm> {
                     color: iconColor,
                   ),
                   isHidden: false),
-              Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: sizeConfig.verticalBlockSize)),
-              CustomTextField(
-                label: "Password",
-                icon: Icon(
-                  Icons.visibility,
-                  color: iconColor,
-                ),
-                isHidden: true,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Please enter your password";
-                  }
-                  return null;
-                },
+              SizedBox(
+                height: sizeConfig.verticalBlockSize,
               ),
+              CustomTextField(
+                  label: "Password",
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Please enter your password";
+                    }
+                    return null;
+                  },
+                  icon: Icon(
+                    Icons.visibility,
+                    color: iconColor,
+                  ),
+                  isHidden: true),
               RememberMeRow(sizingConfig: sizeConfig),
-              Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: sizeConfig.verticalBlockSize * 2)),
-              LoginButton(_formKey, "Log In"),
-              Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: sizeConfig.verticalBlockSize)),
+              SizedBox(
+                height: sizeConfig.verticalBlockSize,
+              ),
+              Button(_formKey, "Log In"),
+              SizedBox(
+                height: sizeConfig.verticalBlockSize,
+              ),
               GoogleButton("Log In with Google"),
+              Divider(
+                height: 50,
+              ),
+              DontHaveAccountText(
+                text: "Dont have an account? Register",
+                screenBlockSize: sizeConfig,
+                onTap: () => context.go('/register'),
+              )
             ],
+/////////////////////
           ),
         ),
       );

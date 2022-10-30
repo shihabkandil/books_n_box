@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginButton extends StatefulWidget {
+class Button extends StatefulWidget {
   final String _text;
   final _formKey;
   @override
-  State<LoginButton> createState() => _ButtonState();
-  const LoginButton(this._formKey, this._text, {Key? key}) : super(key: key);
+  State<Button> createState() => _ButtonState();
+  const Button(this._formKey, this._text, {Key? key}) : super(key: key);
 }
 
-class _ButtonState extends State<LoginButton> {
+class _ButtonState extends State<Button> {
+  //const Button(this._text, {Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
