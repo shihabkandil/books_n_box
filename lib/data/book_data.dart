@@ -1,4 +1,6 @@
-import 'models/book.dart';
+import 'models/book_model/book.dart';
+import 'models/book_model/image_links.dart';
+import 'models/book_model/volume_info.dart';
 
 class BookData {
   ImageLinks _images = ImageLinks(
