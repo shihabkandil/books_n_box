@@ -36,7 +36,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   go_router: ^5.1.0
   responsive_builder: ^0.4.3
-  buttons_tabbar: ^1.3.6
   image_picker: ^0.8.6
   google_fonts: ^3.0.1
   flutter_native_splash: ^2.2.11
@@ -46,9 +45,14 @@ dependencies:
   google_sign_in: ^5.4.2
   equatable: ^2.0.5
   readmore: ^2.1.0
+  carousel_slider: ^4.1.1
+  google_nav_bar: ^5.0.6
 
   # Bloc State management
   flutter_bloc: ^8.1.1
+  tab_indicator_styler: ^2.0.0
+  cached_network_image: ^3.2.2
+ 
   
 dev_dependencies:
   flutter_launcher_icons: ^0.10.0
@@ -103,11 +107,9 @@ flutter:
           - asset: assets/fonts/Exo-ExtraBold.otf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+      - family: Poppins
+        fonts:
+          - asset: assets/fonts/Poppins-SemiBold.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
