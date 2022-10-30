@@ -11,7 +11,7 @@ class GoogleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(width: 2,color: Theme.of(context).primaryColor),
+        border: Border.all(width: 2, color: Theme.of(context).primaryColor),
         borderRadius: BorderRadius.all(
           Radius.circular(25.0),
         ),
@@ -24,19 +24,21 @@ class GoogleButton extends StatelessWidget {
         ],
       ),
       child: ElevatedButton(
-        onPressed: (() => BlocProvider.of<AuthCubit>(context).logInWithGoogle()),
+        onPressed: (() =>
+            BlocProvider.of<AuthCubit>(context).logInWithGoogle()),
         child: Row(
           children: [
             Image.asset(
               'assets/Google_Logo.png',
               width: 26,
             ),
+            SizedBox(
+              width: 5,
+            ),
             Text(
               _text,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black),
+              style: TextStyle(fontSize: 19, color: Colors.black),
             ),
           ],
         ),

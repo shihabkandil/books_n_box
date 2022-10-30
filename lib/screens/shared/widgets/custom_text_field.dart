@@ -6,13 +6,18 @@ class CustomTextField extends StatelessWidget {
   //const CustomTextField({Key? key}) : super(key: key);
   final String label;
   final Icon? icon;
+  final String? password;
   bool? isHidden;
   TextEditingController? controller;
   FocusNode? focusNode;
   Function(String?)? onSubmitted;
+  String? Function(String?)? validator;
+
   CustomTextField(
       {required this.label,
       this.focusNode,
+      this.validator,
+      this.password,
       this.icon,
       this.isHidden,
       this.onSubmitted,
@@ -24,9 +29,10 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 300,
-      child: TextField(
+      child: TextFormField(
+        validator: validator,
         focusNode: focusNode,
-        onSubmitted: onSubmitted,
+        //onSubmitted: onSubmitted,
         obscureText: isHidden ?? false,
         controller: controller,
         enabled: true,

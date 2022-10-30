@@ -8,42 +8,40 @@ import '../screens/auth_screens/login/login_screen.dart';
 import '../screens/home_screen/home/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 /// To navigate use
 /// onTap: () => GoRouter.of(context).go('/page_path')
 /// OR
 /// onTap: () => context.go('/page_path')
 class AppRouter {
   final GoRouter router = GoRouter(
-        routes: [
-          GoRoute(
-            path: '/',
-            builder: (context, state) => BlocProvider(
-              create: (context)=>AuthCubit(authRepository: context.read<AuthRepository>()),
-              child: const LoginScreen(),
-            ),
-            routes: [
-              GoRoute(
-                path: 'register',
-                builder: (context, state) => RegisterScreen(),
+    routes: [
+      GoRoute(
+          path: '/',
+          builder: (context, state) => BlocProvider(
+                create: (context) =>
+                    AuthCubit(authRepository: context.read<AuthRepository>()),
+                child: const LoginScreen(), //
               ),
-            ]
-          ),
-           GoRoute(
-             path: '/home',
-             builder: (context, state) => const HomeScreen(),
-             routes: [
-              GoRoute(
-            path: 'settings',
-            builder: (context, state) => const SettingsScreen(),
+          routes: [
+            GoRoute(
+              path: 'register',
+              builder: (context, state) => RegisterScreen(),
             ),
-              GoRoute(
-            path: 'book_details',
-            builder: (context, state) => const BookDetailsScreen(),
+          ]),
+      GoRoute(
+          path: '/home',
+          builder: (context, state) => const HomeScreen(),
+          routes: [
+            GoRoute(
+              path: 'settings',
+              builder: (context, state) => const SettingsScreen(),
             ),
-            ]
-           ),
-        ],
-      // errorBuilder: (context, state) => ErrorScreen(state.error),
-    );
+            GoRoute(
+              path: 'book_details',
+              builder: (context, state) => const BookDetailsScreen(),
+            ),
+          ]),
+    ],
+    // errorBuilder: (context, state) => ErrorScreen(state.error),
+  );
 }

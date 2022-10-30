@@ -3,8 +3,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class AgreeToTerms extends StatefulWidget {
-  const AgreeToTerms({super.key});
-
+  const AgreeToTerms(this._formKey, {super.key});
+  final _formKey;
   @override
   State<AgreeToTerms> createState() => _AgreeToTermsState();
 }
@@ -37,10 +37,15 @@ class _AgreeToTermsState extends State<AgreeToTerms> {
         ],
       ),
       ElevatedButton(
-          onPressed: agree ? () {} : null, child: const Text('Continue',style: TextStyle(color: Colors.white),),
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
-        ),)
+          onPressed: agree
+              ? () {
+                  if (widget._formKey.currentState.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Processing Data')));
+                  }
+                }
+              : null,
+          child: const Text('Continue'))
     ]);
   }
 }
