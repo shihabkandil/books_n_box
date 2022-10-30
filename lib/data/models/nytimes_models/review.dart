@@ -19,14 +19,14 @@ class Review {
   String? status;
   String? copyright;
   int? numResults;
-  List<Result>? results;
+  List<ReviewResult>? results;
 
   factory Review.fromJson(Map<String, dynamic> json) => Review(
         status: json["status"],
         copyright: json["copyright"],
         numResults: json["num_results"],
         results:
-            List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+            List<ReviewResult>.from(json["results"].map((x) => ReviewResult.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -39,8 +39,10 @@ class Review {
       };
 }
 
-class Result {
-  Result({
+//----------------------------------------
+
+class ReviewResult {
+  ReviewResult({
     this.url,
     this.publicationDt,
     this.byline,
@@ -58,7 +60,7 @@ class Result {
   String? summary;
   List<String>? isbn13;
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
+  factory ReviewResult.fromJson(Map<String, dynamic> json) => ReviewResult(
         url: json["url"],
         publicationDt: DateTime.parse(json["publication_dt"]),
         byline: json["byline"],
