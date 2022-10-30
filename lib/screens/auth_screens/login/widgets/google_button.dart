@@ -30,9 +30,11 @@ class GoogleButton extends StatelessWidget {
           children: [
             Image.asset(
               'assets/Google_Logo.png',
-              width: 30,
+              width: 26,
             ),
-            const Padding(padding: EdgeInsets.only(right: 12)),
+            SizedBox(
+              width: 5,
+            ),
             Text(
               _text,
               textAlign: TextAlign.center,

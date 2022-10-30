@@ -7,6 +7,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
@@ -16,7 +17,7 @@ class RegisterScreen extends StatelessWidget {
               Expanded(
                 child: Image.asset(
                   'assets/Logo_White.png',
-                  width: 336,
+                  width: 340,
                 ),
               ),
               SingleChildScrollView(

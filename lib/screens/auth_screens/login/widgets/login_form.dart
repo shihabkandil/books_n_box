@@ -6,6 +6,7 @@ import 'package:mobile_app_project/utils/screen_block_size.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'center_logo.dart';
 import 'center_title.dart';
+import 'dont_have_Account_text.dart';
 import 'google_button.dart';
 import 'login_button.dart';
 import '../../../shared/widgets/custom_text_field.dart';

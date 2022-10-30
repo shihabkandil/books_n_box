@@ -155,6 +155,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  dropdown_button2:
+    dependency: "direct main"
+    description:
+      name: dropdown_button2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.8.9"
   equatable:
     dependency: "direct main"
     description:
@@ -259,7 +266,7 @@ packages:
     source: hosted
     version: "0.10.0"
   flutter_native_splash:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: flutter_native_splash
       url: "https://pub.dartlang.org"
@@ -693,6 +700,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
+  switcher_button:
+    dependency: "direct main"
+    description:
+      name: switcher_button
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.4"
   synchronized:
     dependency: transitive
     description:

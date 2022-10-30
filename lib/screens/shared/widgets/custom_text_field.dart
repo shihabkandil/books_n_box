@@ -38,6 +38,8 @@ class CustomTextField extends StatelessWidget {
         enabled: true,
         cursorColor: AppColors.primaryColor,
         decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white.withOpacity(0.8),
           hintText: "Enter " + label,
           suffixIcon: icon,
           contentPadding: const EdgeInsetsDirectional.only(start: 25),

@@ -16,15 +16,13 @@ class CustomTextField extends StatelessWidget {
       enabled: true,
       cursorColor: Theme.of(context).primaryColor,
       decoration: InputDecoration(
+        fillColor: Colors.white.withOpacity(0.8),
+        filled: true,
         hintText: "Enter " + _label,
         suffixIcon: _icon,
         contentPadding: const EdgeInsetsDirectional.only(start: 20),
         focusedBorder: customInputBorder(Colors.black),
         errorBorder: customInputBorder(Colors.pinkAccent),
-        labelText: _label,
-        labelStyle: TextStyle(
-            fontSize: 18,
-            color: const Color.fromARGB(158, 0, 0, 0)),
         enabledBorder: customInputBorder(Colors.black),
       ),
     );

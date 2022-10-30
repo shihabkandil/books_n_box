@@ -11,8 +11,6 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-  get iconColor => null;
-
   final _passwordFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
   final _confirmPasswordFocusNode = FocusNode();
@@ -34,41 +32,40 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             CustomTextField(
               label: "Username",
+              icon: Icon(
+                Icons.account_circle_rounded,
+                color: Colors.grey,
+              ),
+              isHidden: false,
               validator: (value) {
-                _password = value;
                 if (value!.isEmpty) {
                   return "Please enter username";
                 }
                 return null;
               },
-              icon: Icon(
-                Icons.account_circle_rounded,
-                color: iconColor,
-              ),
-              isHidden: false,
               onSubmitted: (username_value) => _emailFocusNode.requestFocus(),
             ),
             const SizedBox(height: 20),
             CustomTextField(
               focusNode: _emailFocusNode,
               label: "Email Address",
+              icon: Icon(
+                Icons.email_sharp,
+                color: Colors.grey,
+              ),
               validator: (value) {
-                _password = value;
                 if (value!.isEmpty) {
                   return "Please enter email";
                 }
                 return null;
               },
-              icon: Icon(
-                Icons.email_sharp,
-                color: iconColor,
-              ),
               isHidden: false,
               onSubmitted: (user_name_value) =>
                   _passwordFocusNode.requestFocus(),
             ),
             const SizedBox(height: 20),
             CustomTextField(
+              controller: _pass,
               focusNode: _passwordFocusNode,
               label: "Password",
               validator: (value) {
@@ -80,10 +77,9 @@ class _RegisterFormState extends State<RegisterForm> {
                 }
                 return null;
               },
-              controller: _pass,
               icon: Icon(
                 Icons.visibility,
-                color: iconColor,
+                color: Colors.grey,
               ),
               isHidden: true,
               onSubmitted: (password_value) =>
@@ -104,7 +100,7 @@ class _RegisterFormState extends State<RegisterForm> {
               label: "Confirm Password",
               icon: Icon(
                 Icons.visibility,
-                color: iconColor,
+                color: Colors.grey,
               ),
               isHidden: true,
             ),
@@ -117,7 +113,6 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _confirmPasswordFocusNode.dispose();
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
