@@ -18,7 +18,9 @@ class _AgreeToTermsState extends State<AgreeToTerms> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Material(
+            color: Theme.of(context).backgroundColor,
             child: Checkbox(
+              fillColor: MaterialStateProperty.all(Colors.blue),
               value: agree,
               onChanged: (value) {
                 setState(() {
@@ -27,14 +29,18 @@ class _AgreeToTermsState extends State<AgreeToTerms> {
               },
             ),
           ),
-          const Text(
+          Text(
             'I have read and accept terms and conditions',
-            overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 12,color: Colors.white.withOpacity(0.8)),
+              overflow: TextOverflow.ellipsis,
           )
         ],
       ),
       ElevatedButton(
-          onPressed: agree ? () {} : null, child: const Text('Continue'))
+          onPressed: agree ? () {} : null, child: const Text('Continue',style: TextStyle(color: Colors.white),),
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
+        ),)
     ]);
   }
 }

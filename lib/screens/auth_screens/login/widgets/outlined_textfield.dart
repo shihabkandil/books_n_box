@@ -16,7 +16,7 @@ class CustomTextField extends StatelessWidget {
       enabled: true,
       cursorColor: Theme.of(context).primaryColor,
       decoration: InputDecoration(
-        fillColor: Colors.grey,
+        fillColor: Colors.white.withOpacity(0.8),
         filled: true,
         hintText: "Enter " + _label,
         suffixIcon: _icon,
