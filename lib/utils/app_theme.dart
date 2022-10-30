@@ -4,9 +4,9 @@ import 'package:mobile_app_project/utils/constants/app_colors.dart';
 class AppThemeData {
   static ThemeData get materialTheme {
     return ThemeData(
-      fontFamily: 'Default-Font',
+      fontFamily: 'Poppins',
       primaryColor: AppColors.primaryColor,
-      backgroundColor: AppColors.backgroundColor
+      backgroundColor: AppColors.darkBlue,
       //canvasColor: Colors.white,
       //primaryColorDark: Constants.GREY_COLOR,
       // Theme.of(context).primaryColor this is the usage
