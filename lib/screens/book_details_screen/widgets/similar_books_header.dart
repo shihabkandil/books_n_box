@@ -6,15 +6,17 @@ class SimilarBooksHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 35,bottom: 15,left: 30),
+      margin: EdgeInsets.only(top: 35, bottom: 15, left: 30),
       alignment: Alignment.centerLeft,
-      child: Text("Similar Movies",
+      child: Text(
+        "Similar Books",
         style: TextStyle(
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,
             fontSize: 23,
-            color: Colors.white
-        ),),
-    );;
+            color: Colors.white),
+      ),
+    );
+    ;
   }
 }
