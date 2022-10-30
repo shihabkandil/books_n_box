@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TileTemplate extends StatelessWidget {
-  const TileTemplate({super.key , required this.icon , required this.callback , required this.text , required this.tail , required this.color});
+  const TileTemplate({super.key , required this.icon , required this.callback , required this.text , this.tail , required this.color});
 
-  final Icon icon,tail;
+  final Icon? icon,tail;
   final VoidCallback callback;
   final Text text;
   final Color color;
