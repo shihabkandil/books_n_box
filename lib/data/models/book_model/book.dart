@@ -14,7 +14,8 @@ class Book {
       {required this.id,
       this.selfLink,
       this.volumeInfo,
-      this.isBookmarked = false,this.status=0});
+      this.isBookmarked = false,
+      this.status = 0});
 
   String id;
   String? selfLink;
@@ -31,7 +32,6 @@ class Book {
   Map<String, dynamic> toJson() => {
         "id": id,
         "selfLink": selfLink,
-        "volumeInfo": volumeInfo!.toJson(),
+        "volumeInfo": (volumeInfo == null ? null : volumeInfo!.toJson()),
       };
 }
-

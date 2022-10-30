@@ -34,12 +34,14 @@ class VolumeInfo {
 
   Map<String, dynamic> toJson() => {
         "title": title,
-        "authors": List<dynamic>.from(authors!.map((x) => x)),
+        "authors": (authors == null
+            ? null
+            : List<dynamic>.from(authors!.map((x) => x))),
         "description": description,
         "pageCount": pageCount,
         "mainCategory": mainCategory,
         "averageRating": averageRating,
         "ratingsCount": ratingsCount,
-        "imageLinks": imageLinks!.toJson(),
+        "imageLinks": (imageLinks == null ? null : imageLinks!.toJson()),
       };
 }
