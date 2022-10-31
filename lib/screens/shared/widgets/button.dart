@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginButton extends StatelessWidget {
+class Button extends StatefulWidget {
   final String _text;
+  final _formKey;
+  @override
+  State<Button> createState() => _ButtonState();
+  const Button(this._formKey, this._text, {Key? key}) : super(key: key);
+}
 
-  const LoginButton(this._text, {Key? key}) : super(key: key);
+class _ButtonState extends State<Button> {
+  //const Button(this._text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +28,14 @@ class LoginButton extends StatelessWidget {
         ],
       ),
       child: ElevatedButton(
-        onPressed: (() {}),
+        onPressed: (() {
+          if (widget._formKey.currentState.validate()) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('Processing Data')));
+          }
+        }),
         child: Text(
-          _text,
+          widget._text,
           textAlign: TextAlign.center,
           style: GoogleFonts.roboto(
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),

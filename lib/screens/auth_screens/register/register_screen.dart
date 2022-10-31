@@ -7,32 +7,10 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          color: Theme.of(context).primaryColor,
-          child: Column(
-            children: [
-              Expanded(
-                child: Image.asset(
-                  'assets/Logo_White.png',
-                  width: 336,
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(20),
-                        topLeft: Radius.circular(20)),
-                  ),
-                  child: RegisterForm(),
-                ),
-              )
-            ],
-          ),
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: RegisterForm(),
         ),
       ),
     );

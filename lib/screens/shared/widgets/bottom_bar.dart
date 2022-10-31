@@ -27,15 +27,6 @@ class AppBottomNavBar extends StatelessWidget {
             text: 'Home',
           ),
           GButton(
-            icon: CupertinoIcons.search,
-            text: 'Search',
-            onPressed: () {},
-          ),
-          GButton(
-            icon:  Icons.settings,
-            text: 'Settings',
-          ),
-          GButton(
             icon: Icons.camera_alt,
             text: 'Camera',
             onPressed:() async{
@@ -43,6 +34,12 @@ class AppBottomNavBar extends StatelessWidget {
                       final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
                       },
           ),
+          GButton(
+            icon: CupertinoIcons.search,
+            text: 'Search',
+            onPressed: () {},
+          ),
+          
         ],
       );
   }

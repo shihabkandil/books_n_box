@@ -3,8 +3,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class AgreeToTerms extends StatefulWidget {
-  const AgreeToTerms({super.key});
-
+  const AgreeToTerms(this._formKey, {super.key});
+  final _formKey;
   @override
   State<AgreeToTerms> createState() => _AgreeToTermsState();
 }
@@ -18,7 +18,9 @@ class _AgreeToTermsState extends State<AgreeToTerms> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Material(
+            color: Theme.of(context).backgroundColor,
             child: Checkbox(
+              fillColor: MaterialStateProperty.all(Colors.blue),
               value: agree,
               onChanged: (value) {
                 setState(() {
@@ -27,14 +29,23 @@ class _AgreeToTermsState extends State<AgreeToTerms> {
               },
             ),
           ),
-          const Text(
+          Text(
             'I have read and accept terms and conditions',
-            overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 12,color: Colors.white.withOpacity(0.8)),
+              overflow: TextOverflow.ellipsis,
           )
         ],
       ),
       ElevatedButton(
-          onPressed: agree ? () {} : null, child: const Text('Continue'))
+          onPressed: agree
+              ? () {
+                  if (widget._formKey.currentState.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Processing Data')));
+                  }
+                }
+              : null,
+          child: const Text('Continue'))
     ]);
   }
 }
