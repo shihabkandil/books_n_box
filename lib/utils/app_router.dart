@@ -6,13 +6,15 @@ import '../screens/auth_screens/login/login_screen.dart';
 import '../screens/home_screen/home/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../screens/edit_profile/home/profile_screen.dart';
+
 /// To navigate use
 /// onTap: () => GoRouter.of(context).go('/page_path')
 /// OR
 /// onTap: () => context.go('/page_path')
 class AppRouter {
   final GoRouter router = GoRouter(
-    initialLocation: "profile",
+    initialLocation: "/home/profile",
 
     routes: [
       GoRoute(
@@ -33,7 +35,7 @@ class AppRouter {
             ),
             GoRoute(
               path: 'profile',
-              builder: (context, state) => const ProfileScreen(),
+              builder: (context, state) => EditProfilePage(),
             )
           ]),
     ],
