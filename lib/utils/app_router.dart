@@ -14,7 +14,7 @@ import '../screens/edit_profile/home/profile_screen.dart';
 /// onTap: () => context.go('/page_path')
 class AppRouter {
   final GoRouter router = GoRouter(
-    initialLocation: "/home/profile",
+    initialLocation: "/home",
 
     routes: [
       GoRoute(
