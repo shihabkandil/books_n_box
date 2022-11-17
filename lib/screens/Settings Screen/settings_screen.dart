@@ -10,72 +10,83 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-
-      body:
-      Container(
-      margin:EdgeInsets.only(top: 65,left: 35,right: 40),
-      child: Column(
-      children: [
-
-        Text("Settings",style: TextStyle(
-            fontWeight: FontWeight.w500,
-        fontSize: 40,
-        color: Colors.white
-          ),
-        ),
-        SizedBox(height: 30,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-          Container(
-            child: Text("Language",style: TextStyle(
-            fontSize: 16,
-            color: Colors.white
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: Container(
+          margin: EdgeInsets.only(top: 65, left: 35, right: 40),
+          child: Column(
+            children: [
+              Text(
+                "Settings",
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 40,
+                    color: Colors.white),
               ),
-            ),
+              SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    child: Text(
+                      "Language",
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ),
+                  Container(child: LangBtn()),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    child: Text(
+                      "App Theme",
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ),
+                  Container(
+                    child: SwitcherButton(
+                      value: true,
+                      onChange: (value) {
+                        print(value);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 300,
+              ),
+              Container(
+                child: Text(
+                  "Help",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TileTemplate(
+                  icon: Icon(Icons.question_mark_sharp, color: Colors.white),
+                  onTap: () {},
+                  text: Text("FAQ", style: TextStyle(color: Colors.white)),
+                  color: Colors.white.withOpacity(0.7)),
+              SizedBox(
+                height: 20,
+              ),
+              TileTemplate(
+                  icon: Icon(Icons.lock, color: Colors.white),
+                  onTap: () {},
+                  text: Text("Our Privacy Policy",
+                      style: TextStyle(color: Colors.white)),
+                  color: Colors.white.withOpacity(0.7)),
+            ],
           ),
-
-          Container(child: LangBtn()),
-        ],
-          
-        ),
-        SizedBox(height: 20,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-          Container(
-          child: Text("App Theme",style: TextStyle(
-          fontSize: 16,
-          color: Colors.white
-            ),
-          ),
-        ),
-             Container(
-          child: SwitcherButton(
-               value: true,
-          onChange: (value) {
-          print(value);
-          },
-               ),
-        ),
-        ],),
-        SizedBox(height: 300,),
-        Container(
-          child: Text("Help",style: TextStyle(
-          fontSize: 16,
-          color: Colors.white
-            ),
-          ),
-        ),
-        SizedBox(height: 20,),
-        TileTemplate(icon: Icon(Icons.question_mark_sharp,color: Colors.white), callback: (){}, text: Text("FAQ",style: TextStyle(color: Colors.white)), color: Colors.white.withOpacity(0.7)),
-        SizedBox(height: 20,),
-        TileTemplate(icon: Icon(Icons.lock,color: Colors.white), callback: (){}, text: Text("Our Privacy Policy",style: TextStyle(color: Colors.white)), color: Colors.white.withOpacity(0.7)),
-        
-       
-     ],
-      ),
-      ));
+        ));
   }
 }
