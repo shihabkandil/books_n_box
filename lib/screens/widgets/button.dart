@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Button extends StatefulWidget {
-  final String _text;
-  final _formKey;
-  @override
-  State<Button> createState() => _ButtonState();
-  const Button(this._formKey, this._text, {Key? key}) : super(key: key);
-}
+class Button extends StatelessWidget {
+  final String text;
+  final formKey;
+  final void Function()? onPressed;
 
-class _ButtonState extends State<Button> {
-  //const Button(this._text, {Key? key}) : super(key: key);
+  const Button({required this.text, Key? key, this.onPressed, this.formKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +24,9 @@ class _ButtonState extends State<Button> {
         ],
       ),
       child: ElevatedButton(
-        onPressed: (() {
-          if (widget._formKey.currentState.validate()) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Processing Data')));
-          }
-        }),
+        onPressed: onPressed,
         child: Text(
-          widget._text,
+          text,
           textAlign: TextAlign.center,
           style: GoogleFonts.roboto(
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),

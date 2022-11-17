@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_app_project/helper/exceptions.dart';
@@ -20,6 +21,27 @@ class AuthCubit extends Cubit<AuthState> {
     }
     on GoogleSignInFailure catch(e){
       emit(AuthState(status: AuthenticationStatus.googleSignInFailure,message: e.message));
+    }
+  }
+
+  Future<void> loginWithEmailAndPassword({required String email, required String password}) async {
+    try{
+      await _authRepository.loginWithEmailPassword(email: email, password: password);
+      emit(AuthState(status: AuthenticationStatus.emailLoginSuccess));
+    }
+    on FirebaseAuthFailure catch(exception){
+      emit(AuthState(status: AuthenticationStatus.emailLoginFailure,message: exception.message));
+    }
+  }
+
+
+  Future<void> registerEmailAccount({required String email, required String confirmedPassword}) async {
+    try{
+      await _authRepository.registerEmailAccount(email: email, confirmedPassword: confirmedPassword);
+      emit(AuthState(status: AuthenticationStatus.emailRegisterSuccess));
+    }
+    on FirebaseAuthFailure catch(exception){
+      emit(AuthState(status: AuthenticationStatus.emailRegisterFailure,message: exception.message));
     }
   }
 

@@ -4,9 +4,11 @@ enum AuthenticationStatus{
   initialState,
   googleSignInSuccess,
   googleSignInFailure,
-  loginSuccess,
-  loginFailure,
-  loggedOut
+  emailLoginSuccess,
+  emailLoginFailure,
+  loggedOut,
+  emailRegisterSuccess,
+  emailRegisterFailure,
 }
 
 class AuthState extends Equatable {
