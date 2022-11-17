@@ -1,5 +1,3 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 class BestSellersTitle extends StatelessWidget {
@@ -7,15 +5,14 @@ class BestSellersTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      margin: EdgeInsets.only(top: 35,bottom: 15,left: 30),
+    return Container(
+      margin: EdgeInsets.only(top: 35, bottom: 15, left: 30),
       alignment: Alignment.centerLeft,
-      child: Text("Best Sellers",
-      style: TextStyle(
-          fontWeight: FontWeight.w400,
-          fontSize: 23,
-          color: Colors.white
-      ),),
+      child: Text(
+        "Best Sellers",
+        style: TextStyle(
+            fontWeight: FontWeight.w400, fontSize: 23, color: Colors.white),
+      ),
     );
   }
 }

@@ -24,13 +24,11 @@ class SettingsScreen extends StatelessWidget {
         color: Colors.white
           ),
         ),
-        
         SizedBox(height: 30,),
-
-        Row(children: [
-
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
           Container(
-            padding: EdgeInsets.only(left: 30),
             child: Text("Language",style: TextStyle(
             fontSize: 16,
             color: Colors.white
@@ -38,26 +36,21 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
 
-          Container(padding: EdgeInsets.only(left: 95),child: LangBtn()),
+          Container(child: LangBtn()),
         ],
           
         ),
-
         SizedBox(height: 20,),
-
-        Row(children: [
-
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
           Container(
-          padding: EdgeInsets.only(left: 26),
           child: Text("App Theme",style: TextStyle(
           fontSize: 16,
           color: Colors.white
             ),
           ),
         ),
-
-        SizedBox(width: 150,),
-
              Container(
           child: SwitcherButton(
                value: true,
@@ -66,15 +59,9 @@ class SettingsScreen extends StatelessWidget {
           },
                ),
         ),
-
         ],),
-
-     
-
-
         SizedBox(height: 300,),
         Container(
-          padding: EdgeInsets.only(right: 250),
           child: Text("Help",style: TextStyle(
           fontSize: 16,
           color: Colors.white

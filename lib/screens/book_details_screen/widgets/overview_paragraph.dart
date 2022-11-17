@@ -16,7 +16,6 @@ class OverViewParagraph extends StatelessWidget {
         trimCollapsedText: 'Show more',
         trimExpandedText: 'Show less',
         style: TextStyle(
-            fontFamily: 'Poppins',
             fontWeight: FontWeight.w400,
             fontSize: 18,
             color: Colors.grey
@@ -25,13 +24,13 @@ class OverViewParagraph extends StatelessWidget {
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w400,
             fontSize: 16,
-            color: Colors.redAccent
+            color: Theme.of(context).primaryColor
         ),
         moreStyle: TextStyle(
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w400,
             fontSize: 16,
-            color: Colors.redAccent
+            color: Theme.of(context).primaryColor
         ),
       ),
     );;
