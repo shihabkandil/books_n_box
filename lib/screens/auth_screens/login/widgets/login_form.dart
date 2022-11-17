@@ -57,11 +57,15 @@ class _LoginFormState extends State<LoginForm> {
                 CenterLogo(width: sizeConfig.horizontalBlockSize * 94),
                 CenterTitle("Log In"),
                 CustomTextField(
-                  controller: emailController,
+                    controller: emailController,
                     hintText: "Email Address",
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Please enter your email";
+                      } else if (!RegExp(
+                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(value)) {
+                        return "Please enter a valid email";
                       }
                       return null;
                     },
@@ -74,7 +78,7 @@ class _LoginFormState extends State<LoginForm> {
                   height: sizeConfig.verticalBlockSize,
                 ),
                 CustomTextField(
-                  controller: passwordController,
+                    controller: passwordController,
                     hintText: "Password",
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -96,7 +100,10 @@ class _LoginFormState extends State<LoginForm> {
                     text: "Log In",
                     onPressed: (() {
                       if (_formKey.currentState!.validate()) {
-                        BlocProvider.of<AuthCubit>(context).loginWithEmailAndPassword(email: emailController.text.trim(), password: passwordController.text);
+                        BlocProvider.of<AuthCubit>(context)
+                            .loginWithEmailAndPassword(
+                                email: emailController.text.trim(),
+                                password: passwordController.text);
                       }
                     })),
                 SizedBox(

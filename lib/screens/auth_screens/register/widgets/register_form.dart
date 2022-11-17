@@ -27,9 +27,8 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthState>(
-        listener: (context, state) {
-     if (state.status == AuthenticationStatus.emailRegisterSuccess) {
+    return BlocListener<AuthCubit, AuthState>(listener: (context, state) {
+      if (state.status == AuthenticationStatus.emailRegisterSuccess) {
         context.go("/home");
       } else if (state.status == AuthenticationStatus.emailRegisterFailure) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -38,8 +37,7 @@ class _RegisterFormState extends State<RegisterForm> {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Account Registration failed")));
       }
-    },
-    child: ResponsiveBuilder(builder: (context, screenConfig) {
+    }, child: ResponsiveBuilder(builder: (context, screenConfig) {
       final ScreenBlockSize sizeConfig =
           ScreenBlockSize(screenSizeConfig: screenConfig);
       return Form(
@@ -71,7 +69,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 height: sizeConfig.verticalBlockSize,
               ),
               CustomTextField(
-                controller: _emailController,
+                  controller: _emailController,
                   hintText: "Email Address",
                   icon: Icon(
                     Icons.email_sharp,
@@ -80,6 +78,10 @@ class _RegisterFormState extends State<RegisterForm> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Please enter email";
+                    } else if (!RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value)) {
+                      return "Please enter a valid email";
                     }
                     return null;
                   },
@@ -127,18 +129,22 @@ class _RegisterFormState extends State<RegisterForm> {
               SizedBox(
                 height: sizeConfig.verticalBlockSize * 5,
               ),
-              Button(formKey: _formKey,text:"Register",onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  BlocProvider.of<AuthCubit>(context).registerEmailAccount(email: _emailController.text.trim(), confirmedPassword:_confirmPasswordController.text);
-                }
-              }),
+              Button(
+                formKey: _formKey,
+                text: "Register",
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    BlocProvider.of<AuthCubit>(context).registerEmailAccount(
+                        email: _emailController.text.trim(),
+                        confirmedPassword: _confirmPasswordController.text);
+                  }
+                },
+              ),
             ],
           ),
         ),
       );
-    }
-    )
-        );
+    }));
   }
 
   @override
