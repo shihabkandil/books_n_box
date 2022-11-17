@@ -25,7 +25,11 @@ class AppRouter {
           routes: [
             GoRoute(
               path: 'register',
-              builder: (context, state) => RegisterScreen(),
+              builder: (context, state) => BlocProvider(
+                create: (context) =>
+                    AuthCubit(authRepository: context.read<AuthRepository>()),
+                child: RegisterScreen(),//
+              ),
             ),
           ]),
       GoRoute(
