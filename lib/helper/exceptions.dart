@@ -21,3 +21,39 @@ class GoogleSignInFailure implements Exception {
     }
   }
 }
+
+class FirebaseAuthFailure implements Exception{
+  final String message;
+  const FirebaseAuthFailure([this.message = "Authentication Failure"]);
+
+  factory FirebaseAuthFailure.fromCode(String code){
+    switch (code) {
+      case 'invalid-credential':
+        return const FirebaseAuthFailure(
+          'The credential received is malformed or has expired.',
+        );
+      case 'email-already-in-use':
+        return const FirebaseAuthFailure(
+          'Email already in use',
+        );
+      case 'wrong-password':
+        return const FirebaseAuthFailure(
+          'Wrong email/password combination.',
+        );
+        case 'user-not-found':
+        return const FirebaseAuthFailure(
+          'No user found with this email.',
+        );
+        case 'User disabled.':
+        return const FirebaseAuthFailure(
+          'User Disabled',
+        );
+        case 'operation-not-allowed':
+        return const FirebaseAuthFailure(
+          'Too many requests to log into this account.',
+        );
+      default:
+        return const FirebaseAuthFailure();
+    }
+  }
+}

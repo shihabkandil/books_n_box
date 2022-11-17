@@ -30,6 +30,32 @@ class AuthRepository {
     return _userDataCache.readUserDataCachePreferences();
   }
 
+  Future<void> registerEmailAccount({required String email, required String confirmedPassword}) async {
+    try {
+      await firebase_auth.FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: confirmedPassword
+      );
+    } on firebase_auth.FirebaseAuthException catch (exception) {
+      throw FirebaseAuthFailure.fromCode(exception.code);
+    } catch (e) {
+      throw FirebaseAuthFailure();
+    }
+  }
+
+  Future<void> loginWithEmailPassword({required String email, required String password}) async {
+    try {
+      await firebase_auth.FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password
+      );
+    } on firebase_auth.FirebaseAuthException catch (exception) {
+      throw FirebaseAuthFailure.fromCode(exception.code);
+    } catch (e) {
+      throw FirebaseAuthFailure();
+    }
+  }
+
   Future<void> logInWithGoogle() async {
     late final firebase_auth.AuthCredential credential;
     try {

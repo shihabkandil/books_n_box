@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app_project/screens/home_screen/widgets/books_tab_view.dart';
-import '../../shared/widgets/bottom_bar.dart';
+import '../../widgets/bottom_bar.dart';
 import '../widgets/app_header.dart';
 import '../widgets/best_sellers_title.dart';
 import '../widgets/home_carousel.dart';
@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   void dispose() {
+    super.dispose();
     _tabController.dispose();
   }
 

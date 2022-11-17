@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mobile_app_project/business_logic/cubit/auth_cubit/auth_cubit.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import '../../../../utils/screen_block_size.dart'; //
-import '../../../shared/widgets/custom_text_field.dart';
+import '../../../../utils/screen_block_size.dart';
+import '../../../widgets/button.dart';
+import '../../../widgets/custom_text_field.dart';
 import '../../login/widgets/center_logo.dart';
 import '../../login/widgets/center_title.dart';
-import '../../../shared/widgets/button.dart';
 
 class RegisterForm extends StatefulWidget {
   RegisterForm({super.key});
@@ -19,12 +22,24 @@ class _RegisterFormState extends State<RegisterForm> {
   final _confirmPasswordFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
   String? _password;
-  TextEditingController _pass = TextEditingController();
-  TextEditingController _confirmPass = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(builder: (context, screenConfig) {
+    return BlocListener<AuthCubit, AuthState>(
+        listener: (context, state) {
+     if (state.status == AuthenticationStatus.emailRegisterSuccess) {
+        context.go("/home");
+      } else if (state.status == AuthenticationStatus.emailRegisterFailure) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(state.message ?? 'Can\'t register account')));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Account Registration failed")));
+      }
+    },
+    child: ResponsiveBuilder(builder: (context, screenConfig) {
       final ScreenBlockSize sizeConfig =
           ScreenBlockSize(screenSizeConfig: screenConfig);
       return Form(
@@ -40,7 +55,7 @@ class _RegisterFormState extends State<RegisterForm> {
               ),
               CenterTitle("Register"),
               CustomTextField(
-                  label: "Username",
+                  hintText: "Username",
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Please enter username";
@@ -56,7 +71,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 height: sizeConfig.verticalBlockSize,
               ),
               CustomTextField(
-                  label: "Email Address",
+                controller: _emailController,
+                  hintText: "Email Address",
                   icon: Icon(
                     Icons.email_sharp,
                     color: Colors.white.withOpacity(0.8),
@@ -72,7 +88,6 @@ class _RegisterFormState extends State<RegisterForm> {
                 height: sizeConfig.verticalBlockSize,
               ),
               CustomTextField(
-                controller: _pass,
                 icon: Icon(
                   Icons.visibility,
                   color: Colors.white.withOpacity(0.8),
@@ -87,18 +102,18 @@ class _RegisterFormState extends State<RegisterForm> {
                   return null;
                 },
                 isHidden: true,
-                label: 'Password',
+                hintText: 'Password',
               ),
               SizedBox(
                 height: sizeConfig.verticalBlockSize,
               ),
               CustomTextField(
-                controller: _confirmPass,
+                controller: _confirmPasswordController,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Please confirm password";
                   } else if (value != _password) {
-                    return "Incorrect password";
+                    return "Passwords don\'t match";
                   }
                   return null;
                 },
@@ -107,18 +122,22 @@ class _RegisterFormState extends State<RegisterForm> {
                   color: Colors.white.withOpacity(0.8),
                 ),
                 isHidden: true,
-                label: 'Confirm Password',
+                hintText: 'Confirm Password',
               ),
               SizedBox(
                 height: sizeConfig.verticalBlockSize * 5,
               ),
-              Button(_formKey, "Register"),
+              Button(formKey: _formKey,text:"Register",onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  BlocProvider.of<AuthCubit>(context).registerEmailAccount(email: _emailController.text.trim(), confirmedPassword:_confirmPasswordController.text);
+                }
+              }),
             ],
           ),
         ),
       );
     }
-//////////////////////////
+    )
         );
   }
 
