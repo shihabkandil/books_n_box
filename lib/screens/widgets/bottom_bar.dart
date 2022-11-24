@@ -31,9 +31,8 @@ class AppBottomNavBar extends StatelessWidget {
         GButton(
           icon: Icons.camera_alt,
           text: 'Camera',
-          onPressed: () async {
-            // context.go("/recognizeText"); //   /home/recognizeText
-            context.go("/takePicture"); //   /home/recognizeText
+          onPressed: () {
+            context.go("/takePicture"); //   /home/takePicture
           },
         ),
         GButton(
