@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile_app_project/screens/auth_screens/register/register_screen.dart';
 import 'package:mobile_app_project/screens/Settings%20Screen/settings_screen.dart';
 import 'package:mobile_app_project/screens/book_details_screen/book_details_screen.dart';
+import 'package:mobile_app_project/screens/widgets/display_picture.dart';
 import 'package:mobile_app_project/screens/widgets/take_picture.dart';
 import 'package:mobile_app_project/screens/widgets/text_recognizer.dart';
 import '../business_logic/cubit/auth_cubit/auth_cubit.dart';
@@ -18,7 +19,6 @@ import 'package:mobile_app_project/main.dart';
 /// onTap: () => context.go('/page_path')
 class AppRouter {
   final GoRouter router = GoRouter(
-
     routes: [
       GoRoute(
           path: '/home', // /
@@ -33,11 +33,11 @@ class AppRouter {
               builder: (context, state) => BlocProvider(
                 create: (context) =>
                     AuthCubit(authRepository: context.read<AuthRepository>()),
-                child: RegisterScreen(),//
+                child: RegisterScreen(), //
               ),
             ),
           ]),
-      GoRoute( 
+      GoRoute(
           path: '/', // /home
           builder: (context, state) => const HomeScreen(),
           routes: [
@@ -52,11 +52,11 @@ class AppRouter {
             GoRoute(
               path: 'settings',
               builder: (context, state) => SettingsScreen(),
-            ), 
+            ),
             GoRoute(
-              path: 'recognizeText',
-              builder: (context, state) => TextRecognizerView(),
-            ),    
+              path: 'takePicture',
+              builder: (context, state) => TakePictureScreen(),
+            ),
           ]),
     ],
     // errorBuilder: (context, state) => ErrorScreen(state.error),

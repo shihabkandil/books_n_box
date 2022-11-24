@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
-import 'package:mobile_app_project/screens/widgets/painter.dart';
-import 'camera_view.dart';
-import 'take_picture.dart';
-import 'painter.dart';
-import 'package:mobile_app_project/main.dart';
+import 'package:mobile_app_project/screens/widgets/display_picture.dart';
 
 class TextRecognizerView extends StatefulWidget {
+  TextRecognizerView({super.key, required this.imagePath});
+  // InputImage? inputImage;
+  String imagePath;
   @override
   State<TextRecognizerView> createState() => _TextRecognizerViewState();
 }
@@ -28,19 +27,12 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
 
   @override
   Widget build(BuildContext context) {
-    // return CameraView(
-    //   title: 'Text Detector',
-    //   customPaint: _customPaint,
-    //   text: _text,
-    //   onImage: (inputImage) {
-    //     processImage(inputImage);
-    //   },
-    return TakePictureScreen(
-        camera: firstCamera!,
-        customPaint: _customPaint,
-        onImage: (inputImage) {
-          processImage(inputImage);
-        });
+    final inputImage = InputImage.fromFilePath(widget.imagePath);
+    processImage(inputImage);
+    return DisplayPictureScreen(
+      imagePath: widget.imagePath,
+      text: this._text!,
+    );
   }
 
   Future<void> processImage(InputImage inputImage) async {
@@ -51,26 +43,26 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
       _text = '';
     });
     if (inputImage.bytes == null) {
-      print("null image!!!!!!!!!!!!!!!!!!!!!");
+      // print("null image");
     }
     final recognizedText = await _textRecognizer.processImage(inputImage);
     if (inputImage.inputImageData?.size != null &&
         inputImage.inputImageData?.imageRotation != null) {
-      final painter = TextRecognizerPainter(
-          recognizedText,
-          inputImage.inputImageData!.size,
-          inputImage.inputImageData!.imageRotation);
-      _customPaint = CustomPaint(painter: painter);
-      print("rrrrrrrrrr "+recognizedText.toString());
+      // final painter = TextRecognizerPainter(
+      //     recognizedText,
+      //     inputImage.inputImageData!.size,
+      //     inputImage.inputImageData!.imageRotation);
+      // _customPaint = CustomPaint(painter: painter);
+      // print(recognizedText.toString());
     } else {
-      _text = 'Recognized text:\n\n${recognizedText.text}';
+      _text = 'Recognized text:\n${recognizedText.text}';
       // TODO: set _customPaint to draw boundingRect on top of image
-      print("text" + _text!);
+      print(_text!);
       _customPaint = null;
     }
     _isBusy = false;
-    if (mounted) {
-      setState(() {});
-    }
+    // if (mounted) {
+    //   setState(() {});
+    // }
   }
 }
