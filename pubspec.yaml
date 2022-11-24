@@ -53,6 +53,11 @@ dependencies:
   cached_network_image: ^3.2.2
   switcher_button: ^0.0.4
   dropdown_button2: ^1.8.9
+  camera: ^0.10.0+4
+  path_provider: ^2.0.11
+  path: ^1.8.2
+  # google_ml_kit: ^0.13.0
+  google_mlkit_text_recognition: ^0.5.0
   
  
   

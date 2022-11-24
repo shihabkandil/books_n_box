@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -7,6 +8,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'data/repository/auth_repository.dart';
 import 'data/repository/user_data_cache.dart';
 
+List<CameraDescription> cameras = [];
+CameraDescription? firstCamera;
+
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
@@ -15,6 +19,15 @@ void main() async {
   final authRepository = AuthRepository();
   await authRepository.user.first;
   FlutterNativeSplash.remove();
+  
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Obtain a list of the available cameras on the device.
+  cameras = await availableCameras();
+
+  // Get a specific camera from the list of available cameras.
+  firstCamera = cameras.first;
+
   runApp(BooksNBox());
 }
 
