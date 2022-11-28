@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_mlkit_commons/google_mlkit_commons.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_app_project/screens/widgets/text_recognizer.dart';
@@ -11,9 +12,7 @@ class TakePictureScreen extends StatefulWidget {
   TakePictureScreen({
     super.key,
   });
-
   final CameraDescription camera = firstCamera!;
-
   @override
   TakePictureScreenState createState() => TakePictureScreenState();
 }
@@ -21,9 +20,8 @@ class TakePictureScreen extends StatefulWidget {
 class TakePictureScreenState extends State<TakePictureScreen> {
   late CameraController? _controller;
   InputImage? inputImage;
-  String? _path;
+  Future<XFile>? pickedFile;
   ImagePicker? _imagePicker;
-  // File? _image;
 
   @override
   void initState() {
@@ -37,50 +35,62 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       ResolutionPreset.high,
       enableAudio: false,
     );
-
     _imagePicker = ImagePicker();
-    takeImage();
   }
 
   @override
   void dispose() {
     // Dispose of the controller when the widget is disposed.
-    // _controller?.stopImageStream();
     _controller?.dispose();
+    _controller = null;
     super.dispose();
-  }
-
-  void takeImage() async {
-    // Take the Picture in a try / catch block. If anything goes wrong,
-    // catch the error.
-    try {
-      final pickedFile =
-          await _imagePicker?.pickImage(source: ImageSource.camera);
-      if (pickedFile != null) {
-        _processXFile(pickedFile);
-      }
-    } catch (e) {
-      // If an error occurs, log the error to the console.
-      print(e);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (inputImage == null || _path == null) {
-      return Container();
-    }
-    return TextRecognizerView(imagePath: _path!);
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: FutureBuilder(
+        builder: ((context, snapshot) {
+          if (snapshot.hasData) {
+            final _path = _processXFile(snapshot.data);
+            if (_path != null) {
+              return TextRecognizerView(imagePath: _path);
+            }
+          } else if (snapshot.hasError) {
+            return Text(
+              snapshot.error.toString(),
+              style: TextStyle(fontSize: 18),
+            );
+          }
+          
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Opening Camera",
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                CircularProgressIndicator(),
+              ],
+            ),
+          );
+        }),
+        future: _imagePicker?.pickImage(source: ImageSource.camera),
+      ),
+    );
   }
 
-  Future _processXFile(XFile? pickedFile) async {
+  String? _processXFile(XFile? pickedFile) {
     final path = pickedFile?.path;
     if (path == null) {
-      return;
+      return null;
     }
-    setState(() {
-      _path = path;
-      inputImage = InputImage.fromFilePath(path);
-    });
+    inputImage = InputImage.fromFilePath(path);
+    return path;
   }
 }
