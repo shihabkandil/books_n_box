@@ -5,7 +5,7 @@ import 'package:mobile_app_project/screens/widgets/display_picture.dart';
 class TextRecognizerView extends StatefulWidget {
   TextRecognizerView({super.key, required this.imagePath});
   // InputImage? inputImage;
-  String imagePath;
+  final String imagePath;
   @override
   State<TextRecognizerView> createState() => _TextRecognizerViewState();
 }
@@ -14,9 +14,11 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
   final TextRecognizer _textRecognizer =
       TextRecognizer(script: TextRecognitionScript.latin);
   bool _canProcess = true;
-  bool _isBusy = false;
-  CustomPaint? _customPaint;
-  String? _text;
+  // bool _isBusy = false;
+  // CustomPaint? _customPaint;
+  String _text = '';
+  InputImage? inputImage;
+  Future<RecognizedText>? recognizedText;
 
   @override
   void dispose() async {
@@ -26,43 +28,29 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final inputImage = InputImage.fromFilePath(widget.imagePath);
-    processImage(inputImage);
-    return DisplayPictureScreen(
-      imagePath: widget.imagePath,
-      text: this._text!,
-    );
+  void initState() {
+    super.initState();
+    inputImage = InputImage.fromFilePath(widget.imagePath);
   }
 
-  Future<void> processImage(InputImage inputImage) async {
-    if (!_canProcess) return;
-    if (_isBusy) return;
-    _isBusy = true;
-    setState(() {
-      _text = '';
-    });
-    if (inputImage.bytes == null) {
-      // print("null image");
-    }
-    final recognizedText = await _textRecognizer.processImage(inputImage);
-    if (inputImage.inputImageData?.size != null &&
-        inputImage.inputImageData?.imageRotation != null) {
-      // final painter = TextRecognizerPainter(
-      //     recognizedText,
-      //     inputImage.inputImageData!.size,
-      //     inputImage.inputImageData!.imageRotation);
-      // _customPaint = CustomPaint(painter: painter);
-      // print(recognizedText.toString());
-    } else {
-      _text = 'Recognized text:\n${recognizedText.text}';
-      // TODO: set _customPaint to draw boundingRect on top of image
-      print(_text!);
-      _customPaint = null;
-    }
-    _isBusy = false;
-    // if (mounted) {
-    //   setState(() {});
-    // }
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<RecognizedText>(
+      future: _textRecognizer.processImage(inputImage!),
+      builder: ((context, snapshot) {
+        if (snapshot.hasData && _canProcess) {
+          this._text = snapshot.data!.text;
+          return DisplayPictureScreen(
+            imagePath: widget.imagePath,
+            text: this._text,
+          );
+        } else if (snapshot.hasError) {
+          return Text(snapshot.error.toString());
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }),
+    );
   }
 }

@@ -27,6 +27,9 @@ class AppBottomNavBar extends StatelessWidget {
         GButton(
           icon: CupertinoIcons.home,
           text: 'Home',
+          onPressed: () {
+            context.go("/"); //   /home
+          },
         ),
         GButton(
           icon: Icons.camera_alt,
