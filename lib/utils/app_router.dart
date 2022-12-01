@@ -54,9 +54,20 @@ class AppRouter {
               builder: (context, state) => SettingsScreen(),
             ),
             GoRoute(
-              path: 'takePicture',
-              builder: (context, state) => TakePictureScreen(),
-            ),
+                path: 'takePicture',
+                builder: (context, state) => TakePictureScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'displayPicture/:imagePath/:text',
+                    name: 'DisplayPictureScreen',
+                    builder: (context, state) {
+                      return DisplayPictureScreen(
+                        imagePath: state.params["imagePath"]!,
+                        text: state.params["text"]!,
+                      );
+                    },
+                  ),
+                ]),
           ]),
     ],
     // errorBuilder: (context, state) => ErrorScreen(state.error),

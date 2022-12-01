@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:mobile_app_project/business_logic/cubit/text_recognition_cubit.dart';
 import 'package:mobile_app_project/screens/widgets/display_picture.dart';
 
 class TextRecognizerView extends StatefulWidget {
@@ -11,19 +14,17 @@ class TextRecognizerView extends StatefulWidget {
 }
 
 class _TextRecognizerViewState extends State<TextRecognizerView> {
-  final TextRecognizer _textRecognizer =
-      TextRecognizer(script: TextRecognitionScript.latin);
   bool _canProcess = true;
   // bool _isBusy = false;
   // CustomPaint? _customPaint;
   String _text = '';
   InputImage? inputImage;
-  Future<RecognizedText>? recognizedText;
+  Future<RecognizedText?>? recognizedTextFuture;
 
   @override
-  void dispose() async {
+  void dispose() {
     _canProcess = false;
-    _textRecognizer.close();
+
     super.dispose();
   }
 
@@ -35,22 +36,25 @@ class _TextRecognizerViewState extends State<TextRecognizerView> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<RecognizedText>(
-      future: _textRecognizer.processImage(inputImage!),
-      builder: ((context, snapshot) {
-        if (snapshot.hasData && _canProcess) {
-          this._text = snapshot.data!.text;
-          return DisplayPictureScreen(
-            imagePath: widget.imagePath,
-            text: this._text,
-          );
-        } else if (snapshot.hasError) {
-          return Text(snapshot.error.toString());
-        }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }),
+    BlocProvider.of<TextRecognitionCubit>(context)
+        .processImage(inputImage)
+        .catchError((error) => Text(error));
+    return BlocListener<TextRecognitionCubit, TextRecognitionState>(
+      listener: (context, state) {
+        
+        if (state.status == TextRecognitionStatus.successful) {
+          if (state.recognizedText != null) {
+            this._text = state.recognizedText!.text;
+  
+            context.goNamed('DisplayPictureScreen',
+                params: {'imagePath': widget.imagePath, 'text': this._text});
+          }
+        } 
+      },
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
+
   }
 }
