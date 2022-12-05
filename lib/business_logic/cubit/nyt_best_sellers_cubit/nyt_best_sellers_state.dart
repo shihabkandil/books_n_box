@@ -1,14 +1,11 @@
 part of 'nyt_best_sellers_cubit.dart';
 
-enum NytBestSellerBooksStatus {
-  initialState,
-}
-
 class NytBestSellersState extends Equatable {
-  const NytBestSellersState({required this.status, this.message});
+  const NytBestSellersState({required this.status, this.message,this.books});
 
-  final NytBooksRepository status;
+  final BooksDataStatus status;
   final String? message;
+  final List<BestSellerBook>? books;
 
   @override
   List<Object> get props => [status];
