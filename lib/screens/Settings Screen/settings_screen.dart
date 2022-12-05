@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_project/screens/Settings%20Screen/widgets/lang_btn.dart';
-import 'package:mobile_app_project/screens/home_screen/widgets/tile_template.dart';
 import 'package:switcher_button/switcher_button.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
+
+import '../home_screen/widgets/tile_template.dart';
+import 'widgets/lang_btn.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});

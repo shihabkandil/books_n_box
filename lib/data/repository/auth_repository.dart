@@ -26,7 +26,7 @@ class AuthRepository {
      });
   }
 
-  User get currentUser {
+  Future<User> get currentUser {
     return _userDataCache.readUserDataCachePreferences();
   }
 

@@ -3,9 +3,8 @@ import '../../../data/book_data.dart';
 import '../book_view/book_title_column.dart';
 
 class BookImageRow extends StatelessWidget {
-  BookImageRow(this.book, {Key? key}) : super(key: key);
-  //final BookData bookData = BookData();
-  BookData book;
+  const BookImageRow(this.book, {Key? key}) : super(key: key);
+  final BookData book;
 
   @override
   Widget build(BuildContext context) {

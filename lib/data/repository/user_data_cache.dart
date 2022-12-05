@@ -4,20 +4,16 @@ import '../../utils/constants/cache_keys.dart';
 import '../models/user.dart';
 
 class UserDataCache{
-  static late SharedPreferences _localUserData;
-
-  static Future init() async{
-    _localUserData = await SharedPreferences.getInstance();
-}
 
   void writeUserDataCachePreferences(User user) async {
-    _localUserData.setString(userGlobalCacheKey, jsonEncode(user.toJson()));
+    SharedPreferences localUserData = await SharedPreferences.getInstance();
+    localUserData.setString(userGlobalCacheKey, jsonEncode(user.toJson()));
   }
 
-  User readUserDataCachePreferences() {
-      Map<String,dynamic> userModel = jsonDecode(_localUserData.getString(userGlobalCacheKey)??'');
+  Future<User> readUserDataCachePreferences() async {
+    SharedPreferences localUserData = await SharedPreferences.getInstance();
+      Map<String,dynamic> userModel = jsonDecode(localUserData.getString(userGlobalCacheKey)??'');
       User user = User.fromJson(userModel);
-    print(user);
     return user;
   }
 }

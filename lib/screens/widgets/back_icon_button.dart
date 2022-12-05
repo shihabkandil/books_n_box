@@ -19,6 +19,6 @@ class BackIconButton extends StatelessWidget {
             onPressed: ()=>Navigator.pop(context),
           ),
         ),
-    );;
+    );
   }
 }

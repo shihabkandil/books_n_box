@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-
 import '../../utils/constants/cache_keys.dart';
 
 class User extends Equatable{

@@ -15,6 +15,6 @@ class OverViewHeader extends StatelessWidget {
             fontSize: 23,
             color: Colors.white
         ),),
-    );;
+    );
   }
 }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mobile_app_project/data/book_data.dart';
+import '../../../data/book_data.dart';
 
 class BookTitleColumn extends StatelessWidget {
-  BookTitleColumn(this.book, {Key? key}) : super(key: key);
-
-  BookData book;
+  const BookTitleColumn(this.book, {Key? key}) : super(key: key);
+  final BookData book;
 
   @override
   Widget build(BuildContext context) {
