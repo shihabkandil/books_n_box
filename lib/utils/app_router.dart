@@ -1,13 +1,14 @@
 import 'package:go_router/go_router.dart';
+import 'package:mobile_app_project/business_logic/cubit/nyt_best_sellers_cubit/nyt_best_sellers_cubit.dart';
 import 'package:mobile_app_project/screens/auth_screens/register/register_screen.dart';
 import 'package:mobile_app_project/screens/Settings%20Screen/settings_screen.dart';
 import 'package:mobile_app_project/screens/book_details_screen/book_details_screen.dart';
 import '../business_logic/cubit/auth_cubit/auth_cubit.dart';
 import '../data/repository/auth_repository.dart';
 import '../screens/auth_screens/login/login_screen.dart';
+import '../screens/edit_profile/home/profile_screen.dart';
 import '../screens/home_screen/home/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../screens/edit_profile/home/profile_screen.dart';
 
 /// To navigate use
 /// onTap: () => GoRouter.of(context).go('/page_path')
@@ -15,7 +16,6 @@ import '../screens/edit_profile/home/profile_screen.dart';
 /// onTap: () => context.go('/page_path')
 class AppRouter {
   final GoRouter router = GoRouter(
-
     routes: [
       GoRoute(
           path: '/',
@@ -27,17 +27,20 @@ class AppRouter {
           routes: [
             GoRoute(
               path: 'register',
-              builder: (context, state) => BlocProvider(
-                create: (context) =>
-                    AuthCubit(authRepository: context.read<AuthRepository>()),
-                child: RegisterScreen(),//
-              ),
+              builder: (context, state) => RegisterScreen(),
             ),
           ]),
       GoRoute(
           path: '/home',
-          builder: (context, state) => const HomeScreen(),
+          builder: (context, state) => BlocProvider(
+            create: (context) => NytBestSellersCubit(),
+            child: HomeScreen(),
+          ),
           routes: [
+            GoRoute(
+              path: 'settings',
+              builder: (context, state) => const SettingsScreen(),
+            ),
             GoRoute(
               path: 'book_details',
               builder: (context, state) => const BookDetailsScreen(),
@@ -49,7 +52,7 @@ class AppRouter {
             GoRoute(
               path: 'settings',
               builder: (context, state) => SettingsScreen(),
-            ),    
+            ),
           ]),
     ],
     // errorBuilder: (context, state) => ErrorScreen(state.error),
