@@ -17,6 +17,5 @@ class BooksTabsView extends StatelessWidget {
         BooksTab(),
       ]),
     );
-    ;
   }
 }

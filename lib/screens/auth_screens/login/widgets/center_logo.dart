@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_project/utils/screen_block_size.dart';
 
 class CenterLogo extends StatelessWidget {
   const CenterLogo({Key? key, required this.width}) : super(key: key);

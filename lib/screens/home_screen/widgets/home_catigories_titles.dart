@@ -45,6 +45,6 @@ class HomeCatigoriesTitles extends StatelessWidget {
           paintingStyle: PaintingStyle.fill,
         ),
       ),
-    );;
+    );
   }
 }

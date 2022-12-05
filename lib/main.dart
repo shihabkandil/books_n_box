@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:mobile_app_project/data/web_services/nyt_web_services.dart';
-import 'package:mobile_app_project/utils/app_router.dart';
-import 'package:mobile_app_project/utils/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'data/repository/auth_repository.dart';
+import 'utils/app_router.dart';
+import 'utils/app_theme.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();

@@ -50,6 +50,6 @@ class ScreenBar extends StatelessWidget {
       ),
       leading: BackIconButton(),
       leadingWidth: 90,
-    );;
+    );
   }
 }

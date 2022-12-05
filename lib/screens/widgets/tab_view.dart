@@ -14,6 +14,6 @@ class BooksTab extends StatelessWidget {
             return BookCard();
           }
       ),
-    );;
+    );
   }
 }
