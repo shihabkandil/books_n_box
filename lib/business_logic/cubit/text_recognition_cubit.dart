@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
-
 part 'text_recognition_state.dart';
 
 class TextRecognitionCubit extends Cubit<TextRecognitionState> {
