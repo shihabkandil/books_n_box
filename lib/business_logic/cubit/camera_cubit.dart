@@ -1,11 +1,6 @@
-// import 'dart:html';
-
 import 'package:bloc/bloc.dart';
-import 'package:camera/camera.dart';
 import 'package:equatable/equatable.dart';
-import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
-
 part 'camera_state.dart';
 
 class CameraCubit extends Cubit<CameraState> {

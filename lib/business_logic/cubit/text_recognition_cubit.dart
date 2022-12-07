@@ -4,7 +4,7 @@ import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart
 part 'text_recognition_state.dart';
 
 class TextRecognitionCubit extends Cubit<TextRecognitionState> {
-  TextRecognitionCubit() //{required this.textRecognizer}
+  TextRecognitionCubit()
       : super(TextRecognitionState(status: TextRecognitionStatus.initialState));
 
   final TextRecognizer _textRecognizer =
@@ -17,10 +17,8 @@ class TextRecognitionCubit extends Cubit<TextRecognitionState> {
       _textRecognizer.close();
       emit(TextRecognitionState(
           status: TextRecognitionStatus.successful, recognizedText: text));
-
     } catch (e) {
-      emit(TextRecognitionState(
-          status: TextRecognitionStatus.error, message: e.toString()));
+      print(e);
     }
   }
 }

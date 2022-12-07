@@ -2,8 +2,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 
-import 'bottom_bar.dart';
-
 class DisplayPictureScreen extends StatelessWidget {
   final String imagePath;
   final String text;
@@ -13,7 +11,6 @@ class DisplayPictureScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print("display "+this.text);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -26,9 +23,6 @@ class DisplayPictureScreen extends StatelessWidget {
       ),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      // bottomNavigationBar: AppBottomNavBar(
-      //   index: 1,
-      // ),
       body: SingleChildScrollView(
         child: Row(
           children: [
@@ -37,7 +31,6 @@ class DisplayPictureScreen extends StatelessWidget {
             ),
             Expanded(
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
@@ -48,7 +41,7 @@ class DisplayPictureScreen extends StatelessWidget {
                     children: [
                       SizedBox(
                         child: Image.file(File(imagePath)),
-                        height: 400,
+                        width: 300,
                       ),
                     ],
                   ),
