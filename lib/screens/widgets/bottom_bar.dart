@@ -36,7 +36,7 @@ class AppBottomNavBar extends StatelessWidget {
           icon: CupertinoIcons.home,
           text: 'Home',
           onPressed: () {
-            context.go("/"); //   /home
+            context.go("/home"); //   /
           },
         ),
         GButton(
@@ -48,7 +48,7 @@ class AppBottomNavBar extends StatelessWidget {
             //   create: (context) => CameraCubit(),
             //   child: TakePictureScreen(),
             // );
-            context.go("/takePicture"); //home/takePicture"
+            context.go("/home/takePicture"); ///takePicture"
           },
         ),
         GButton(

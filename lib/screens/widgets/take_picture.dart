@@ -43,8 +43,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       body: BlocListener<CameraCubit, CameraState>(
         listener: (context, state) {
           if (state.status == cameraStatus.hasImage) {
-            context.go('/takePicture/textRecognizer',
-                extra: state.imagePath); //home/takePicture/textRecognizer
+            context.go('/home/takePicture/textRecognizer',
+                extra: state.imagePath); //takePicture/textRecognizer
           }
         },
         child: Center(
