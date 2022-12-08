@@ -33,6 +33,6 @@ class OverViewParagraph extends StatelessWidget {
             color: Theme.of(context).primaryColor
         ),
       ),
-    );;
+    );
   }
 }

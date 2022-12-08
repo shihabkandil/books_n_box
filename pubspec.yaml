@@ -49,6 +49,10 @@ dependencies:
 
   # Bloc State management
   flutter_bloc: ^8.1.1
+
+  # HTTP client
+  http: ^0.13.5
+
   tab_indicator_styler: ^2.0.0
   cached_network_image: ^3.2.2
   switcher_button: ^0.0.4

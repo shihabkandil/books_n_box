@@ -17,6 +17,5 @@ class SimilarBooksHeader extends StatelessWidget {
             color: Colors.white),
       ),
     );
-    ;
   }
 }
