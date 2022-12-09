@@ -8,7 +8,7 @@ class HomeBestSellers extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: 35,bottom: 15,left: 30),
       alignment: Alignment.centerLeft,
-      child: Text("Now Playing",
+      child: Text("Now Popular",
       style: TextStyle(
         fontFamily: 'Poppins',
           fontWeight: FontWeight.w400,

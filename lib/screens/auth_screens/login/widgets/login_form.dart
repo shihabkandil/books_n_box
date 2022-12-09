@@ -63,7 +63,7 @@ class _LoginFormState extends State<LoginForm> {
                 CenterTitle(localization!.logIn),
                 CustomTextField(
                     controller: emailController,
-                    hintText: localization.emailAddress,
+                    hintText: localization.enter+ localization.emailAddress,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return localization.emptyEmail;
@@ -84,7 +84,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 CustomTextField(
                     controller: passwordController,
-                    hintText: localization.password,
+                    hintText: localization.enter +  localization.password,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return localization.emptyPassword;

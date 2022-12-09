@@ -58,7 +58,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
                 CenterTitle(localization!.register),
                 CustomTextField(
-                    hintText: localization.username,
+                    hintText: localization.enter +  localization.username,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return localization.emptyUsername;
@@ -75,7 +75,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
                 CustomTextField(
                     controller: _emailController,
-                    hintText: localization.emailAddress,
+                    hintText: localization.enter +  localization.emailAddress,
                     icon: Icon(
                       Icons.email_sharp,
                       color: Colors.white.withOpacity(0.8),
@@ -109,7 +109,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     return null;
                   },
                   isHidden: true,
-                  hintText: localization.password,
+                  hintText: localization.enter +  localization.password,
                 ),
                 SizedBox(
                   height: sizeConfig.verticalBlockSize,

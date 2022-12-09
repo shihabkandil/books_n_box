@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../../dummy.dart';
 import '../../widgets/back_icon_button.dart';
 
-
 class ScreenBar extends StatelessWidget {
   const ScreenBar({super.key});
 
@@ -15,39 +14,40 @@ class ScreenBar extends StatelessWidget {
           centerTitle: true,
           title: Container(
             padding: EdgeInsets.all(15),
-            child: Text('Book Name From API',
+            child: Text(
+              'Book Name From API',
               textAlign: TextAlign.start,
               style: TextStyle(
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w400,
-                  fontSize: 18
-              ),
+                  fontSize: 18),
             ),
           ),
           background: Stack(
             fit: StackFit.expand,
             children: [
               Container(
-                child: Image.network(Dummy.chooseRand(), fit: BoxFit.cover,),
+                child: Image.network(
+                  Dummy.chooseRand(),
+                  fit: BoxFit.cover,
+                ),
               ),
               Container(
-                  width: double.infinity,
-                  decoration: new BoxDecoration(
-                    gradient: new LinearGradient(
-                      tileMode: TileMode.clamp,
-                      begin: const Alignment(0.0, 1),
-                      end: const Alignment(0.0, 0),
-                      colors: <Color>[
-                        const Color(0xFF000000),
-                        Colors.black12.withOpacity(0.0)
-                      ],
-                    ),
-                  )
+                width: double.infinity,
+                decoration: new BoxDecoration(
+                  gradient: new LinearGradient(
+                    tileMode: TileMode.clamp,
+                    begin: const Alignment(0.0, 1),
+                    end: const Alignment(0.0, 0),
+                    colors: <Color>[
+                      const Color(0xFF000000),
+                      Colors.black12.withOpacity(0.0)
+                    ],
+                  ),
+                ),
               ),
             ],
-
-          )
-      ),
+          )),
       leading: BackIconButton(),
       leadingWidth: 90,
     );

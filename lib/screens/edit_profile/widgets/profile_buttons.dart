@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileButtons extends StatelessWidget {
   const ProfileButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -13,7 +16,7 @@ class ProfileButtons extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           onPressed: () {},
-          child: Text("CANCEL",
+          child: Text(localization!.cancel,
               style: TextStyle(
                   fontSize: 14, letterSpacing: 2.2, color: Colors.white)),
         ),
@@ -25,7 +28,7 @@ class ProfileButtons extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: Text(
-            "SAVE",
+            localization.save,
             style: TextStyle(
                 fontSize: 14, letterSpacing: 2.2, color: Colors.white),
           ),

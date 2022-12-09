@@ -5,12 +5,15 @@ import 'package:mobile_app_project/business_logic/cubit/auth_cubit/auth_cubit.da
 import 'package:mobile_app_project/screens/home_screen/widgets/tile_template.dart';
 import 'package:mobile_app_project/utils/constants/app_colors.dart';
 import '../../widgets/profile_avatar_circle.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ShelfColumn extends StatelessWidget {
   const ShelfColumn({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context);
+
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state.status == AuthenticationStatus.loggedOut) {
@@ -29,7 +32,7 @@ class ShelfColumn extends StatelessWidget {
                 icon: Icon(Icons.person, color: Colors.white),
                 onTap: () {},
                 text: Text(
-                  "Profile",
+                  localization!.profile,
                   style: TextStyle(color: Colors.white),
                 ),
                 tail: Icon(Icons.arrow_forward, color: Colors.white),
@@ -40,7 +43,8 @@ class ShelfColumn extends StatelessWidget {
             TileTemplate(
                 icon: Icon(Icons.settings, color: Colors.white),
                 onTap: () => context.go('/settings'), // /home
-                text: Text("Settings", style: TextStyle(color: Colors.white)),
+                text: Text(localization.settings,
+                    style: TextStyle(color: Colors.white)),
                 tail: Icon(Icons.arrow_forward, color: Colors.white),
                 color: AppColors.tileColor.withOpacity(0.7)),
             SizedBox(
@@ -49,7 +53,8 @@ class ShelfColumn extends StatelessWidget {
             TileTemplate(
                 icon: Icon(Icons.logout, color: Colors.white),
                 onTap: () => BlocProvider.of<AuthCubit>(context).logOut(),
-                text: Text("Logout", style: TextStyle(color: Colors.white)),
+                text: Text(localization.logOut,
+                    style: TextStyle(color: Colors.white)),
                 tail: Icon(Icons.arrow_forward, color: Colors.white),
                 color: Colors.red.withOpacity(0.7)),
           ],
