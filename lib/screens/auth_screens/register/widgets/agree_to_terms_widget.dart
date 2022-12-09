@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AgreeToTerms extends StatefulWidget {
   const AgreeToTerms(this._formKey, {super.key});
@@ -11,6 +12,7 @@ class _AgreeToTermsState extends State<AgreeToTerms> {
   bool agree = false;
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context);
     return Column(children: [
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -28,9 +30,10 @@ class _AgreeToTermsState extends State<AgreeToTerms> {
             ),
           ),
           Text(
-            'I have read and accept terms and conditions',
-              style: TextStyle(fontSize: 12,color: Colors.white.withOpacity(0.8)),
-              overflow: TextOverflow.ellipsis,
+            localization!.acceptTerms,
+            style:
+                TextStyle(fontSize: 12, color: Colors.white.withOpacity(0.8)),
+            overflow: TextOverflow.ellipsis,
           )
         ],
       ),
@@ -39,11 +42,11 @@ class _AgreeToTermsState extends State<AgreeToTerms> {
               ? () {
                   if (widget._formKey.currentState.validate()) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Processing Data')));
+                        SnackBar(content: Text(localization.processingData)));
                   }
                 }
               : null,
-          child: const Text('Continue'))
+          child: Text(localization.contin))
     ]);
   }
 }

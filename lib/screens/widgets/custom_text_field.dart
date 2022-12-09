@@ -38,7 +38,7 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white.withOpacity(0.8),
-          hintText: "Enter " + hintText,
+          hintText: hintText,
           suffixIcon: icon,
           contentPadding: const EdgeInsetsDirectional.only(start: 25),
           focusedBorder: customInputBorder(Colors.black),

@@ -53,6 +53,7 @@ class BooksNBox extends StatelessWidget {
             return MaterialApp.router(
               locale: state.locale,
               localizationsDelegates: [
+                AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,

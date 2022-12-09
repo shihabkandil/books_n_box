@@ -1,4 +1,28 @@
 {
   "appTitle": "بوكس إن بكس",
-  "settings": "الإعدادات"
+  "settings": "الإعدادات",
+  "emailAddress": "أدخل البريد الالكتروني",
+  "emptyEmail": "رجاءا أدخل بريدك الإلكتروني",
+  "invalidEmail": "رجاءا أدخل البريد الإلكتروني الصحيح",
+  "logIn": "تسجيل الدخول",
+  "loginError": "خطأ في الدخول إلى الحساب",
+  "googleLoginError": "فشل تسجيل الدخول مع جوجل",
+  "password": "أدخل كلمة المرور",
+  "emptyPassword": "رجاءا أدخل كلمة مرورك",
+  "googleLogin": "تسجيل الدخول عبر جوجل",
+  "noAccount": "ليس لديك حساب؟ سجل",
+  "rememberMe": "تذكرنى",
+  "forgotPass": "نسيت كلمة المرور؟",
+  "acceptTerms": "لقد قرأت وقبلت الشروط والأحكام",
+  "processingData": "نعالج البيانات",
+  "contin": "اكمل",
+  "registerError": "خطأ في تسجيل الحساب",
+  "registerFailed": "فشل تسجيل الحساب",
+  "register": "سجل",
+  "username": "أدخل اسم االمستخدم",
+  "emptyUsername": "رجاءا أدخل اسم المستخدم",
+  "shortPass": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+  "confirmPass": "أكد كلمة المرور",
+  "confirmError": "كلمات المرور غير متطابقة"
+  
 }
