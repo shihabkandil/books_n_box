@@ -9,8 +9,10 @@ class AppTitle extends StatelessWidget {
     var localization = AppLocalizations.of(context);
 
     return Container(
-      margin: EdgeInsets.only(top: 45, left: 35, bottom: 20),
-      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.only(top: 45, left: 35, bottom: 20, right: 20),
+      alignment: localization!.localeName == 'ar'
+          ? Alignment.centerRight
+          : Alignment.centerLeft,
       child: Column(
         children: [
           Text(
@@ -22,7 +24,7 @@ class AppTitle extends StatelessWidget {
                 color: Colors.white),
           ),
           Text(
-            localization!.welcome + " *UserName*",
+            localization.welcome + " *UserName*",
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w500,

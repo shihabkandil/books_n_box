@@ -9,10 +9,12 @@ class BestSellersTitle extends StatelessWidget {
     var localization = AppLocalizations.of(context);
 
     return Container(
-      margin: EdgeInsets.only(top: 35, bottom: 15, left: 30),
-      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.only(top: 35, bottom: 15, left: 30,right: 30),
+      alignment: localization!.localeName == 'ar'
+          ? Alignment.centerRight
+          : Alignment.centerLeft,
       child: Text(
-        localization!.bestSellers,
+        localization.bestSellers,
         style: TextStyle(
             fontWeight: FontWeight.w400, fontSize: 23, color: Colors.white),
       ),

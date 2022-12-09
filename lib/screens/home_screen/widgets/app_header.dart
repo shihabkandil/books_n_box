@@ -6,14 +6,17 @@ class AppHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
-     children: [
-         IconButton(icon:Icon(Icons.menu,color: Colors.white,size: 40), onPressed: () { Scaffold.of(context).openDrawer(); },),
-         
-         AppTitle(),
-    ],
+      children: [
+        IconButton(
+          icon: Icon(Icons.menu, color: Colors.white, size: 40),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
+        AppTitle(),
+      ],
     );
   }
 }

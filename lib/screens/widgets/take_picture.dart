@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_mlkit_commons/google_mlkit_commons.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:mobile_app_project/business_logic/cubit/camera_cubit/camera_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '/main.dart';
 import 'dart:async';
 
@@ -38,6 +39,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: BlocListener<CameraCubit, CameraState>(
@@ -53,7 +56,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Loading Camera',
+                localization!.loading + '' + localization.camera,
                 style: TextStyle(color: Colors.white, fontSize: 22),
               ),
               SizedBox(
