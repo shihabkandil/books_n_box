@@ -1,5 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_app_project/business_logic/cubit/localization_cubit/cubit/localization_cubit.dart';
 
 class LangBtn extends StatefulWidget {
   LangBtn({super.key});
@@ -10,11 +12,11 @@ class LangBtn extends StatefulWidget {
 
 class _LangBtnState extends State<LangBtn> {
   final List<String> items = [
-  'Arabic',
-  'English',
-];
+    'Arabic',
+    'English',
+  ];
 
-String? selectedValue;
+  String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +48,7 @@ String? selectedValue;
             ],
           ),
           items: items
-                  .map((item) =>
-                  DropdownMenuItem<String>(
+              .map((item) => DropdownMenuItem<String>(
                     value: item,
                     child: Text(
                       item,
@@ -59,12 +60,15 @@ String? selectedValue;
                       overflow: TextOverflow.ellipsis,
                     ),
                   ))
-                  .toList(),
+              .toList(),
           value: selectedValue,
           onChanged: (value) {
-            setState(() {
-              selectedValue = value as String;
-            });
+            // setState(() {
+            //   selectedValue = value as String;
+            // });
+            if (value != null) {
+              BlocProvider.of<LocalizationCubit>(context).changeLanguage(value);
+            }
           },
           icon: const Icon(
             Icons.arrow_forward_ios_outlined,
@@ -99,6 +103,6 @@ String? selectedValue;
           offset: const Offset(-20, 0),
         ),
       ),
-  );
-}
+    );
+  }
 }

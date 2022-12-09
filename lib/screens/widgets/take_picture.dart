@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_mlkit_commons/google_mlkit_commons.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
-import 'package:mobile_app_project/business_logic/cubit/camera_cubit.dart';
+import 'package:mobile_app_project/business_logic/cubit/camera_cubit/camera_cubit.dart';
 import '/main.dart';
 import 'dart:async';
 
