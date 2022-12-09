@@ -38,9 +38,9 @@ class AppRouter {
       GoRoute(
           path: '/home',
           builder: (context, state) => BlocProvider(
-            create: (context) => NytBestSellersCubit(),
-            child: HomeScreen(),
-          ),
+                create: (context) => NytBestSellersCubit(),
+                child: HomeScreen(),
+              ),
           routes: [
             GoRoute(
               path: 'settings',

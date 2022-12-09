@@ -12,7 +12,7 @@ class LangBtn extends StatefulWidget {
 
 class _LangBtnState extends State<LangBtn> {
   final List<String> items = [
-    'Arabic',
+    'عربي',
     'English',
   ];
 
@@ -36,7 +36,8 @@ class _LangBtnState extends State<LangBtn> {
               ),
               Expanded(
                 child: Text(
-                  'Select Item',
+                  'Select',
+                  // selectedValue!,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,

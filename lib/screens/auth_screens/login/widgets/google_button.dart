@@ -37,7 +37,7 @@ class GoogleButton extends StatelessWidget {
             Text(
               _text,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 19, color: Colors.black),
+              style: TextStyle(fontSize: 18, color: Colors.black),
             ),
           ],
         ),
