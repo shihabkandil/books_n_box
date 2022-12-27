@@ -17,7 +17,7 @@ class VolumeInfo {
   String? description;
   int? pageCount;
   String? mainCategory;
-  double? averageRating;
+  num? averageRating;
   int? ratingsCount;
   ImageLinks? imageLinks;
 
@@ -27,16 +27,14 @@ class VolumeInfo {
         description: json["description"],
         pageCount: json["pageCount"],
         mainCategory: json["mainCategory"],
-        averageRating: json["averageRating"].toDouble(),
+        averageRating: json["averageRating"],
         ratingsCount: json["ratingsCount"],
-        imageLinks: ImageLinks.fromJson(json["imageLinks"]),
+        imageLinks: (json["imageLinks"] == null ? null : ImageLinks.fromJson(json["imageLinks"])),
       );
 
   Map<String, dynamic> toJson() => {
         "title": title,
-        "authors": (authors == null
-            ? null
-            : List<dynamic>.from(authors!.map((x) => x))),
+        "authors": (authors == null ? null : List<dynamic>.from(authors!.map((x) => x))),
         "description": description,
         "pageCount": pageCount,
         "mainCategory": mainCategory,
