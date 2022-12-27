@@ -10,8 +10,7 @@ Book bookFromJson(String str) => Book.fromJson(json.decode(str));
 String bookToJson(Book data) => json.encode(data.toJson());
 
 class Book {
-  Book(
-      {required this.id,
+  Book({required this.id,
       this.selfLink,
       this.volumeInfo,
       this.isBookmarked = false,
