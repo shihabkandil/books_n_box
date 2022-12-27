@@ -7,31 +7,30 @@ import 'widgets/screen_bar.dart';
 import 'widgets/similar_books_header.dart';
 
 class BookDetailsScreen extends StatelessWidget {
-
-
-  const BookDetailsScreen({Key? key,}) : super(key: key);
+  const BookDetailsScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       backgroundColor: Colors.black,
-        body:CustomScrollView(
-          slivers: [
-        ScreenBar(),
-            SliverList(delegate: SliverChildListDelegate(
+      body: CustomScrollView(
+        slivers: [
+          ScreenBar(),
+          SliverList(
+            delegate: SliverChildListDelegate(
               [
                 RatesRow(),
                 OverViewHeader(),
                 OverViewParagraph(),
                 SimilarBooksHeader(),
                 SimilarBooksCarousel(),
-              ]
+              ],
             ),
-            ),
-      ],
-    ),
-
+          ),
+        ],
+      ),
     );
   }
 }
