@@ -1,3 +1,4 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
@@ -29,6 +30,8 @@ class _HomeCatigoriesTitlesState extends State<HomeCatigoriesTitles> {
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context);
+
     return Container(
       //margin: EdgeInsets.only(left: 30),
       padding: EdgeInsets.only(left: 10, right: 10),
@@ -39,16 +42,16 @@ class _HomeCatigoriesTitlesState extends State<HomeCatigoriesTitles> {
         controller: widget.tabcontroller,
         tabs: [
           Tab(
-            text: "Fantasy",
+            text: localization!.fantasy,
           ),
           Tab(
-            text: "Sci-Fi",
+            text: localization.scifi,
           ),
           Tab(
-            text: "Romance",
+            text: localization.romance,
           ),
           Tab(
-            text: "Self-help",
+            text: localization.selfhelp,
           ),
         ],
         labelColor: Colors.white,

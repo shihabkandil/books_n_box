@@ -1,5 +1,6 @@
 // A widget that displays the picture taken by the user.
 import 'dart:io';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class DisplayPictureScreen extends StatelessWidget {
@@ -11,10 +12,12 @@ class DisplayPictureScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: const Text('Recognized Text'),
+        title: Text(localization!.recognizedText),
         backgroundColor: Theme.of(context).primaryColorDark,
         titleTextStyle: TextStyle(
           color: Colors.white,

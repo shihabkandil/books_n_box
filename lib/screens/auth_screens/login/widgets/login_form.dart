@@ -10,7 +10,7 @@ import 'center_logo.dart';
 import 'center_title.dart';
 import 'dont_have_Account_text.dart';
 import 'google_button.dart';
-// import 'login_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // import '../../../shared/widgets/custom_text_field.dart';
 // import '../../../shared/widgets/button.dart';
 import 'remember_me_row.dart';
@@ -30,6 +30,8 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context);
+
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state.status == AuthenticationStatus.googleSignInSuccess) {
@@ -38,10 +40,10 @@ class _LoginFormState extends State<LoginForm> {
           context.go("/home");
         } else if (state.status == AuthenticationStatus.emailLoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(state.message ?? 'Can\'t login to account')));
+              content: Text(state.message ?? localization!.loginError)));
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Sign in with google failed")));
+              SnackBar(content: Text(localization!.googleLoginError)));
         }
       },
       child: ResponsiveBuilder(builder: (context, screenConfig) {
@@ -58,17 +60,17 @@ class _LoginFormState extends State<LoginForm> {
                     padding: EdgeInsets.symmetric(
                         vertical: sizeConfig.verticalBlockSize)),
                 CenterLogo(width: sizeConfig.horizontalBlockSize * 94),
-                CenterTitle("Log In"),
+                CenterTitle(localization!.logIn),
                 CustomTextField(
                     controller: emailController,
-                    hintText: "Email Address",
+                    hintText: localization.enter+ localization.emailAddress,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "Please enter your email";
+                        return localization.emptyEmail;
                       } else if (!RegExp(
                               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                           .hasMatch(value)) {
-                        return "Please enter a valid email";
+                        return localization.invalidEmail;
                       }
                       return null;
                     },
@@ -82,10 +84,10 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 CustomTextField(
                     controller: passwordController,
-                    hintText: "Password",
+                    hintText: localization.enter +  localization.password,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "Please enter your password";
+                        return localization.emptyPassword;
                       }
                       return null;
                     },
@@ -99,25 +101,26 @@ class _LoginFormState extends State<LoginForm> {
                   height: sizeConfig.verticalBlockSize,
                 ),
                 Button(
-                    formKey: _formKey,
-                    text: "Log In",
-                    onPressed: (() {
-                      if (_formKey.currentState!.validate()) {
-                        BlocProvider.of<AuthCubit>(context)
-                            .loginWithEmailAndPassword(
-                                email: emailController.text.trim(),
-                                password: passwordController.text);
-                      }
-                    })),
+                  formKey: _formKey,
+                  text: localization.logIn,
+                  onPressed: (() {
+                    if (_formKey.currentState!.validate()) {
+                      BlocProvider.of<AuthCubit>(context)
+                          .loginWithEmailAndPassword(
+                              email: emailController.text.trim(),
+                              password: passwordController.text);
+                    }
+                  }),
+                ),
                 SizedBox(
                   height: sizeConfig.verticalBlockSize,
                 ),
-                GoogleButton("Log In with Google"),
+                GoogleButton(localization.googleLogin),
                 Divider(
                   height: sizeConfig.verticalBlockSize * 4,
                 ),
                 DontHaveAccountText(
-                  text: "Dont have an account? Register",
+                  text: localization.noAccount,
                   screenBlockSize: sizeConfig,
                   onTap: () => context.go('/register'),
                 )

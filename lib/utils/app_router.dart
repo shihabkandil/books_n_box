@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
-import 'package:mobile_app_project/business_logic/cubit/camera_cubit.dart';
-import 'package:mobile_app_project/business_logic/cubit/text_recognition_cubit.dart';
+import 'package:mobile_app_project/business_logic/cubit/camera_cubit/camera_cubit.dart';
+import 'package:mobile_app_project/business_logic/cubit/text_recognition_cubit/text_recognition_cubit.dart';
 import 'package:mobile_app_project/business_logic/cubit/nyt_best_sellers_cubit/nyt_best_sellers_cubit.dart';
 import 'package:mobile_app_project/screens/auth_screens/register/register_screen.dart';
 import 'package:mobile_app_project/screens/Settings%20Screen/settings_screen.dart';
@@ -23,7 +23,7 @@ class AppRouter {
   final GoRouter router = GoRouter(
     routes: [
       GoRoute(
-          path: '/', // /home
+          path: '/', // /
           builder: (context, state) => BlocProvider(
                 create: (context) =>
                     AuthCubit(authRepository: context.read<AuthRepository>()),
@@ -32,7 +32,11 @@ class AppRouter {
           routes: [
             GoRoute(
               path: 'register',
-              builder: (context, state) => RegisterScreen(),
+              builder: (context, state) => BlocProvider(
+                create: (context) =>
+                    AuthCubit(authRepository: context.read<AuthRepository>()),
+                child: RegisterScreen(), 
+              ),
             ),
           ]),
       GoRoute(

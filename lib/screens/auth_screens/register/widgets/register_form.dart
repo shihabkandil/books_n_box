@@ -8,6 +8,7 @@ import '../../../widgets/button.dart';
 import '../../../widgets/custom_text_field.dart';
 import '../../login/widgets/center_logo.dart';
 import '../../login/widgets/center_title.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterForm extends StatefulWidget {
   RegisterForm({super.key});
@@ -27,124 +28,129 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthState>(listener: (context, state) {
-      if (state.status == AuthenticationStatus.emailRegisterSuccess) {
-        context.go("/home");
-      } else if (state.status == AuthenticationStatus.emailRegisterFailure) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(state.message ?? 'Can\'t register account')));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Account Registration failed")));
-      }
-    }, child: ResponsiveBuilder(builder: (context, screenConfig) {
-      final ScreenBlockSize sizeConfig =
-          ScreenBlockSize(screenSizeConfig: screenConfig);
-      return Form(
-        key: _formKey,
-        child: Container(
-          margin: EdgeInsets.symmetric(
-              horizontal: sizeConfig.verticalBlockSize * 3.5),
-          child: Column(
-            children: [
-              CenterLogo(width: sizeConfig.horizontalBlockSize * 94),
-              SizedBox(
-                height: sizeConfig.verticalBlockSize,
-              ),
-              CenterTitle("Register"),
-              CustomTextField(
-                  hintText: "Username",
+    var localization = AppLocalizations.of(context);
+
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state.status == AuthenticationStatus.emailRegisterSuccess) {
+          context.go("/home");
+        } else if (state.status == AuthenticationStatus.emailRegisterFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.message ?? localization!.registerError)));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(localization!.registerFailed)));
+        }
+      },
+      child: ResponsiveBuilder(builder: (context, screenConfig) {
+        final ScreenBlockSize sizeConfig =
+            ScreenBlockSize(screenSizeConfig: screenConfig);
+        return Form(
+          key: _formKey,
+          child: Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: sizeConfig.verticalBlockSize * 3.5),
+            child: Column(
+              children: [
+                CenterLogo(width: sizeConfig.horizontalBlockSize * 94),
+                SizedBox(
+                  height: sizeConfig.verticalBlockSize,
+                ),
+                CenterTitle(localization!.register),
+                CustomTextField(
+                    hintText: localization.enter +  localization.username,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return localization.emptyUsername;
+                      }
+                      return null;
+                    },
+                    icon: Icon(
+                      Icons.person,
+                      color: Colors.white.withOpacity(0.8),
+                    ),
+                    isHidden: false),
+                SizedBox(
+                  height: sizeConfig.verticalBlockSize,
+                ),
+                CustomTextField(
+                    controller: _emailController,
+                    hintText: localization.enter +  localization.emailAddress,
+                    icon: Icon(
+                      Icons.email_sharp,
+                      color: Colors.white.withOpacity(0.8),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return localization.emptyEmail;
+                      } else if (!RegExp(
+                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(value)) {
+                        return localization.invalidEmail;
+                      }
+                      return null;
+                    },
+                    isHidden: false),
+                SizedBox(
+                  height: sizeConfig.verticalBlockSize,
+                ),
+                CustomTextField(
+                  icon: Icon(
+                    Icons.visibility,
+                    color: Colors.white.withOpacity(0.8),
+                  ),
+                  validator: (value) {
+                    _password = value;
+                    if (value!.isEmpty) {
+                      return localization.emptyPassword;
+                    } else if (value.length < 8) {
+                      return localization.shortPass;
+                    }
+                    return null;
+                  },
+                  isHidden: true,
+                  hintText: localization.enter +  localization.password,
+                ),
+                SizedBox(
+                  height: sizeConfig.verticalBlockSize,
+                ),
+                CustomTextField(
+                  controller: _confirmPasswordController,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return "Please enter username";
+                      return localization.confirmPass;
+                    } else if (value != _password) {
+                      return localization.confirmError;
                     }
                     return null;
                   },
                   icon: Icon(
-                    Icons.person,
+                    Icons.visibility,
                     color: Colors.white.withOpacity(0.8),
                   ),
-                  isHidden: false),
-              SizedBox(
-                height: sizeConfig.verticalBlockSize,
-              ),
-              CustomTextField(
-                  controller: _emailController,
-                  hintText: "Email Address",
-                  icon: Icon(
-                    Icons.email_sharp,
-                    color: Colors.white.withOpacity(0.8),
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Please enter email";
-                    } else if (!RegExp(
-                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(value)) {
-                      return "Please enter a valid email";
+                  isHidden: true,
+                  hintText: localization.confirmPass,
+                ),
+                SizedBox(
+                  height: sizeConfig.verticalBlockSize * 5,
+                ),
+                Button(
+                  formKey: _formKey,
+                  text: localization.register,
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      BlocProvider.of<AuthCubit>(context).registerEmailAccount(
+                          email: _emailController.text.trim(),
+                          confirmedPassword: _confirmPasswordController.text);
                     }
-                    return null;
                   },
-                  isHidden: false),
-              SizedBox(
-                height: sizeConfig.verticalBlockSize,
-              ),
-              CustomTextField(
-                icon: Icon(
-                  Icons.visibility,
-                  color: Colors.white.withOpacity(0.8),
                 ),
-                validator: (value) {
-                  _password = value;
-                  if (value!.isEmpty) {
-                    return "Please enter password";
-                  } else if (value.length < 8) {
-                    return "Password must be at least 8 characters";
-                  }
-                  return null;
-                },
-                isHidden: true,
-                hintText: 'Password',
-              ),
-              SizedBox(
-                height: sizeConfig.verticalBlockSize,
-              ),
-              CustomTextField(
-                controller: _confirmPasswordController,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Please confirm password";
-                  } else if (value != _password) {
-                    return "Passwords don\'t match";
-                  }
-                  return null;
-                },
-                icon: Icon(
-                  Icons.visibility,
-                  color: Colors.white.withOpacity(0.8),
-                ),
-                isHidden: true,
-                hintText: 'Confirm Password',
-              ),
-              SizedBox(
-                height: sizeConfig.verticalBlockSize * 5,
-              ),
-              Button(
-                formKey: _formKey,
-                text: "Register",
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    BlocProvider.of<AuthCubit>(context).registerEmailAccount(
-                        email: _emailController.text.trim(),
-                        confirmedPassword: _confirmPasswordController.text);
-                  }
-                },
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      );
-    }));
+        );
+      }),
+    );
   }
 
   @override

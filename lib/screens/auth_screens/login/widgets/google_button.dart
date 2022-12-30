@@ -29,7 +29,7 @@ class GoogleButton extends StatelessWidget {
           children: [
             Image.asset(
               'assets/Google_Logo.png',
-              width: 26,
+              width: 24,
             ),
             SizedBox(
               width: 5,
@@ -37,7 +37,7 @@ class GoogleButton extends StatelessWidget {
             Text(
               _text,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 19, color: Colors.black),
+              style: TextStyle(fontSize: 17, color: Colors.black),
             ),
           ],
         ),

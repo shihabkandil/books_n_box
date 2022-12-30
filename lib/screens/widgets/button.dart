@@ -6,7 +6,8 @@ class Button extends StatelessWidget {
   final formKey;
   final void Function()? onPressed;
 
-  const Button({required this.text, Key? key, this.onPressed, this.formKey}) : super(key: key);
+  const Button({required this.text, Key? key, this.onPressed, this.formKey})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class Button extends StatelessWidget {
           text,
           textAlign: TextAlign.center,
           style: GoogleFonts.roboto(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         style: ElevatedButton.styleFrom(
           shape: const RoundedRectangleBorder(

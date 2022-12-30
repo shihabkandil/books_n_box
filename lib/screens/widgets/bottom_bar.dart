@@ -1,12 +1,8 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:mobile_app_project/business_logic/cubit/camera_cubit.dart';
-import 'package:mobile_app_project/screens/widgets/take_picture.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class AppBottomNavBar extends StatelessWidget {
   const AppBottomNavBar({Key? key, int? index})
       : _index = index ?? 0,
@@ -16,10 +12,7 @@ class AppBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // BlocProvider(
-    //   create: (context) => CameraCubit(),
-    //   child: TakePictureScreen(),
-    // );
+    var localization = AppLocalizations.of(context);
 
     return GNav(
       selectedIndex: _index,
@@ -34,26 +27,21 @@ class AppBottomNavBar extends StatelessWidget {
       tabs: [
         GButton(
           icon: CupertinoIcons.home,
-          text: 'Home',
+          text: localization!.home,
           onPressed: () {
-            context.go("/home"); //   /
+            context.go("/home");
           },
         ),
         GButton(
           icon: Icons.camera_alt,
-          text: 'Camera',
+          text: localization.camera,
           onPressed: () {
-            //  //   /home/takePicture
-            // BlocProvider(
-            //   create: (context) => CameraCubit(),
-            //   child: TakePictureScreen(),
-            // );
-            context.go("/home/takePicture"); ///takePicture"
+            context.go("/home/takePicture"); 
           },
         ),
         GButton(
           icon: CupertinoIcons.search,
-          text: 'Search',
+          text: localization.search,
           onPressed: () {},
         ),
       ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:switcher_button/switcher_button.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../home_screen/widgets/tile_template.dart';
 import 'widgets/lang_btn.dart';
 
@@ -9,6 +9,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context);
+
     return Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         body: Container(
@@ -16,7 +18,7 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                "Settings",
+                localization!.settings,
                 style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 40,
@@ -30,7 +32,7 @@ class SettingsScreen extends StatelessWidget {
                 children: [
                   Container(
                     child: Text(
-                      "Language",
+                      localization.language,
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ),
@@ -45,7 +47,7 @@ class SettingsScreen extends StatelessWidget {
                 children: [
                   Container(
                     child: Text(
-                      "App Theme",
+                      localization.theme,
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ),
@@ -64,7 +66,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               Container(
                 child: Text(
-                  "Help",
+                  localization.help,
                   style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),
@@ -74,7 +76,8 @@ class SettingsScreen extends StatelessWidget {
               TileTemplate(
                   icon: Icon(Icons.question_mark_sharp, color: Colors.white),
                   onTap: () {},
-                  text: Text("FAQ", style: TextStyle(color: Colors.white)),
+                  text: Text(localization.faq,
+                      style: TextStyle(color: Colors.white)),
                   color: Colors.white.withOpacity(0.7)),
               SizedBox(
                 height: 20,
@@ -82,7 +85,7 @@ class SettingsScreen extends StatelessWidget {
               TileTemplate(
                   icon: Icon(Icons.lock, color: Colors.white),
                   onTap: () {},
-                  text: Text("Our Privacy Policy",
+                  text: Text(localization.privacyPolicy,
                       style: TextStyle(color: Colors.white)),
                   color: Colors.white.withOpacity(0.7)),
             ],

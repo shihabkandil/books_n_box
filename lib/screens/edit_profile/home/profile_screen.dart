@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/build_text_fieds.dart';
 import '../widgets/profile_buttons.dart';
 import '../widgets/profile_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -12,6 +13,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   bool showPassword = false;
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -34,7 +37,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             child: ListView(
               children: [
                 Text(
-                  "Edit Profile",
+                  localization!.editProfile,
                   style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w500,
@@ -48,21 +51,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   height: 35,
                 ),
                 BuildTextFields(
-                    labelText: "Full Name",
+                    labelText: localization.username,
                     placeholder: "",
                     isPasswordTextField: false),
                 BuildTextFields(
-                    labelText: "E-mail",
+                    labelText: localization.emailAddress,
                     placeholder: "",
                     isPasswordTextField: false),
                 BuildTextFields(
-                    labelText: "Password",
+                    labelText: localization.password,
                     placeholder: "",
                     isPasswordTextField: true),
-                BuildTextFields(
-                    labelText: "Location",
-                    placeholder: "",
-                    isPasswordTextField: false),
                 SizedBox(
                   height: 35,
                 ),

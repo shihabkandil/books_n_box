@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../data/book_data.dart';
-import '../book_view/book_title_column.dart';
+// import '../book_view/book_title_column.dart';
 
 class BookImageRow extends StatelessWidget {
   const BookImageRow(this.book, {Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class BookImageRow extends StatelessWidget {
           SizedBox(
             width: 25,
           ),
-          BookTitleColumn(book),
+          // BookTitleColumn(book),
         ],
       ),
     );
