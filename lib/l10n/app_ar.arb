@@ -46,6 +46,12 @@
   "camera": "كاميرا",
   "search": "بحث",
   "recognizedText": "النص المعترف به",
-  "loading": "جاري تحميل"
-  
+  "loading": "جاري تحميل",
+  "nowpopular": "شائع الآن",
+  "fantasy": "خيال",
+  "scifi": "خيال علمي",
+  "romance": "رومانسي",
+  "selfhelp": "مساعدة النفس"
+
+
 }

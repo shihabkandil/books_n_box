@@ -9,8 +9,8 @@ class SimilarBooksHeader extends StatelessWidget {
     var localization = AppLocalizations.of(context);
 
     return Container(
-      margin: EdgeInsets.only(top: 35, bottom: 15, left: 30),
-      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.only(top: 35, bottom: 15, left: 30, right: 30),
+      // alignment: Alignment.centerLeft,
       child: Text(
         localization!.similarBooks,
         style: TextStyle(

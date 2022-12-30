@@ -42,16 +42,16 @@ class _HomeCatigoriesTitlesState extends State<HomeCatigoriesTitles> {
         controller: widget.tabcontroller,
         tabs: [
           Tab(
-            text: "Fantasy",
+            text: localization!.fantasy,
           ),
           Tab(
-            text: "Sci-Fi",
+            text: localization.scifi,
           ),
           Tab(
-            text: "Romance",
+            text: localization.romance,
           ),
           Tab(
-            text: "Self-help",
+            text: localization.selfhelp,
           ),
         ],
         labelColor: Colors.white,
