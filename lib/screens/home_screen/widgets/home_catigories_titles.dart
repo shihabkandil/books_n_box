@@ -2,37 +2,56 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
-class HomeCatigoriesTitles extends StatelessWidget {
-  const HomeCatigoriesTitles({super.key , required this.tabcontroller});
+class HomeCatigoriesTitles extends StatefulWidget {
+  const HomeCatigoriesTitles({super.key, required this.tabcontroller});
 
   final TabController tabcontroller;
+
+  @override
+  State<HomeCatigoriesTitles> createState() => _HomeCatigoriesTitlesState();
+}
+
+class _HomeCatigoriesTitlesState extends State<HomeCatigoriesTitles> {
+  var defalutValue;
+  var selectedIndex;
+  @override
+  void initState() {
+    super.initState();
+    widget.tabcontroller.addListener(
+      () {
+        setState(
+          () {
+            selectedIndex = widget.tabcontroller.index;
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context);
 
     return Container(
       //margin: EdgeInsets.only(left: 30),
-      padding: EdgeInsets.only(left: 10,right: 10),
+      padding: EdgeInsets.only(left: 10, right: 10),
       child: TabBar(
-        labelStyle: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w500
-        ),
+        labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
         padding: EdgeInsets.only(left: 30),
         isScrollable: true,
-        controller: tabcontroller,
+        controller: widget.tabcontroller,
         tabs: [
           Tab(
-              text: "Discover",
+            text: "Fantasy",
           ),
           Tab(
-            text: "Popular",
+            text: "Sci-Fi",
           ),
           Tab(
-            text: "Top-Rated",
+            text: "Romance",
           ),
           Tab(
-            text: "Upcoming",
+            text: "Self-help",
           ),
         ],
         labelColor: Colors.white,

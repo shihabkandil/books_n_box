@@ -4,7 +4,7 @@ import 'models/book_model/volume_info.dart';
 
 class BookData {
   ImageLinks _images = ImageLinks(
-      smallThumbnail:
+      thumbnail:
           "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
       small:
           "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=2&edge=curl&source=gbs_api",
