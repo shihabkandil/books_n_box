@@ -13,7 +13,7 @@ class TextRecognitionCubit extends Cubit<TextRecognitionState> {
   Future<void> processImage(inputImage) async {
     try {
       final text = await _textRecognizer.processImage(inputImage);
-
+       print(text.blocks);
       _textRecognizer.close();
       emit(TextRecognitionState(
           status: TextRecognitionStatus.successful, recognizedText: text));

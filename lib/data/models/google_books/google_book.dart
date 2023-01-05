@@ -3,14 +3,16 @@
 //     final book = bookFromJson(jsonString);
 
 import 'dart:convert';
-import '../../models/book_model/volume_info.dart';
 
-Book bookFromJson(String str) => Book.fromJson(json.decode(str));
+import 'package:mobile_app_project/data/models/google_books/volume_info.dart';
 
-String bookToJson(Book data) => json.encode(data.toJson());
 
-class Book {
-  Book({required this.id,
+GoogleBook bookFromJson(String str) => GoogleBook.fromJson(json.decode(str));
+
+String bookToJson(GoogleBook data) => json.encode(data.toJson());
+
+class GoogleBook {
+  GoogleBook({required this.id,
       this.selfLink,
       this.volumeInfo,
       this.isBookmarked = false,
@@ -22,7 +24,7 @@ class Book {
   bool isBookmarked;
   int status;
 
-  factory Book.fromJson(Map<String, dynamic> json) => Book(
+  factory GoogleBook.fromJson(Map<String, dynamic> json) => GoogleBook(
         id: json["id"],
         selfLink: json["selfLink"],
         volumeInfo: VolumeInfo.fromJson(json["volumeInfo"]),
