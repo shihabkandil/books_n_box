@@ -5,9 +5,8 @@ import 'package:http/http.dart' as http;
 class NytWebService{
   Future<Response> getNytBooks({required String query})async{
     try{
-      final uriRequest = Uri.parse("https://api.nytimes.com/svc/books/v3$query?api-key="+nyTimesApiKey);
+      final uriRequest = Uri.parse(kNyTimesBaseUrl+"$query?api-key="+kNyTimesApiKey);
       Response response = await http.get(uriRequest);
-      print(response.body);
       return response;
     }
     catch(e){

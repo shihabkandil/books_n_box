@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:mobile_app_project/business_logic/cubit/camera_cubit/camera_cubit.dart';
+import 'package:mobile_app_project/business_logic/cubit/google_books_cubit/google_books_cubit.dart';
 import 'package:mobile_app_project/business_logic/cubit/text_recognition_cubit/text_recognition_cubit.dart';
 import 'package:mobile_app_project/business_logic/cubit/nyt_best_sellers_cubit/nyt_best_sellers_cubit.dart';
 import 'package:mobile_app_project/screens/auth_screens/register/register_screen.dart';
@@ -95,8 +96,9 @@ class AppRouter {
               path: 'searchwithtextscreen/:text',
               name: 'SearchWithTextScreen',
               builder: (context, state) {
-                return SearchWithText(
-                  text: state.params["text"]!,
+                return BlocProvider(
+                  create: (context) => GoogleBooksCubit()..searchGoogleBooks(state.params["text"]!),
+                  child: SearchWithText(text:state.params["text"]!),
                 );
               },
             ),

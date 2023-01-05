@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../dummy.dart';
 import '../../widgets/back_icon_button.dart';
 
 class ScreenBar extends StatelessWidget {
@@ -27,10 +26,10 @@ class ScreenBar extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               Container(
-                child: Image.network(
-                  Dummy.chooseRand(),
-                  fit: BoxFit.cover,
-                ),
+               // child: Image.network(
+                  //Dummy.chooseRand(),
+                 // fit: BoxFit.cover,
+               // ),
               ),
               Container(
                 width: double.infinity,

@@ -43,7 +43,7 @@ class SearchWithText extends StatelessWidget {
           }else if(state.status == BooksDataStatus.noDataReceived){
             return Center(child: Text("No Results for Search Term: "+text , style: TextStyle(color: Colors.white),));
           }else{
-            return Center(child: Text("ERROR !!" , style: TextStyle(color: Colors.red),));
+            return Center(child: Text("ERROR !!!" , style: TextStyle(color: Colors.red),));
           }
         },
 
