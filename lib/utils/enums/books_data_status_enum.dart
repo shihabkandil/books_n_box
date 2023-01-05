@@ -3,5 +3,6 @@ enum BooksDataStatus {
   booksLoaded,
   booksRetrievalFailed,
   noInternetConnection,
-  noDataReceived
+  noDataReceived,
+  emptyQuery,
 }
