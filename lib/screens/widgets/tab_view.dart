@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_project/data/models/book_model/book.dart';
+import 'package:mobile_app_project/data/models/google_books/google_book.dart';
 import 'book_card.dart';
 
 class BooksTab extends StatelessWidget {
