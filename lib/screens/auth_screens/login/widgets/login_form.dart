@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile_app_project/business_logic/cubit/auth_cubit/auth_cubit.dart';
-import 'package:mobile_app_project/utils/screen_block_size.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import '../../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
+import '../../../../utils/screen_block_size.dart';
 import '../../../widgets/button.dart';
 import '../../../widgets/custom_text_field.dart';
 import 'center_logo.dart';
@@ -11,8 +11,6 @@ import 'center_title.dart';
 import 'dont_have_Account_text.dart';
 import 'google_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-// import '../../../shared/widgets/custom_text_field.dart';
-// import '../../../shared/widgets/button.dart';
 import 'remember_me_row.dart';
 
 class LoginForm extends StatefulWidget {
@@ -96,7 +94,9 @@ class _LoginFormState extends State<LoginForm> {
                       color: iconColor,
                     ),
                     isHidden: true),
-                RememberMeRow(sizingConfig: sizeConfig),
+                RememberMeRow(sizingConfig: sizeConfig,onCheckChanged: (isUserRemembered){
+                  BlocProvider.of<AuthCubit>(context).setUserRemember(isRemembered: isUserRemembered);
+                }),
                 SizedBox(
                   height: sizeConfig.verticalBlockSize,
                 ),

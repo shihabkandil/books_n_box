@@ -49,6 +49,10 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthState(status: AuthenticationStatus.loggedOut));
   }
 
+  void setUserRemember({required bool isRemembered}){
+    _authRepository.setUserRememberMe(isRemembered: isRemembered);
+  }
+
   @override
   void onChange(Change<AuthState> change) {
     super.onChange(change);
