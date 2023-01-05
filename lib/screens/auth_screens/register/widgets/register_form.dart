@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile_app_project/business_logic/cubit/auth_cubit/auth_cubit.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import '../../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
 import '../../../../utils/screen_block_size.dart';
 import '../../../widgets/button.dart';
 import '../../../widgets/custom_text_field.dart';

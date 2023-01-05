@@ -11,8 +11,10 @@ class UserDataCache {
   }
 
   void writeUserDataCachePreferences(User user) async {
-    sharedPreferences?.setString(
-        kUserGlobalCacheKey, jsonEncode(user.toJson()));
+    if(_isUserRemembered()) {
+      sharedPreferences?.setString(
+          kUserGlobalCacheKey, jsonEncode(user.toJson()));
+    }
   }
 
   User readUserDataCachePreferences() {
@@ -26,10 +28,10 @@ class UserDataCache {
   }
 
   void setUserRemember(bool isRemembered) {
-    sharedPreferences?.setBool(kUserGlobalCacheKey, isRemembered);
+    sharedPreferences?.setBool(kRememberMe, isRemembered);
   }
 
-  bool isUserRemembered() {
+  bool _isUserRemembered() {
     final isRemembered = sharedPreferences?.getBool(kRememberMe);
     if (isRemembered == null) {
       return false;

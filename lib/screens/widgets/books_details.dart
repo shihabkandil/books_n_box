@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
-import 'package:mobile_app_project/data/models/book_model/list_of_books.dart';
 import '../../data/models/book_model/book.dart';
+import '../../data/models/book_model/list_of_books.dart';
 
 class GoogleApi {
   Future<List<Book>> gbsApiCall(String genre_name) async {
