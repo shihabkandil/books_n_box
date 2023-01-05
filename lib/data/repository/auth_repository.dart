@@ -21,9 +21,6 @@ class AuthRepository {
   Stream<User> get user {
     return _firebaseAuth.userChanges().map((firebaseUser) {
       final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
-      if(user.isNotAuthenticated){
-        _userDataCache.setUserRemember(false);
-      }
       _userDataCache.writeUserDataCachePreferences(user);
       return user;
      });
@@ -77,12 +74,18 @@ class AuthRepository {
     }
   }
 
+  bool getUserRememberMe(){
+    return _userDataCache.isUserRemembered();
+  }
+
   void setUserRememberMe({required bool isRemembered}){
     _userDataCache.setUserRemember(isRemembered);
   }
 
   Future<void> logOut() async {
     try {
+      _userDataCache.writeUserDataCachePreferences(User.empty);
+      setUserRememberMe(isRemembered: false);
       await Future.wait([
         _firebaseAuth.signOut(),
         _googleSignIn.signOut(),

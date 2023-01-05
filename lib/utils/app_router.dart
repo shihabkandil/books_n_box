@@ -15,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../screens/widgets/display_picture.dart';
 import '../screens/widgets/take_picture.dart';
 import '../screens/widgets/text_recognizer_view.dart';
+
 ///
 /// To navigate use
 /// onTap: () => GoRouter.of(context).go('/page_path')
@@ -44,10 +45,11 @@ class AppRouter {
           redirect: (context, state) {
             final appStatus =
                 BlocProvider.of<AppStatusBloc>(context).state.status;
-            if (appStatus == AppStatus.authenticated) {
+            if (appStatus == AppStatus.authenticated &&
+                context.read<AuthRepository>().getUserRememberMe()) {
               return '/home';
             } else {
-              return '/';
+              return null;
             }
           }),
       GoRoute(
