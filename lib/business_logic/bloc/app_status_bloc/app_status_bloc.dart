@@ -18,7 +18,8 @@ class AppStatusBloc extends Bloc<AppStatusEvent,AppStatusState> {
           : const AppStatusState.unauthenticated()
       ) {
     on<AppUserChanged>(_onUserChanged);
-    _userSubscription = _authRepository.user.listen((user) => add(AppUserChanged(user: user)),);
+    _userSubscription =
+        _authRepository.user.listen((user) => add(AppUserChanged(user: user)),);
   }
 
   void _onUserChanged(AppUserChanged event, Emitter<AppStatusState> emit) {

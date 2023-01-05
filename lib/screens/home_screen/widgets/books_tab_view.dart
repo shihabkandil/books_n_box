@@ -36,7 +36,6 @@ class _BooksTabsViewState extends State<BooksTabsView> {
 
   @override
   Widget build(BuildContext context) {
-    // className.fucntion(GenreName)
     return Container(
       height: 700 / MediaQuery.of(context).devicePixelRatio,
       child: TabBarView(
