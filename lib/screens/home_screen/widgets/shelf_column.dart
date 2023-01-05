@@ -42,7 +42,7 @@ class ShelfColumn extends StatelessWidget {
             ),
             TileTemplate(
                 icon: Icon(Icons.settings, color: Colors.white),
-                onTap: () => context.go('/settings'), // /home
+                onTap: () => context.go('/home/settings'), // /home
                 text: Text(localization.settings,
                     style: TextStyle(color: Colors.white)),
                 tail: Icon(Icons.arrow_forward, color: Colors.white),

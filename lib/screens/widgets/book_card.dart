@@ -25,7 +25,7 @@ class BookCard extends StatelessWidget {
       ),
       margin: EdgeInsets.all(8),
       child: InkWell(
-        onTap: () => {context.go('/book_details')},
+        onTap: () => {context.go('/home/book_details')},
         child: ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: (imageUrl != null)
