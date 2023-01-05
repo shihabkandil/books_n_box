@@ -15,6 +15,8 @@ import '../screens/edit_profile/home/profile_screen.dart';
 import '../screens/home_screen/home/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../screens/widgets/search_with_text.dart';
+
 /// To navigate use
 /// onTap: () => GoRouter.of(context).go('/page_path')
 /// OR
@@ -88,6 +90,18 @@ class AppRouter {
                 );
               },
             ),
+
+            GoRoute(
+              path: 'searchwithtextscreen/:text',
+              name: 'SearchWithTextScreen',
+              builder: (context, state) {
+                return SearchWithText(
+                  text: state.params["text"]!,
+                );
+              },
+            ),
+
+
           ]),
     ],
     // errorBuilder: (context, state) => ErrorScreen(state.error),

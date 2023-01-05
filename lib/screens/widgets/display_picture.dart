@@ -73,7 +73,21 @@ class DisplayPictureScreen extends StatelessWidget {
                           Icon(Icons.camera_alt),
                           Text("Capture Again"),
                         ],
-                      ) ,),
+                      ) ,
+                      ),
+
+                       ElevatedButton(
+                        onPressed: (){
+                          context.goNamed('SearchWithTextScreen', params: {'text': this.text});
+                        },
+                        child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.search),
+                          Text("Search With Recognized Text"),
+                        ],
+                      )),
+
                     ],
                   )
 
