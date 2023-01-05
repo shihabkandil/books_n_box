@@ -21,12 +21,15 @@ class AuthRepository {
   Stream<User> get user {
     return _firebaseAuth.userChanges().map((firebaseUser) {
       final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
+      if(user.isNotAuthenticated){
+        _userDataCache.setUserRemember(false);
+      }
       _userDataCache.writeUserDataCachePreferences(user);
       return user;
      });
   }
 
-  Future<User> get currentUser {
+  User get currentUser {
     return _userDataCache.readUserDataCachePreferences();
   }
 
@@ -72,6 +75,10 @@ class AuthRepository {
     catch (_){
       throw GoogleSignInFailure();
     }
+  }
+
+  void setUserRememberMe({required bool isRemembered}){
+    _userDataCache.setUserRemember(isRemembered);
   }
 
   Future<void> logOut() async {
