@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../data/models/book_model/book.dart';
+import '../../data/models/google_books/google_book.dart';
 
 class BookCard extends StatelessWidget {
   BookCard({
@@ -11,7 +11,7 @@ class BookCard extends StatelessWidget {
     this.imageUrl,
   }) : super(key: key);
   String? imageUrl;
-  final Book? book;
+  final GoogleBook? book;
   @override
   Widget build(BuildContext context) {
     if (book != null) {
@@ -25,7 +25,7 @@ class BookCard extends StatelessWidget {
       ),
       margin: EdgeInsets.all(8),
       child: InkWell(
-        onTap: () => {context.go('/book_details')},
+        onTap: () => {context.go('/home/book_details')},
         child: ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: (imageUrl != null)

@@ -1,4 +1,4 @@
-import '../../models/book_model/image_links.dart';
+import 'image_links.dart';
 
 class VolumeInfo {
   VolumeInfo({

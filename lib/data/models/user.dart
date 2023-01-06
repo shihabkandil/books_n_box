@@ -22,19 +22,19 @@ class User extends Equatable{
 
   factory User.fromJson(Map<String, dynamic> jsonModel) {
     return User(
-        name: jsonModel[userCacheName],
-        id: jsonModel[userCacheID] ?? '',
-        email: jsonModel[userCacheEmail],
-        profilePicturePath: jsonModel[userCacheProfilePicture],
+        name: jsonModel[kUserCacheName],
+        id: jsonModel[kUserCacheID] ?? '',
+        email: jsonModel[kUserCacheEmail],
+        profilePicturePath: jsonModel[kUserCacheProfilePicture],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      userCacheName: name,
-      userCacheID:id,
-      userCacheEmail:email,
-      userCacheProfilePicture:profilePicturePath,
+      kUserCacheName: name,
+      kUserCacheID:id,
+      kUserCacheEmail:email,
+      kUserCacheProfilePicture:profilePicturePath,
     };
   }
 

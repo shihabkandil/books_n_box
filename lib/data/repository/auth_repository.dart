@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../helper/exceptions.dart';
+import '../../utils/constants/firestore_fields.dart';
 import '../models/user.dart';
 import 'user_data_cache.dart';
 
@@ -10,13 +12,16 @@ class AuthRepository {
     UserDataCache? userDataCache,
     firebase_auth.FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,
+    FirebaseFirestore? fireStore,
   })  : _userDataCache = userDataCache ?? UserDataCache(),
         _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
+        _googleSignIn = googleSignIn ?? GoogleSignIn.standard(),
+        _fireStore = fireStore ?? FirebaseFirestore.instance;
 
   final UserDataCache _userDataCache;
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
+  final FirebaseFirestore _fireStore;
 
   Stream<User> get user {
     return _firebaseAuth.userChanges().map((firebaseUser) {
@@ -26,7 +31,7 @@ class AuthRepository {
      });
   }
 
-  Future<User> get currentUser {
+  User get currentUser {
     return _userDataCache.readUserDataCachePreferences();
   }
 
@@ -74,8 +79,37 @@ class AuthRepository {
     }
   }
 
+  bool getUserRememberMe(){
+    return _userDataCache.isUserRemembered();
+  }
+
+  void setUserRememberMe({required bool isRemembered}){
+    _userDataCache.setUserRemember(isRemembered);
+  }
+
+  void saveFireStoreUser(User user) {
+    if (user.isAuthenticated) {
+      _fireStore.collection(kUsersCollectionName).doc(user.id)
+          .set({kUserNameField: user.name ?? "", kUserEmailField: user.email});
+    }
+  }
+
+  Future<bool> isNewAccount(String userId) async {
+    bool exists = false;
+    try {
+      await _fireStore.collection(kUsersCollectionName).doc(userId).get().then((doc) {
+        exists = doc.exists;
+      });
+      return exists;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> logOut() async {
     try {
+      _userDataCache.writeUserDataCachePreferences(User.empty);
+      setUserRememberMe(isRemembered: false);
       await Future.wait([
         _firebaseAuth.signOut(),
         _googleSignIn.signOut(),

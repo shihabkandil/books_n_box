@@ -12,10 +12,10 @@ enum AuthenticationStatus{
 }
 
 class AuthState extends Equatable {
-  const AuthState({required this.status,this.message});
+  const AuthState({required this.status,this.message,this.user = User.empty});
   final AuthenticationStatus status;
   final String? message;
-
+  final User user;
   @override
   List<Object> get props => [status];
 }

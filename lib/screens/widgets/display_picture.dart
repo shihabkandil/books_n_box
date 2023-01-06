@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class DisplayPictureScreen extends StatelessWidget {
   final String imagePath;
@@ -61,7 +62,35 @@ class DisplayPictureScreen extends StatelessWidget {
                   Text(
                     this.text,
                     style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+
+                  ButtonBar(
+                    alignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(onPressed: (){context.go("/home/takePicture");}, child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.camera_alt),
+                          Text("Capture Again"),
+                        ],
+                      ) ,
+                      ),
+
+                       ElevatedButton(
+                        onPressed: (){
+                          context.goNamed('SearchWithTextScreen', params: {'text': this.text});
+                        },
+                        child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.search),
+                          Text("Search With Recognized Text"),
+                        ],
+                      )),
+
+                    ],
                   )
+
                 ],
               ),
             ),

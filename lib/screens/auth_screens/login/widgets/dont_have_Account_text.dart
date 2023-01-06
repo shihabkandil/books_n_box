@@ -6,7 +6,7 @@ class DontHaveAccountText extends StatelessWidget {
   const DontHaveAccountText({Key? key,required this.text,required this.screenBlockSize,required this.onTap}) : super(key: key);
   final String text;
   final ScreenBlockSize screenBlockSize;
-  final VoidCallback onTap;
+  final void Function() onTap;
   @override
   Widget build(BuildContext context) {
     return InkWell(

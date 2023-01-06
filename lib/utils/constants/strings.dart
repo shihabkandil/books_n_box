@@ -1,2 +1,4 @@
-const nyTimesBaseUrl = 'https://api.nytimes.com/svc/books/v3';
-const nyTimesApiKey = 'O58ldTU6GCHCpuckofwaFBpQH1hGAYI0';
+const kNyTimesBaseUrl = 'https://api.nytimes.com/svc/books/v3';
+const kNyTimesApiKey = 'O58ldTU6GCHCpuckofwaFBpQH1hGAYI0';
+
+const kGoogleBaseUrl = "https://www.googleapis.com/books/v1/volumes";
