@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../data/models/user.dart';
 import '../../../data/repository/auth_repository.dart';
 import '../../../helper/exceptions.dart';
 part 'auth_state.dart';
@@ -16,10 +17,18 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> logInWithGoogle() async {
     try {
       await _authRepository.logInWithGoogle();
+      final user = await _authRepository.user.first;
+      final isNewAccount = await _authRepository.isNewAccount(user.id);
+      if(!isNewAccount){
+        _authRepository.saveFireStoreUser(user);
+      }
       emit(const AuthState(status: AuthenticationStatus.googleSignInSuccess));
     }
     on GoogleSignInFailure catch(e){
       emit(AuthState(status: AuthenticationStatus.googleSignInFailure,message: e.message));
+    }
+    catch(error){
+      emit(AuthState(status: AuthenticationStatus.googleSignInFailure,));
     }
   }
 
@@ -37,6 +46,8 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> registerEmailAccount({required String email, required String confirmedPassword}) async {
     try{
       await _authRepository.registerEmailAccount(email: email, confirmedPassword: confirmedPassword);
+      final user = await _authRepository.user.first;
+      _authRepository.saveFireStoreUser(user);
       emit(AuthState(status: AuthenticationStatus.emailRegisterSuccess));
     }
     on FirebaseAuthFailure catch(exception){

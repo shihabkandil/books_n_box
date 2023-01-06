@@ -20,7 +20,7 @@ class NytBooksRepository{
       throw SocketException;
     }
     catch(error){
-        throw error;
+        rethrow;
     }
     return NytBestSellers();
   }
