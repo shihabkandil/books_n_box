@@ -7,7 +7,7 @@ class ScreenBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: Color(0x282828),
+      backgroundColor: Theme.of(context).textTheme.bodyMedium?.color,
       expandedHeight: 300,
       flexibleSpace: FlexibleSpaceBar(
           centerTitle: true,

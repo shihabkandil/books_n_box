@@ -15,14 +15,12 @@ class AppHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         IconButton(
-          icon: Icon(Icons.menu, color: Colors.white, size: 40),
+          icon: Icon(Icons.menu, color: Theme.of(context).textTheme.bodyMedium?.color, size: 40),
           onPressed: () {
             Scaffold.of(context).openDrawer();
           },
         ),
-
         AppTitle(),
-
         SizedBox(width: 50,),
 
         ElevatedButton(

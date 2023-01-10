@@ -18,7 +18,7 @@ class ProfileButtons extends StatelessWidget {
           onPressed: () {},
           child: Text(localization!.cancel,
               style: TextStyle(
-                  fontSize: 14, letterSpacing: 2.2, color: Colors.white)),
+                  fontSize: 14, letterSpacing: 2.2, color: Theme.of(context).textTheme.bodyMedium?.color)),
         ),
         MaterialButton(
           onPressed: () {},
@@ -30,7 +30,7 @@ class ProfileButtons extends StatelessWidget {
           child: Text(
             localization.save,
             style: TextStyle(
-                fontSize: 14, letterSpacing: 2.2, color: Colors.white),
+                fontSize: 14, letterSpacing: 2.2, color: Theme.of(context).textTheme.bodyMedium?.color),
           ),
         )
       ],

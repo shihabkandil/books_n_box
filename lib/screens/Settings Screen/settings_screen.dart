@@ -24,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
             children: [
               Text(
                 localization!.settings,
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 40, color: Colors.white),
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 40, color: Theme.of(context).textTheme.bodyMedium?.color),
               ),
               SizedBox(
                 height: 30,
@@ -35,7 +35,7 @@ class SettingsScreen extends StatelessWidget {
                   Container(
                     child: Text(
                       localization.language,
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(fontSize: 16, color:Theme.of(context).textTheme.bodyMedium?.color),
                     ),
                   ),
                   Container(child: LangBtn()),
@@ -50,16 +50,16 @@ class SettingsScreen extends StatelessWidget {
                   Container(
                     child: Text(
                       localization.theme,
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(fontSize: 16, color: Theme.of(context).textTheme.bodyMedium?.color),
                     ),
                   ),
                   Container(
                     child: BlocBuilder<ThemeCubit, ThemeState>(
                       builder: (context, state) {
                         return SwitcherButton(
-                          value: state.appTheme == AppColors.lightTheme,
+                          value: state.appTheme == AppColors.darkTheme,
                           onChange: (value) {
-                            BlocProvider.of<ThemeCubit>(context).switchTheme();
+                            BlocProvider.of<ThemeCubit>(context).switchTheme(value);
                             UserDataCache().writeThemePreferences(value);
                           },
                         );
@@ -74,7 +74,7 @@ class SettingsScreen extends StatelessWidget {
               Container(
                 child: Text(
                   localization.help,
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  style: TextStyle(fontSize: 16, color: Theme.of(context).textTheme.bodyMedium?.color),
                 ),
               ),
               SizedBox(
@@ -84,7 +84,7 @@ class SettingsScreen extends StatelessWidget {
                   icon: Icon(Icons.question_mark_sharp, color: Colors.white),
                   onTap: () {},
                   text: Text(localization.faq, style: TextStyle(color: Colors.white)),
-                  color: Colors.white.withOpacity(0.7)),
+                  color: Theme.of(context).textTheme.bodyMedium!.color!.withOpacity(0.7)),
               SizedBox(
                 height: 20,
               ),
@@ -92,7 +92,7 @@ class SettingsScreen extends StatelessWidget {
                   icon: Icon(Icons.lock, color: Colors.white),
                   onTap: () {},
                   text: Text(localization.privacyPolicy, style: TextStyle(color: Colors.white)),
-                  color: Colors.white.withOpacity(0.7)),
+                  color: Theme.of(context).textTheme.bodyMedium!.color!.withOpacity(0.7)),
             ],
           ),
         ));

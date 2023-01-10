@@ -37,7 +37,7 @@ class RatesRow extends StatelessWidget {
                         fontSize: 20,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w400,
-                        color: Colors.white),
+                        color: Theme.of(context).textTheme.bodyMedium?.color),
                   )
                 ],
               ),
@@ -56,7 +56,7 @@ class RatesRow extends StatelessWidget {
                     fontSize: 28,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
-                    color: Colors.white),
+                    color: Theme.of(context).textTheme.bodyMedium?.color),
               ),
             ],
           ),
@@ -79,7 +79,7 @@ class RatesRow extends StatelessWidget {
                         fontSize: 20,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w400,
-                        color: Colors.white),
+                        color: Theme.of(context).textTheme.bodyMedium?.color),
                   )
                 ],
               ),

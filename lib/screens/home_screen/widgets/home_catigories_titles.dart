@@ -54,10 +54,10 @@ class _HomeCatigoriesTitlesState extends State<HomeCatigoriesTitles> {
             text: localization.selfhelp,
           ),
         ],
-        labelColor: Colors.white,
+        labelColor: Theme.of(context).textTheme.bodyMedium!.color!,
         // add it here
         indicator: RectangularIndicator(
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).primaryColor.withOpacity(0.8),
           bottomLeftRadius: 20,
           bottomRightRadius: 20,
           topLeftRadius: 20,

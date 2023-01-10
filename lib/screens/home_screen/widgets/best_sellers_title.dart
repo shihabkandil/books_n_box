@@ -17,7 +17,7 @@ class BestSellersTitle extends StatelessWidget {
       child: Text(
         localization.bestSellers,
         style: TextStyle(
-            fontWeight: FontWeight.w400, fontSize: 23, color: Colors.white),
+            fontWeight: FontWeight.w500, fontSize: 27, color: Theme.of(context).textTheme.bodyMedium?.color),
       ),
     );
   }

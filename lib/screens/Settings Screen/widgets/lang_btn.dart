@@ -29,7 +29,7 @@ class _LangBtnState extends State<LangBtn> {
               Icon(
                 Icons.list,
                 size: 16,
-                color: Colors.black,
+                color: Colors.white,
               ),
               SizedBox(
                 width: 4,
@@ -41,7 +41,7 @@ class _LangBtnState extends State<LangBtn> {
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Colors.white,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -75,7 +75,7 @@ class _LangBtnState extends State<LangBtn> {
             Icons.arrow_forward_ios_outlined,
           ),
           iconSize: 14,
-          iconEnabledColor: Colors.black,
+          iconEnabledColor: Colors.white,
           iconDisabledColor: Colors.grey,
           buttonHeight: 40,
           buttonWidth: 120,
@@ -85,7 +85,7 @@ class _LangBtnState extends State<LangBtn> {
             border: Border.all(
               color: Colors.black26,
             ),
-            color: Colors.white,
+            color: Theme.of(context).textTheme.bodyMedium!.color!.withOpacity(0.7),
           ),
           buttonElevation: 2,
           itemHeight: 40,

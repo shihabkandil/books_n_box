@@ -14,7 +14,7 @@ class BookDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).textTheme.bodyMedium?.color,
       body: CustomScrollView(
         slivers: [
           ScreenBar(),

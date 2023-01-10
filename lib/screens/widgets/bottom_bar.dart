@@ -17,7 +17,7 @@ class AppBottomNavBar extends StatelessWidget {
     return GNav(
       selectedIndex: _index,
       gap: 12,
-      activeColor: Colors.white,
+      activeColor: Theme.of(context).textTheme.bodyMedium?.color,
       iconSize: 24,
       tabMargin: EdgeInsets.only(top: 12),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
