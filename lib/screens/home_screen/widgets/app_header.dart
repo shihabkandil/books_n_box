@@ -8,7 +8,6 @@ class AppHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     String lang = Localizations.localeOf(context).languageCode;
 
     return Row(
@@ -20,28 +19,24 @@ class AppHeader extends StatelessWidget {
             Scaffold.of(context).openDrawer();
           },
         ),
-
         AppTitle(),
-
-        SizedBox(width: 50,),
-
-        ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                  ),
-                  onPressed: () {
-                    BlocProvider.of<LocalizationCubit>(context)
-                        .switchLanguage();
-                  },
-                  child: Text(
-                    lang == 'en' ? 'Ar' : 'En',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
+        SizedBox(
+          width: 50,
         ),
-
-
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.transparent,
+          ),
+          onPressed: () {
+            BlocProvider.of<LocalizationCubit>(context).switchLanguage();
+          },
+          child: Text(
+            lang == 'en' ? 'Ar' : 'En',
+            style: TextStyle(
+              fontSize: 18,
+            ),
+          ),
+        ),
       ],
     );
   }
