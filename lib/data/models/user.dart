@@ -38,4 +38,14 @@ class User extends Equatable{
     };
   }
 
+  User copyWith({String? id,
+    String? name,
+    String? email,
+    String? profilePicturePath}) => User(
+    id: id ?? this.id,
+    email: email ?? this.email,
+    profilePicturePath: profilePicturePath ?? this.profilePicturePath,
+    name: name ?? this.name,
+  );
+
 }
