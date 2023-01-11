@@ -1,3 +1,3 @@
 const kUsersCollectionName = 'Users';
-const kUserNameField = 'Name';
+const kUserNameField = 'UserName';
 const kUserEmailField = 'Email';
