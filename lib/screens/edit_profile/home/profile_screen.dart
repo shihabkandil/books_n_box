@@ -22,7 +22,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).textTheme.bodyMedium!.color,
           ),
           onPressed: () {},
         ),
@@ -38,13 +38,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
               children: [
                 Text(
                   localization!.editProfile,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 25,
+                      fontSize: 30,
                       fontWeight: FontWeight.w500,
-                      color: Colors.white),
+                      color: Theme.of(context).textTheme.bodyMedium!.color),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 25,
                 ),
                 ProfileImage(),
                 SizedBox(

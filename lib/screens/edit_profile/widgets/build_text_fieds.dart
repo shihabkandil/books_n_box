@@ -38,7 +38,7 @@ class _BuildTextFieldsState extends State<BuildTextFields> {
                     });
                   },
                   icon: Icon(
-                    Icons.remove_red_eye,
+                    showPassword?Icons.visibility:Icons.visibility_off,
                     color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 )
@@ -46,7 +46,8 @@ class _BuildTextFieldsState extends State<BuildTextFields> {
           contentPadding: EdgeInsets.only(bottom: 3),
           labelText: widget.labelText,
           labelStyle: TextStyle(
-            color: Theme.of(context).primaryColor,
+            fontSize: 20,
+            color: Theme.of(context).textTheme.bodyMedium!.color,
           ),
           floatingLabelBehavior: FloatingLabelBehavior.always,
           hintText: widget.placeholder,
