@@ -9,10 +9,8 @@ import 'business_logic/cubit/localization_cubit/cubit/localization_cubit.dart';
 import 'package:mobile_app_project/business_logic/cubit/theme_cubit/cubit/theme_cubit.dart';
 import 'package:mobile_app_project/utils/constants/app_colors.dart';
 import 'data/repository/auth_repository.dart';
-import 'data/repository/user_data_cache.dart';
 import 'utils/app_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'utils/app_theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 List<CameraDescription> cameras = [];
@@ -32,6 +30,8 @@ void main() async {
   await UserDataCache.init();
   final authRepository = AuthRepository();
   await authRepository.user.first;
+
+  String lang = UserDataCache().readLanguagePreference();
   FlutterNativeSplash.remove();
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,18 +43,23 @@ void main() async {
 
   runApp(BooksNBox(
     authRepository: authRepository,
+    lang: Locale(lang, ''),
   ));
 }
 
 class BooksNBox extends StatelessWidget {
-  BooksNBox({Key? key, AppRouter? appRouter, AuthRepository? authRepository})
+  BooksNBox(
+      {Key? key,
+      AppRouter? appRouter,
+      AuthRepository? authRepository,
+      required this.lang})
       : _appRouter = appRouter ?? AppRouter(),
         _authRepository = authRepository ?? AuthRepository(),
         super(key: key);
 
   final AppRouter _appRouter;
   final AuthRepository _authRepository;
-
+  final Locale lang;
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
@@ -65,7 +70,7 @@ class BooksNBox extends StatelessWidget {
             create: (context) => AppStatusBloc(authRepository: _authRepository),
           ),
           BlocProvider<LocalizationCubit>(
-            create: (context) => LocalizationCubit(),
+            create: (context) => LocalizationCubit(lang),
           ),
           BlocProvider<ThemeCubit>(
             create: (context) => ThemeCubit(appTheme),

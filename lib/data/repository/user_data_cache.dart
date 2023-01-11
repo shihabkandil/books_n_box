@@ -11,7 +11,7 @@ class UserDataCache {
   }
 
   void writeUserDataCachePreferences(User user) async {
-    if(isUserRemembered()) {
+    if (isUserRemembered()) {
       sharedPreferences?.setString(
           kUserGlobalCacheKey, jsonEncode(user.toJson()));
     }
@@ -38,10 +38,24 @@ class UserDataCache {
     }
     return isRemembered;
   }
+
+  void writeLanguagePreference(String lang) async {
+    sharedPreferences?.setString('language', lang);
+  }
+
+  String readLanguagePreference() {
+    final lang = sharedPreferences?.getString('language');
+    if (lang == null) {
+      return 'en';
+    }
+    return lang;
+  }
+
   void writeThemePreferences(bool theme) async {
     SharedPreferences localUserData = await SharedPreferences.getInstance();
     localUserData.setBool("Theme", theme);
   }
+
   readThemePreferences() async {
     SharedPreferences localUserData = await SharedPreferences.getInstance();
     return localUserData.getBool("Theme");

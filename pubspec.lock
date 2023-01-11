@@ -223,7 +223,7 @@ packages:
       name: dropdown_button2
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.9.2"
+    version: "1.8.9"
   equatable:
     dependency: "direct main"
     description:
