@@ -51,5 +51,8 @@
   "fantasy": "Fantasy",
   "scifi": "Sci-Fi",
   "romance": "Romance",
-  "selfhelp": "Self-help"
+  "selfhelp": "Self-help",
+  "reset_password": "Reset Password",
+  "reset_password_instructions": "You will receive an email with instructions to change your password",
+  "problem_sending_email" : "Problem sending email"
 }
