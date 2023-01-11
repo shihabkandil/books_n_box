@@ -16,9 +16,6 @@ import '../data/repository/auth_repository.dart';
 import '../screens/auth_screens/login/login_screen.dart';
 import '../screens/edit_profile/home/profile_screen.dart';
 import '../screens/home_screen/home/home_screen.dart';
-import '../screens/widgets/display_picture.dart';
-import '../screens/widgets/take_picture.dart';
-import '../screens/widgets/text_recognizer_view.dart';
 import '../screens/widgets/search_with_text.dart';
 
 /// To navigate use
@@ -30,7 +27,7 @@ class AppRouter {
   final GoRouter router = GoRouter(
     routes: [
       GoRoute(
-          path: '/home', // /home
+          path: '/', // /home
           builder: (context, state) => BlocProvider(
                 create: (context) =>
                     AuthCubit(authRepository: context.read<AuthRepository>()),
@@ -57,7 +54,7 @@ class AppRouter {
             }
           }),
       GoRoute(
-          path: '/',
+          path: '/home',
           builder: (context, state) => BlocProvider(
                 create: (context) => NytBestSellersCubit(),
                 child: HomeScreen(),
@@ -65,7 +62,7 @@ class AppRouter {
           routes: [
             GoRoute(
               path: 'settings',
-              builder: (context, state) =>  SettingsScreen(),
+              builder: (context, state) => SettingsScreen(),
             ),
             GoRoute(
               path: 'book_details',
@@ -105,19 +102,17 @@ class AppRouter {
                 );
               },
             ),
-
             GoRoute(
               path: 'searchwithtextscreen/:text',
               name: 'SearchWithTextScreen',
               builder: (context, state) {
                 return BlocProvider(
-                  create: (context) => GoogleBooksCubit()..searchGoogleBooks(state.params["text"]!),
-                  child: SearchWithText(text:state.params["text"]!),
+                  create: (context) => GoogleBooksCubit()
+                    ..searchGoogleBooks(state.params["text"]!),
+                  child: SearchWithText(text: state.params["text"]!),
                 );
               },
             ),
-
-
           ]),
     ],
     // errorBuilder: (context, state) => ErrorScreen(state.error),

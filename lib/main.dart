@@ -9,10 +9,8 @@ import 'business_logic/cubit/localization_cubit/cubit/localization_cubit.dart';
 import 'package:mobile_app_project/business_logic/cubit/theme_cubit/cubit/theme_cubit.dart';
 import 'package:mobile_app_project/utils/constants/app_colors.dart';
 import 'data/repository/auth_repository.dart';
-import 'data/repository/user_data_cache.dart';
 import 'utils/app_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'utils/app_theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 List<CameraDescription> cameras = [];
@@ -37,6 +35,8 @@ void main() async {
     currentTheme = AppColors.lightTheme;
   }
 
+
+  String lang = UserDataCache().readLanguagePreference();
   FlutterNativeSplash.remove();
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,11 +49,12 @@ void main() async {
   runApp(BooksNBox(
     authRepository: authRepository,
     currentTheme: currentTheme,
+    lang: Locale(lang, ''),
   ));
 }
 
 class BooksNBox extends StatelessWidget {
-  BooksNBox({Key? key, AppRouter? appRouter, AuthRepository? authRepository, required this.currentTheme})
+  BooksNBox({Key? key, AppRouter? appRouter, AuthRepository? authRepository, required this.currentTheme,required this.lang})
       : _appRouter = appRouter ?? AppRouter(),
         _authRepository = authRepository ?? AuthRepository(),
         super(key: key);
@@ -61,6 +62,7 @@ class BooksNBox extends StatelessWidget {
   final AppRouter _appRouter;
   final AuthRepository _authRepository;
   ThemeData currentTheme = AppColors.darkTheme;
+  final Locale lang;
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
@@ -71,7 +73,7 @@ class BooksNBox extends StatelessWidget {
             create: (context) => AppStatusBloc(authRepository: _authRepository),
           ),
           BlocProvider<LocalizationCubit>(
-            create: (context) => LocalizationCubit(),
+            create: (context) => LocalizationCubit(lang),
           ),
           BlocProvider<ThemeCubit>(
             create: (context) => ThemeCubit(currentTheme),

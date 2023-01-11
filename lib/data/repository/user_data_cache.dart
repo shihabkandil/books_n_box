@@ -38,6 +38,18 @@ class UserDataCache {
     return isRemembered;
   }
 
+  void writeLanguagePreference(String lang) async {
+    sharedPreferences?.setString('language', lang);
+  }
+
+  String readLanguagePreference() {
+    final lang = sharedPreferences?.getString('language');
+    if (lang == null) {
+      return 'en';
+    }
+    return lang;
+  }
+
   void writeThemePreferences(bool theme) async {
     sharedPreferences?.setBool("Theme", theme);
   }
