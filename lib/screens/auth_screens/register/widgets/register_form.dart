@@ -23,6 +23,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final _confirmPasswordFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
   String? _password;
+  TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
 
@@ -58,6 +59,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
                 CenterTitle(localization!.register),
                 CustomTextField(
+                    controller: _usernameController,
                     hintText: localization.enter +  localization.username,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -140,6 +142,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       BlocProvider.of<AuthCubit>(context).registerEmailAccount(
+                        username: _usernameController.text.trim(),
                           email: _emailController.text.trim(),
                           confirmedPassword: _confirmPasswordController.text);
                     }
