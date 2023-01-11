@@ -37,6 +37,7 @@ class ProfileButtons extends StatelessWidget {
           onPressed: () {
             if (formKey.currentState!.validate()) {
               BlocProvider.of<AuthCubit>(context).registerEmailAccount(
+                  username: nameController.text.trim(),
                   email: emailController.text.trim(),
                   confirmedPassword: confirmPasswordController.text);
             }

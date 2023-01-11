@@ -22,13 +22,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+  String? _password;
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context);
     var user = FirebaseAuth.instance.currentUser;
     //  = repo.currentUser;
-
+    // user.uid
+    print(user.toString());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -83,32 +85,39 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                   BuildTextFields(
                     labelText: localization.username,
-                    placeholder: user?.displayName,
+                    initialValue: user?.displayName,
                     controller: nameController,
                     isPasswordTextField: false,
                     validator: (input) {
-                      if (input != null) {
-                        if (!RegExp(
-                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                            .hasMatch(input)) {
-                          return localization.invalidEmail;
-                        }
+                      if (input!.isEmpty) {
+                        return localization.emptyUsername;
                       }
                       return null;
                     },
                   ),
                   BuildTextFields(
                     labelText: localization.emailAddress,
-                    placeholder: user?.email,
+                    initialValue: user!.email,
                     controller: emailController,
                     isPasswordTextField: false,
+                    validator: (input) {
+                      if (input!.isEmpty) {
+                        emailController.text = user.email!;
+                      } else if (!RegExp(
+                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(input)) {
+                        return localization.invalidEmail;
+                      }
+                      return null;
+                    },
                   ),
                   BuildTextFields(
-                    labelText: localization.password,
+                    labelText: localization.nw + ' ' + localization.password,
                     controller: passwordController,
                     placeholder: '',
                     validator: (input) {
-                      if (input != null) {
+                      _password = input;
+                      if (!input!.isEmpty) {
                         if (input.length < 8) {
                           return localization.shortPass;
                         }
@@ -121,6 +130,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     labelText: localization.confirmPass,
                     controller: confirmPasswordController,
                     placeholder: '',
+                    validator: (value) {
+                      if (value != _password) {
+                        return localization.confirmError;
+                      }
+                      return null;
+                    },
                     isPasswordTextField: true,
                   ),
                   SizedBox(

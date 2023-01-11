@@ -4,11 +4,13 @@ class BuildTextFields extends StatefulWidget {
   BuildTextFields(
       {this.labelText,
       this.placeholder,
+      this.initialValue,
       this.isPasswordTextField,
       this.validator,
       this.controller,
       super.key});
   final String? labelText;
+  final String? initialValue;
   final String? Function(String?)? validator;
   final String? placeholder;
   final bool? isPasswordTextField;
@@ -25,6 +27,8 @@ class _BuildTextFieldsState extends State<BuildTextFields> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
       child: TextFormField(
+
+        initialValue: widget.initialValue,
         validator: widget.validator,
         style: TextStyle(
           color: Theme.of(context).textTheme.bodyMedium?.color,

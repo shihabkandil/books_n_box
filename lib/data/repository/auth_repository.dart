@@ -28,19 +28,22 @@ class AuthRepository {
       final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
       _userDataCache.writeUserDataCachePreferences(user);
       return user;
-     });
+    });
   }
 
   User get currentUser {
     return _userDataCache.readUserDataCachePreferences();
   }
 
-  Future<void> registerEmailAccount({required String email, required String confirmedPassword}) async {
+  Future<void> registerEmailAccount(
+      {required String email,
+      required String confirmedPassword,
+      required String name}) async {
     try {
-      await firebase_auth.FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email,
-          password: confirmedPassword
-      );
+      final credential = await firebase_auth.FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: email, password: confirmedPassword);
+      await credential.user?.updateDisplayName(name);
     } on firebase_auth.FirebaseAuthException catch (exception) {
       throw FirebaseAuthFailure.fromCode(exception.code);
     } catch (e) {
@@ -48,12 +51,12 @@ class AuthRepository {
     }
   }
 
-  Future<void> loginWithEmailPassword({required String email, required String password}) async {
+  Future<void> loginWithEmailPassword(
+      {required String email, required String password}) async {
     try {
-      await firebase_auth.FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password
-      );
+      final v = await firebase_auth.FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      print(v.user.toString());
     } on firebase_auth.FirebaseAuthException catch (exception) {
       throw FirebaseAuthFailure.fromCode(exception.code);
     } catch (e) {
@@ -73,23 +76,24 @@ class AuthRepository {
       await _firebaseAuth.signInWithCredential(credential);
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw GoogleSignInFailure(e.code);
-    }
-    catch (_){
+    } catch (_) {
       throw GoogleSignInFailure();
     }
   }
 
-  bool getUserRememberMe(){
+  bool getUserRememberMe() {
     return _userDataCache.isUserRemembered();
   }
 
-  void setUserRememberMe({required bool isRemembered}){
+  void setUserRememberMe({required bool isRemembered}) {
     _userDataCache.setUserRemember(isRemembered);
   }
 
   void saveFireStoreUser(User user) {
     if (user.isAuthenticated) {
-      _fireStore.collection(kUsersCollectionName).doc(user.id)
+      _fireStore
+          .collection(kUsersCollectionName)
+          .doc(user.id)
           .set({kUserNameField: user.name ?? "", kUserEmailField: user.email});
     }
   }
@@ -97,7 +101,11 @@ class AuthRepository {
   Future<bool> isNewAccount(String userId) async {
     bool exists = false;
     try {
-      await _fireStore.collection(kUsersCollectionName).doc(userId).get().then((doc) {
+      await _fireStore
+          .collection(kUsersCollectionName)
+          .doc(userId)
+          .get()
+          .then((doc) {
         exists = doc.exists;
       });
       return exists;
@@ -122,6 +130,7 @@ class AuthRepository {
 
 extension on firebase_auth.User {
   User get toUser {
-    return User(id: uid, email: email, name: displayName, profilePicturePath: photoURL);
+    return User(
+        id: uid, email: email, name: displayName, profilePicturePath: photoURL);
   }
 }

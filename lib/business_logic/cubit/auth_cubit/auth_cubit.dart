@@ -19,39 +19,49 @@ class AuthCubit extends Cubit<AuthState> {
       await _authRepository.logInWithGoogle();
       final user = await _authRepository.user.first;
       final isNewAccount = await _authRepository.isNewAccount(user.id);
-      if(!isNewAccount){
+      if (!isNewAccount) {
         _authRepository.saveFireStoreUser(user);
       }
       emit(const AuthState(status: AuthenticationStatus.googleSignInSuccess));
-    }
-    on GoogleSignInFailure catch(e){
-      emit(AuthState(status: AuthenticationStatus.googleSignInFailure,message: e.message));
-    }
-    catch(error){
-      emit(AuthState(status: AuthenticationStatus.googleSignInFailure,));
+    } on GoogleSignInFailure catch (e) {
+      emit(AuthState(
+          status: AuthenticationStatus.googleSignInFailure,
+          message: e.message));
+    } catch (error) {
+      emit(AuthState(
+        status: AuthenticationStatus.googleSignInFailure,
+      ));
     }
   }
 
-  Future<void> loginWithEmailAndPassword({required String email, required String password}) async {
-    try{
-      await _authRepository.loginWithEmailPassword(email: email, password: password);
+  Future<void> loginWithEmailAndPassword(
+      {required String email, required String password}) async {
+    try {
+      await _authRepository.loginWithEmailPassword(
+          email: email, password: password);
       emit(AuthState(status: AuthenticationStatus.emailLoginSuccess));
-    }
-    on FirebaseAuthFailure catch(exception){
-      emit(AuthState(status: AuthenticationStatus.emailLoginFailure,message: exception.message));
+    } on FirebaseAuthFailure catch (exception) {
+      emit(AuthState(
+          status: AuthenticationStatus.emailLoginFailure,
+          message: exception.message));
     }
   }
 
-
-  Future<void> registerEmailAccount({required String email, required String confirmedPassword,required String username}) async {
-    try{
-      await _authRepository.registerEmailAccount(email: email, confirmedPassword: confirmedPassword);
+  Future<void> registerEmailAccount(
+      {required String email,
+      required String confirmedPassword,
+      required String username}) async {
+    try {
+      await _authRepository.registerEmailAccount(
+          email: email, confirmedPassword: confirmedPassword, name: username);
       final user = await _authRepository.user.first;
+      print(user.copyWith(name: username));
       _authRepository.saveFireStoreUser(user.copyWith(name: username));
       emit(AuthState(status: AuthenticationStatus.emailRegisterSuccess));
-    }
-    on FirebaseAuthFailure catch(exception){
-      emit(AuthState(status: AuthenticationStatus.emailRegisterFailure,message: exception.message));
+    } on FirebaseAuthFailure catch (exception) {
+      emit(AuthState(
+          status: AuthenticationStatus.emailRegisterFailure,
+          message: exception.message));
     }
   }
 
@@ -60,7 +70,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthState(status: AuthenticationStatus.loggedOut));
   }
 
-  void setUserRemember({required bool isRemembered}){
+  void setUserRemember({required bool isRemembered}) {
     _authRepository.setUserRememberMe(isRemembered: isRemembered);
   }
 
@@ -69,5 +79,4 @@ class AuthCubit extends Cubit<AuthState> {
     super.onChange(change);
     debugPrint(change.toString());
   }
-
 }
