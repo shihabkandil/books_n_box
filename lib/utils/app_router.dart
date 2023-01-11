@@ -27,7 +27,7 @@ class AppRouter {
   final GoRouter router = GoRouter(
     routes: [
       GoRoute(
-          path: '/',
+          path: '/home', // /home
           builder: (context, state) => BlocProvider(
                 create: (context) =>
                     AuthCubit(authRepository: context.read<AuthRepository>()),
@@ -54,7 +54,7 @@ class AppRouter {
             }
           }),
       GoRoute(
-          path: '/home',
+          path: '/',
           builder: (context, state) => BlocProvider(
                 create: (context) => NytBestSellersCubit(),
                 child: HomeScreen(),
@@ -62,7 +62,7 @@ class AppRouter {
           routes: [
             GoRoute(
               path: 'settings',
-              builder: (context, state) => const SettingsScreen(),
+              builder: (context, state) =>  SettingsScreen(),
             ),
             GoRoute(
               path: 'book_details',

@@ -50,4 +50,14 @@ class UserDataCache {
     }
     return lang;
   }
+
+  void writeThemePreferences(bool theme) async {
+    SharedPreferences localUserData = await SharedPreferences.getInstance();
+    localUserData.setBool("Theme", theme);
+  }
+
+  readThemePreferences() async {
+    SharedPreferences localUserData = await SharedPreferences.getInstance();
+    return localUserData.getBool("Theme");
+  }
 }
