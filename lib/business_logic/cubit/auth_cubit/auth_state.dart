@@ -9,6 +9,8 @@ enum AuthenticationStatus{
   loggedOut,
   emailRegisterSuccess,
   emailRegisterFailure,
+  profileUpdateSuccess,
+  profileUpdateFailure,
 }
 
 class AuthState extends Equatable {

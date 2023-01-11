@@ -1,4 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mobile_app_project/data/repository/auth_repository.dart';
+import '../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
 import '../widgets/build_text_fieds.dart';
 import '../widgets/profile_buttons.dart';
 import '../widgets/profile_image.dart';
@@ -11,9 +17,17 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   bool showPassword = false;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context);
+    var user = FirebaseAuth.instance.currentUser;
+    //  = repo.currentUser;
 
     return Scaffold(
       appBar: AppBar(
@@ -27,48 +41,102 @@ class _EditProfilePageState extends State<EditProfilePage> {
           onPressed: () {},
         ),
       ),
-      body: Container(
-        color: Theme.of(context).backgroundColor,
-        padding: EdgeInsets.only(left: 16, top: 25, right: 16),
-        child: GestureDetector(
+      body: BlocListener<AuthCubit, AuthState>(
+        listener: (context, state) {
+          // if (state.status == AuthenticationStatus.profileUpdateSuccess) {
+          //   context.go("/home");
+          // } else if (state.status ==
+          //     AuthenticationStatus.profileUpdateFailure) {
+          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          //       content: Text(
+          //           state.message ?? localization.registerError))); //change
+          // } else {
+          //   ScaffoldMessenger.of(context).showSnackBar(
+          //       SnackBar(content: Text(localization.registerFailed))); //change
+          // }
+        },
+        child: Container(
+          color: Theme.of(context).backgroundColor,
+          padding: EdgeInsets.only(left: 16, top: 25, right: 16),
+          child: GestureDetector(
             onTap: () {
               FocusScope.of(context).unfocus();
             },
-            child: ListView(
-              children: [
-                Text(
-                  localization!.editProfile,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).textTheme.bodyMedium!.color),
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                ProfileImage(),
-                SizedBox(
-                  height: 35,
-                ),
-                BuildTextFields(
+            child: Form(
+              key: formKey,
+              child: ListView(
+                children: [
+                  Text(
+                    localization!.editProfile,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).textTheme.bodyMedium!.color),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  ProfileImage(),
+                  SizedBox(
+                    height: 35,
+                  ),
+                  BuildTextFields(
                     labelText: localization.username,
-                    placeholder: "",
-                    isPasswordTextField: false),
-                BuildTextFields(
+                    placeholder: user?.displayName,
+                    controller: nameController,
+                    isPasswordTextField: false,
+                    validator: (input) {
+                      if (input != null) {
+                        if (!RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(input)) {
+                          return localization.invalidEmail;
+                        }
+                      }
+                      return null;
+                    },
+                  ),
+                  BuildTextFields(
                     labelText: localization.emailAddress,
-                    placeholder: "",
-                    isPasswordTextField: false),
-                BuildTextFields(
+                    placeholder: user?.email,
+                    controller: emailController,
+                    isPasswordTextField: false,
+                  ),
+                  BuildTextFields(
                     labelText: localization.password,
-                    placeholder: "",
-                    isPasswordTextField: true),
-                SizedBox(
-                  height: 35,
-                ),
-                ProfileButtons(),
-              ],
-            )),
+                    controller: passwordController,
+                    placeholder: '',
+                    validator: (input) {
+                      if (input != null) {
+                        if (input.length < 8) {
+                          return localization.shortPass;
+                        }
+                      }
+                      return null;
+                    },
+                    isPasswordTextField: true,
+                  ),
+                  BuildTextFields(
+                    labelText: localization.confirmPass,
+                    controller: confirmPasswordController,
+                    placeholder: '',
+                    isPasswordTextField: true,
+                  ),
+                  SizedBox(
+                    height: 35,
+                  ),
+                  ProfileButtons(
+                    formKey: formKey,
+                    confirmPasswordController: confirmPasswordController,
+                    emailController: emailController,
+                    nameController: nameController,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

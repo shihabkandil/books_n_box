@@ -2,27 +2,34 @@ import 'package:flutter/material.dart';
 
 class BuildTextFields extends StatefulWidget {
   BuildTextFields(
-      {this.labelText, this.placeholder, this.isPasswordTextField, super.key});
+      {this.labelText,
+      this.placeholder,
+      this.isPasswordTextField,
+      this.validator,
+      this.controller,
+      super.key});
   final String? labelText;
+  final String? Function(String?)? validator;
   final String? placeholder;
   final bool? isPasswordTextField;
-
+  final TextEditingController? controller;
   @override
   State<BuildTextFields> createState() => _BuildTextFieldsState();
 }
 
 class _BuildTextFieldsState extends State<BuildTextFields> {
-  bool showPassword = false;
+  bool hidePassword = true;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
-      child: TextField(
+      child: TextFormField(
+        validator: widget.validator,
         style: TextStyle(
           color: Theme.of(context).textTheme.bodyMedium?.color,
         ),
-        obscureText: widget.isPasswordTextField! ? showPassword : false,
+        obscureText: widget.isPasswordTextField! ? hidePassword : false,
         decoration: InputDecoration(
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Theme.of(context).primaryColor),
@@ -34,11 +41,11 @@ class _BuildTextFieldsState extends State<BuildTextFields> {
               ? IconButton(
                   onPressed: () {
                     setState(() {
-                      showPassword = !showPassword;
+                      hidePassword = !hidePassword;
                     });
                   },
                   icon: Icon(
-                    showPassword?Icons.visibility:Icons.visibility_off,
+                    hidePassword ? Icons.visibility_off : Icons.visibility,
                     color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 )

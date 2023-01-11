@@ -70,7 +70,11 @@ class AppRouter {
             ),
             GoRoute(
               path: 'profile',
-              builder: (context, state) => EditProfilePage(),
+              builder: (context, state) => BlocProvider(
+                create: (context) =>
+                    AuthCubit(authRepository: context.read<AuthRepository>()),
+                child: EditProfilePage(),
+              ),
             ),
             GoRoute(
               path: 'settings',
