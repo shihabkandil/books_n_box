@@ -19,7 +19,7 @@ class CenterTitle extends StatelessWidget {
           textAlign: TextAlign.center,
           style: GoogleFonts.robotoSlab(
             fontSize: 42,
-            color: Colors.white,
+            color: Theme.of(context).textTheme.bodyMedium?.color,
             fontWeight: FontWeight.bold,
             //fontStyle: FontStyle.italic
           ),

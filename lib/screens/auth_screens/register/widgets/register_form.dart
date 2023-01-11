@@ -67,7 +67,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     },
                     icon: Icon(
                       Icons.person,
-                      color: Colors.white.withOpacity(0.8),
+                      color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.8),
                     ),
                     isHidden: false),
                 SizedBox(
@@ -78,7 +78,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     hintText: localization.enter +  localization.emailAddress,
                     icon: Icon(
                       Icons.email_sharp,
-                      color: Colors.white.withOpacity(0.8),
+                      color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.8),
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -97,7 +97,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 CustomTextField(
                   icon: Icon(
                     Icons.visibility,
-                    color: Colors.white.withOpacity(0.8),
+                    color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.8),
                   ),
                   validator: (value) {
                     _password = value;
@@ -126,7 +126,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   },
                   icon: Icon(
                     Icons.visibility,
-                    color: Colors.white.withOpacity(0.8),
+                    color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.8),
                   ),
                   isHidden: true,
                   hintText: localization.confirmPass,

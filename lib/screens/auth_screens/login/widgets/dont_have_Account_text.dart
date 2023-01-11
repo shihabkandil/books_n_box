@@ -14,7 +14,7 @@ class DontHaveAccountText extends StatelessWidget {
       child: Text(text,
         style: GoogleFonts.cairo(
             fontWeight: FontWeight.bold,
-            color: Colors.grey,
+            color: Theme.of(context).primaryColor,
             fontSize: screenBlockSize.verticalBlockSize * 1.6),
       ),
     );

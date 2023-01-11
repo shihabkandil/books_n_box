@@ -15,21 +15,26 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 List<CameraDescription> cameras = [];
 CameraDescription? firstCamera;
-var appTheme;
+// var appTheme;
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  var theme = await UserDataCache().readThemePreferences();
-  if (theme == null) {
-    theme = true;
-    UserDataCache().writeThemePreferences(theme);
-  }
-  appTheme = theme ? AppColors.lightTheme : AppColors.darkTheme;
-
+  // appTheme = theme ? AppColors.lightTheme : AppColors.darkTheme;
   await Firebase.initializeApp();
   await UserDataCache.init();
   final authRepository = AuthRepository();
   await authRepository.user.first;
+  var theme = await UserDataCache().readThemePreferences();
+  var currentTheme = AppColors.darkTheme;
+  if (theme == null) {
+    theme = true;
+    UserDataCache().writeThemePreferences(theme);
+  }
+  print(theme);
+  if (theme == false) {
+    currentTheme = AppColors.lightTheme;
+  }
+
 
   String lang = UserDataCache().readLanguagePreference();
   FlutterNativeSplash.remove();
@@ -43,22 +48,20 @@ void main() async {
 
   runApp(BooksNBox(
     authRepository: authRepository,
+    currentTheme: currentTheme,
     lang: Locale(lang, ''),
   ));
 }
 
 class BooksNBox extends StatelessWidget {
-  BooksNBox(
-      {Key? key,
-      AppRouter? appRouter,
-      AuthRepository? authRepository,
-      required this.lang})
+  BooksNBox({Key? key, AppRouter? appRouter, AuthRepository? authRepository, required this.currentTheme,required this.lang})
       : _appRouter = appRouter ?? AppRouter(),
         _authRepository = authRepository ?? AuthRepository(),
         super(key: key);
 
   final AppRouter _appRouter;
   final AuthRepository _authRepository;
+  ThemeData currentTheme = AppColors.darkTheme;
   final Locale lang;
   @override
   Widget build(BuildContext context) {
@@ -73,7 +76,7 @@ class BooksNBox extends StatelessWidget {
             create: (context) => LocalizationCubit(lang),
           ),
           BlocProvider<ThemeCubit>(
-            create: (context) => ThemeCubit(appTheme),
+            create: (context) => ThemeCubit(currentTheme),
           ),
         ],
         child: BlocBuilder<LocalizationCubit, LocalizationState>(

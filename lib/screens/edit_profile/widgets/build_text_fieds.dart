@@ -20,7 +20,7 @@ class _BuildTextFieldsState extends State<BuildTextFields> {
       padding: const EdgeInsets.only(bottom: 35.0),
       child: TextField(
         style: TextStyle(
-          color: Colors.white,
+          color: Theme.of(context).textTheme.bodyMedium?.color,
         ),
         obscureText: widget.isPasswordTextField! ? showPassword : false,
         decoration: InputDecoration(
@@ -39,7 +39,7 @@ class _BuildTextFieldsState extends State<BuildTextFields> {
                   },
                   icon: Icon(
                     Icons.remove_red_eye,
-                    color: Colors.white,
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 )
               : null,
@@ -53,7 +53,7 @@ class _BuildTextFieldsState extends State<BuildTextFields> {
           hintStyle: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: Theme.of(context).textTheme.bodyMedium?.color,
           ),
         ),
       ),

@@ -12,8 +12,7 @@ class UserDataCache {
 
   void writeUserDataCachePreferences(User user) async {
     if (isUserRemembered()) {
-      sharedPreferences?.setString(
-          kUserGlobalCacheKey, jsonEncode(user.toJson()));
+      sharedPreferences?.setString(kUserGlobalCacheKey, jsonEncode(user.toJson()));
     }
   }
 
@@ -52,12 +51,10 @@ class UserDataCache {
   }
 
   void writeThemePreferences(bool theme) async {
-    SharedPreferences localUserData = await SharedPreferences.getInstance();
-    localUserData.setBool("Theme", theme);
+    sharedPreferences?.setBool("Theme", theme);
   }
 
   readThemePreferences() async {
-    SharedPreferences localUserData = await SharedPreferences.getInstance();
-    return localUserData.getBool("Theme");
+    return sharedPreferences?.getBool("Theme");
   }
 }

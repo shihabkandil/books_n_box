@@ -17,7 +17,7 @@ class SimilarBooksHeader extends StatelessWidget {
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,
             fontSize: 23,
-            color: Colors.white),
+            color: Theme.of(context).textTheme.bodyMedium?.color),
       ),
     );
   }

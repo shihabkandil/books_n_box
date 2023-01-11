@@ -16,7 +16,7 @@ class HomeBestSellers extends StatelessWidget {
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w400,
             fontSize: 23,
-            color: Colors.white),
+            color: Theme.of(context).textTheme.bodyMedium?.color),
       ),
     );
   }

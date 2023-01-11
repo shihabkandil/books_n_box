@@ -21,7 +21,7 @@ class AppTitle extends StatelessWidget {
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w500,
                 fontSize: 30,
-                color: Colors.white),
+                color: Theme.of(context).textTheme.bodyMedium?.color),
           ),
           Text(
             localization.welcome + " *UserName*",

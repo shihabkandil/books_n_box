@@ -32,7 +32,7 @@ class _AgreeToTermsState extends State<AgreeToTerms> {
           Text(
             localization!.acceptTerms,
             style:
-                TextStyle(fontSize: 12, color: Colors.white.withOpacity(0.8)),
+                TextStyle(fontSize: 12, color: Theme.of(context).textTheme.bodyMedium?.color),
             overflow: TextOverflow.ellipsis,
           )
         ],

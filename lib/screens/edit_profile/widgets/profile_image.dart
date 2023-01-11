@@ -18,7 +18,7 @@ class ProfileImage extends StatelessWidget {
                 BoxShadow(
                     spreadRadius: 2,
                     blurRadius: 10,
-                    color: Colors.white.withOpacity(0.1),
+                    color: Theme.of(context).textTheme.bodyMedium!.color!.withOpacity(0.1),
                     offset: Offset(0, 7))
               ],
               shape: BoxShape.circle,
@@ -46,7 +46,7 @@ class ProfileImage extends StatelessWidget {
               ),
               child: Icon(
                 Icons.edit,
-                color: Colors.white,
+                color: Theme.of(context).textTheme.bodyMedium?.color,
               ),
             ),
           ),
