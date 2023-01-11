@@ -30,7 +30,7 @@ void main() async {
   await UserDataCache.init();
   final authRepository = AuthRepository();
   await authRepository.user.first;
-  
+
   String lang = UserDataCache().readLanguagePreference();
   FlutterNativeSplash.remove();
 
@@ -70,7 +70,7 @@ class BooksNBox extends StatelessWidget {
             create: (context) => AppStatusBloc(authRepository: _authRepository),
           ),
           BlocProvider<LocalizationCubit>(
-            create: (context) => LocalizationCubit(),
+            create: (context) => LocalizationCubit(lang),
           ),
           BlocProvider<ThemeCubit>(
             create: (context) => ThemeCubit(appTheme),
@@ -81,9 +81,7 @@ class BooksNBox extends StatelessWidget {
             return BlocBuilder<ThemeCubit, ThemeState>(
               builder: (context, state2) {
                 return MaterialApp.router(
-                  locale: state.state == LanguageState.Initial
-                      ? lang
-                      : state.locale,
+                  locale: state.locale,
                   localizationsDelegates: [
                     AppLocalizations.delegate,
                     GlobalMaterialLocalizations.delegate,

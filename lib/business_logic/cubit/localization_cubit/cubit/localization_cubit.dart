@@ -5,9 +5,9 @@ import 'package:mobile_app_project/data/repository/user_data_cache.dart';
 part 'localization_state.dart';
 
 class LocalizationCubit extends Cubit<LocalizationState> {
-  LocalizationCubit()
+  LocalizationCubit(Locale defaultLanguage)
       : super(LocalizationState(
-            locale: Locale('en'), state: LanguageState.Initial));
+            locale: defaultLanguage, state: LanguageState.Initial));
 
   changeLanguage(String lang) {
     if (lang == 'عربي') {
