@@ -76,7 +76,7 @@ class AuthCubit extends Cubit<AuthState> {
       String? pass,
       String? email,
       String? imageURL,
-      required String currentPass}) async {
+      required String? currentPass}) async {
     try {
       final user = await FirebaseAuth.instance.currentUser;
       String? message;
@@ -95,14 +95,15 @@ class AuthCubit extends Cubit<AuthState> {
 
       if (pass != null && pass.isNotEmpty) {
         await user.reauthenticateWithCredential(EmailAuthProvider.credential(
-            email: user.email!, password: currentPass));
+            email: user.email!, password: currentPass ?? ''));
         await user.updatePassword(pass);
       }
 
       if (imageURL != null && imageURL.isNotEmpty) {
         await user.updatePhotoURL(imageURL);
       }
-      emit(AuthState(status: AuthenticationStatus.profileUpdateSuccess,message: message));
+      emit(AuthState(
+          status: AuthenticationStatus.profileUpdateSuccess, message: message));
     } on FirebaseAuthFailure catch (exception) {
       emit(AuthState(
           status: AuthenticationStatus.profileUpdateFailure,

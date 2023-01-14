@@ -7,6 +7,7 @@ import 'package:mobile_app_project/business_logic/cubit/nyt_best_sellers_cubit/n
 import 'package:mobile_app_project/screens/auth_screens/register/register_screen.dart';
 import 'package:mobile_app_project/screens/Settings%20Screen/settings_screen.dart';
 import 'package:mobile_app_project/screens/book_details_screen/book_details_screen.dart';
+import 'package:mobile_app_project/screens/edit_profile/widgets/change_password.dart';
 import 'package:mobile_app_project/screens/widgets/display_picture.dart';
 import 'package:mobile_app_project/screens/widgets/take_picture.dart';
 import 'package:mobile_app_project/screens/widgets/text_recognizer_view.dart';
@@ -69,13 +70,22 @@ class AppRouter {
               builder: (context, state) => const BookDetailsScreen(),
             ),
             GoRoute(
-              path: 'profile',
-              builder: (context, state) => BlocProvider(
-                create: (context) =>
-                    AuthCubit(authRepository: context.read<AuthRepository>()),
-                child: EditProfilePage(),
-              ),
-            ),
+                path: 'profile',
+                builder: (context, state) => BlocProvider(
+                      create: (context) => AuthCubit(
+                          authRepository: context.read<AuthRepository>()),
+                      child: EditProfilePage(),
+                    ),
+                routes: [
+                  GoRoute(
+                    path: 'changePassword',
+                    builder: (context, state) => BlocProvider(
+                      create: (context) => AuthCubit(
+                          authRepository: context.read<AuthRepository>()),
+                      child: ChangePasswordScreen(),
+                    ),
+                  )
+                ]),
             GoRoute(
               path: 'settings',
               builder: (context, state) => SettingsScreen(),

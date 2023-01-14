@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile_app_project/data/repository/auth_repository.dart';
 import '../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
 import '../widgets/build_text_fieds.dart';
 import '../widgets/profile_buttons.dart';
@@ -50,7 +48,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Icons.arrow_back,
             color: Theme.of(context).textTheme.bodyMedium!.color,
           ),
-          onPressed: () {},
+          onPressed: () {
+            context.pop();
+          },
         ),
       ),
       body: BlocListener<AuthCubit, AuthState>(
@@ -66,7 +66,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   content:
                       Text(state.message ?? localization.updatingSuccessful)));
             }
-            // context.go("/home");
           } else if (state.status ==
               AuthenticationStatus.profileUpdateFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -86,108 +85,133 @@ class _EditProfilePageState extends State<EditProfilePage> {
             onTap: () {
               FocusScope.of(context).unfocus();
             },
-            child: Form(
-              key: formKey,
-              child: ListView(
-                children: [
-                  Text(
-                    localization!.editProfile,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).textTheme.bodyMedium!.color),
+            child: ListView(
+              children: [
+                Form(
+                  key: formKey,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 0),
+                      child: Column(
+                        children: [
+                          Text(
+                            localization!.editProfile,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .color),
+                          ),
+                          SizedBox(
+                            height: 35,
+                          ),
+                          ProfileImage(),
+                          SizedBox(
+                            height: 45,
+                          ),
+                          BuildTextFields(
+                            labelText: localization.username,
+                            // initialValue: user?.displayName,
+                            controller: nameController,
+                            isPasswordTextField: false,
+                            validator: (input) {
+                              if (input!.isEmpty) {
+                                return localization.emptyUsername;
+                              }
+                              return null;
+                            },
+                          ),
+                          BuildTextFields(
+                            labelText: localization.emailAddress,
+                            initialValue: user.email,
+                            controller: emailController,
+                            isPasswordTextField: false,
+                            validator: (input) {
+                              if (input!.isEmpty) {
+                                emailController.text = user.email!;
+                              } else if (!RegExp(
+                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  .hasMatch(input)) {
+                                return localization.invalidEmail;
+                              }
+                              return null;
+                            },
+                          ),
+                          // BuildTextFields(
+                          //   labelText:
+                          //       localization.current + '' + localization.password,
+                          //   controller: currentPasswordController,
+                          //   placeholder: '',
+                          //   validator: (input) {
+                          //     // _password = input;
+                          //     if (!input!.isEmpty) {
+                          //       if (input.length < 8) {
+                          //         return localization.shortPass;
+                          //       }
+                          //     }
+                          //     return null;
+                          //   },
+                          //   isPasswordTextField: true,
+                          // ),
+                          // BuildTextFields(
+                          //   labelText: localization.nw + ' ' + localization.password,
+                          //   controller: passwordController,
+                          //   placeholder: '',
+                          //   validator: (input) {
+                          //     _password = input;
+                          //     if (!input!.isEmpty) {
+                          //       if (input.length < 8) {
+                          //         return localization.shortPass;
+                          //       }
+                          //     }
+                          //     return null;
+                          //   },
+                          //   isPasswordTextField: true,
+                          // ),
+                          // BuildTextFields(
+                          //   labelText: localization.confirmPass,
+                          //   controller: confirmPasswordController,
+                          //   placeholder: '',
+                          //   validator: (value) {
+                          //     if (value != _password) {
+                          //       return localization.confirmError;
+                          //     }
+                          //     return null;
+                          //   },
+                          //   isPasswordTextField: true,
+                          // ),
+                          TextButton(
+                            onPressed: () {
+                              context.go('/home/profile/changePassword');
+                            },
+                            child: Text(
+                              'Change password?',
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          ProfileButtons(
+                            formKey: formKey,
+                            confirmPasswordController:
+                                confirmPasswordController,
+                            currentPasswordController:
+                                currentPasswordController,
+                            emailController: emailController,
+                            nameController: nameController,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  ProfileImage(),
-                  SizedBox(
-                    height: 35,
-                  ),
-                  BuildTextFields(
-                    labelText: localization.username,
-                    // initialValue: user?.displayName,
-                    controller: nameController,
-                    isPasswordTextField: false,
-                    validator: (input) {
-                      if (input!.isEmpty) {
-                        return localization.emptyUsername;
-                      }
-                      return null;
-                    },
-                  ),
-                  BuildTextFields(
-                    labelText: localization.emailAddress,
-                    initialValue: user.email,
-                    controller: emailController,
-                    isPasswordTextField: false,
-                    validator: (input) {
-                      if (input!.isEmpty) {
-                        emailController.text = user.email!;
-                      } else if (!RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(input)) {
-                        return localization.invalidEmail;
-                      }
-                      return null;
-                    },
-                  ),
-                  BuildTextFields(
-                    labelText:
-                        localization.current + '' + localization.password,
-                    controller: currentPasswordController,
-                    placeholder: '',
-                    validator: (input) {
-                      // _password = input;
-                      if (!input!.isEmpty) {
-                        if (input.length < 8) {
-                          return localization.shortPass;
-                        }
-                      }
-                      return null;
-                    },
-                    isPasswordTextField: true,
-                  ),
-                  BuildTextFields(
-                    labelText: localization.nw + ' ' + localization.password,
-                    controller: passwordController,
-                    placeholder: '',
-                    validator: (input) {
-                      _password = input;
-                      if (!input!.isEmpty) {
-                        if (input.length < 8) {
-                          return localization.shortPass;
-                        }
-                      }
-                      return null;
-                    },
-                    isPasswordTextField: true,
-                  ),
-                  BuildTextFields(
-                    labelText: localization.confirmPass,
-                    controller: confirmPasswordController,
-                    placeholder: '',
-                    validator: (value) {
-                      if (value != _password) {
-                        return localization.confirmError;
-                      }
-                      return null;
-                    },
-                    isPasswordTextField: true,
-                  ),
-                  SizedBox(
-                    height: 35,
-                  ),
-                  ProfileButtons(
-                    formKey: formKey,
-                    confirmPasswordController: confirmPasswordController,
-                    currentPasswordController: currentPasswordController,
-                    emailController: emailController,
-                    nameController: nameController,
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

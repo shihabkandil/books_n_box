@@ -56,7 +56,7 @@
   "current": "الحالية",
   "verifyMail":"يرجى التحقق من بريدك الإلكتروني",
   "updatingFailed":"فشل تحديث ملفك الشخصي",
-  "wrongPassword":"كلمة سر خاطئة",
-  "updatingSuccessful": "نجح تحديث الملف الشخصي"
-
+  "wrongPassword":"كلمة المرور خاطئة",
+  "updatingSuccessful": "نجح تحديث الملف الشخصي",
+  "changePass":"تغيير كلمة المرور"
 }

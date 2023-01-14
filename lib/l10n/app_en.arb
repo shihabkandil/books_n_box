@@ -57,6 +57,7 @@
   "verifyMail":"Please verify your email",
   "updatingFailed":"Failed to update your profile",
   "wrongPassword":"Incorrect password",
-  "updatingSuccessful": "Profile update successful"
+  "updatingSuccessful": "Profile update successful",
+  "changePass":"Change Password"
 
 }

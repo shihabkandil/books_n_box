@@ -7,17 +7,17 @@ import '../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
 
 class ProfileButtons extends StatelessWidget {
   const ProfileButtons(
-      {required this.confirmPasswordController,
-      required this.emailController,
-      required this.nameController,
-      required this.currentPasswordController,
+      {this.confirmPasswordController,
+      this.emailController,
+      this.nameController,
+      this.currentPasswordController,
       required this.formKey,
       super.key});
   final GlobalKey<FormState> formKey;
-  final TextEditingController emailController;
-  final TextEditingController currentPasswordController;
-  final TextEditingController nameController;
-  final TextEditingController confirmPasswordController;
+  final TextEditingController? emailController;
+  final TextEditingController? currentPasswordController;
+  final TextEditingController? nameController;
+  final TextEditingController? confirmPasswordController;
   @override
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context);
@@ -42,10 +42,10 @@ class ProfileButtons extends StatelessWidget {
           onPressed: () {
             if (formKey.currentState!.validate()) {
               BlocProvider.of<AuthCubit>(context).UpdateProfile(
-                currentPass: currentPasswordController.text.trim(),
-                name: nameController.text.trim(),
-                email: emailController.text.trim(),
-                pass: confirmPasswordController.text.trim(),
+                currentPass: currentPasswordController?.text.trim(),
+                name: nameController?.text.trim(),
+                email: emailController?.text.trim(),
+                pass: confirmPasswordController?.text.trim(),
               );
             }
           },
