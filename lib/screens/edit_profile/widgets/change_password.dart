@@ -46,15 +46,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         listener: (context, state) {
           if (state.status == AuthenticationStatus.profileUpdateSuccess) {
             context.go('/home');
-            if (state.message != null) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(
-                      state.message ?? localization.verifyMail))); //verifyMail
-            } else {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content:
-                      Text(state.message ?? localization.updatingSuccessful)));
-            }
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content:
+                    Text(state.message ?? localization.updatingSuccessful)));
           } else if (state.status ==
               AuthenticationStatus.profileUpdateFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -63,8 +57,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           } else if (state.status ==
               AuthenticationStatus.reauthenticationFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                    localization.wrongPassword))); //email or password error
+                content: Text(localization.wrongPassword))); //password error
           }
         },
         child: Container(
@@ -85,82 +78,80 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       color: Theme.of(context).textTheme.bodyMedium!.color),
                 ),
                 Form(
-                    key: formKey,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 75),
-                        child: Column(
-                          children: [
-                            BuildTextFields(
-                              labelText: localization.current +
-                                  '' +
-                                  localization.password,
-                              controller: currentPasswordController,
-                              placeholder: '',
-                              validator: (input) {
-                                // _password = input;
-                                if (!input!.isEmpty) {
-                                  if (input.length < 8) {
-                                    return localization.shortPass;
-                                  }
+                  key: formKey,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 75),
+                      child: Column(
+                        children: [
+                          BuildTextFields(
+                            labelText: localization.current +
+                                '' +
+                                localization.password,
+                            controller: currentPasswordController,
+                            placeholder: '',
+                            validator: (input) {
+                              if (!input!.isEmpty) {
+                                if (input.length < 8) {
+                                  return localization.shortPass;
                                 }
-                                return null;
-                              },
-                              isPasswordTextField: true,
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            BuildTextFields(
-                              labelText: localization.nw +
-                                  ' ' +
-                                  localization.password,
-                              controller: passwordController,
-                              placeholder: '',
-                              validator: (input) {
-                                _password = input;
-                                if (!input!.isEmpty) {
-                                  if (input.length < 8) {
-                                    return localization.shortPass;
-                                  }
+                              }
+                              return null;
+                            },
+                            isPasswordTextField: true,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          BuildTextFields(
+                            labelText:
+                                localization.nw + ' ' + localization.password,
+                            controller: passwordController,
+                            placeholder: '',
+                            validator: (input) {
+                              _password = input;
+                              if (!input!.isEmpty) {
+                                if (input.length < 8) {
+                                  return localization.shortPass;
                                 }
-                                return null;
-                              },
-                              isPasswordTextField: true,
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            BuildTextFields(
-                              labelText: localization.confirmPass,
-                              controller: confirmPasswordController,
-                              placeholder: '',
-                              validator: (value) {
-                                if (value != _password) {
-                                  return localization.confirmError;
-                                }
-                                return null;
-                              },
-                              isPasswordTextField: true,
-                            ),
-                            ProfileButtons(
-                              formKey: formKey,
-                              confirmPasswordController:
-                                  confirmPasswordController,
-                              currentPasswordController:
-                                  currentPasswordController,
-                            ),
-                          ],
-                        ),
+                              }
+                              return null;
+                            },
+                            isPasswordTextField: true,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          BuildTextFields(
+                            labelText: localization.confirmPass,
+                            controller: confirmPasswordController,
+                            placeholder: '',
+                            validator: (value) {
+                              if (value != _password) {
+                                return localization.confirmError;
+                              }
+                              return null;
+                            },
+                            isPasswordTextField: true,
+                          ),
+                          ProfileButtons(
+                            formKey: formKey,
+                            confirmPasswordController:
+                                confirmPasswordController,
+                            currentPasswordController:
+                                currentPasswordController,
+                          ),
+                        ],
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
     );
-    ;
   }
 }

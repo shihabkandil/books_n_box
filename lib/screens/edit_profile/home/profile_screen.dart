@@ -17,12 +17,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   bool showPassword = false;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController currentPasswordController =
-      TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-  String? _password;
+
+  // String? _password;
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -71,11 +67,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(state.message ??
                     localization.updatingFailed))); //errorupdating
-          } else if (state.status ==
-              AuthenticationStatus.reauthenticationFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                    localization.wrongPassword))); //email or password error
           }
         },
         child: Container(
@@ -115,7 +106,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           ),
                           BuildTextFields(
                             labelText: localization.username,
-                            // initialValue: user?.displayName,
                             controller: nameController,
                             isPasswordTextField: false,
                             validator: (input) {
@@ -141,49 +131,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               return null;
                             },
                           ),
-                          // BuildTextFields(
-                          //   labelText:
-                          //       localization.current + '' + localization.password,
-                          //   controller: currentPasswordController,
-                          //   placeholder: '',
-                          //   validator: (input) {
-                          //     // _password = input;
-                          //     if (!input!.isEmpty) {
-                          //       if (input.length < 8) {
-                          //         return localization.shortPass;
-                          //       }
-                          //     }
-                          //     return null;
-                          //   },
-                          //   isPasswordTextField: true,
-                          // ),
-                          // BuildTextFields(
-                          //   labelText: localization.nw + ' ' + localization.password,
-                          //   controller: passwordController,
-                          //   placeholder: '',
-                          //   validator: (input) {
-                          //     _password = input;
-                          //     if (!input!.isEmpty) {
-                          //       if (input.length < 8) {
-                          //         return localization.shortPass;
-                          //       }
-                          //     }
-                          //     return null;
-                          //   },
-                          //   isPasswordTextField: true,
-                          // ),
-                          // BuildTextFields(
-                          //   labelText: localization.confirmPass,
-                          //   controller: confirmPasswordController,
-                          //   placeholder: '',
-                          //   validator: (value) {
-                          //     if (value != _password) {
-                          //       return localization.confirmError;
-                          //     }
-                          //     return null;
-                          //   },
-                          //   isPasswordTextField: true,
-                          // ),
                           TextButton(
                             onPressed: () {
                               context.go('/home/profile/changePassword');
@@ -199,10 +146,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           ),
                           ProfileButtons(
                             formKey: formKey,
-                            confirmPasswordController:
-                                confirmPasswordController,
-                            currentPasswordController:
-                                currentPasswordController,
                             emailController: emailController,
                             nameController: nameController,
                           ),
