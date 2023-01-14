@@ -59,7 +59,7 @@ class ProfileButtons extends StatelessWidget {
             style: TextStyle(
                 fontSize: 14,
                 letterSpacing: 2.2,
-                color: Theme.of(context).textTheme.bodyMedium?.color),
+                color: Colors.white),
           ),
         )
       ],
