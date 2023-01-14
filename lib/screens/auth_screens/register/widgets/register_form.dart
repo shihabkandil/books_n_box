@@ -23,6 +23,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final _emailFocusNode = FocusNode();
   final _confirmPasswordFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
+  
   String? _password;
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
@@ -83,7 +84,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       Icons.email_sharp,
                       color: iconColor,
                     ),
-                    validator: (value) {
+                    validator: (value) {  
                       if (value!.isEmpty) {
                         return localization.emptyEmail;
                       } else if (!RegExp(

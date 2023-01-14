@@ -20,6 +20,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController currentPasswordController =
+      TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
   String? _password;
@@ -28,6 +30,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context);
     var user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      context.go("/home");
+    }
+
+    nameController.text = user!.displayName ?? '';
+    emailController.text = user.email ?? '';
+    // passwordController.text = user.pas ?? '';
+
     //  = repo.currentUser;
     // user.uid
     print(user.toString());
@@ -45,17 +55,29 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
       body: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
-          // if (state.status == AuthenticationStatus.profileUpdateSuccess) {
-          //   context.go("/home");
-          // } else if (state.status ==
-          //     AuthenticationStatus.profileUpdateFailure) {
-          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          //       content: Text(
-          //           state.message ?? localization.registerError))); //change
-          // } else {
-          //   ScaffoldMessenger.of(context).showSnackBar(
-          //       SnackBar(content: Text(localization.registerFailed))); //change
-          // }
+          if (state.status == AuthenticationStatus.profileUpdateSuccess) {
+            context.go('/home');
+            if (state.message != null) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                      state.message ?? localization.verifyMail))); //verifyMail
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content:
+                      Text(state.message ?? localization.updatingSuccessful)));
+            }
+            // context.go("/home");
+          } else if (state.status ==
+              AuthenticationStatus.profileUpdateFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(state.message ??
+                    localization.updatingFailed))); //errorupdating
+          } else if (state.status ==
+              AuthenticationStatus.reauthenticationFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                    localization.wrongPassword))); //email or password error
+          }
         },
         child: Container(
           color: Theme.of(context).backgroundColor,
@@ -85,7 +107,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                   BuildTextFields(
                     labelText: localization.username,
-                    initialValue: user?.displayName,
+                    // initialValue: user?.displayName,
                     controller: nameController,
                     isPasswordTextField: false,
                     validator: (input) {
@@ -97,7 +119,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                   BuildTextFields(
                     labelText: localization.emailAddress,
-                    initialValue: user!.email,
+                    initialValue: user.email,
                     controller: emailController,
                     isPasswordTextField: false,
                     validator: (input) {
@@ -110,6 +132,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       }
                       return null;
                     },
+                  ),
+                  BuildTextFields(
+                    labelText:
+                        localization.current + '' + localization.password,
+                    controller: currentPasswordController,
+                    placeholder: '',
+                    validator: (input) {
+                      // _password = input;
+                      if (!input!.isEmpty) {
+                        if (input.length < 8) {
+                          return localization.shortPass;
+                        }
+                      }
+                      return null;
+                    },
+                    isPasswordTextField: true,
                   ),
                   BuildTextFields(
                     labelText: localization.nw + ' ' + localization.password,
@@ -144,6 +182,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ProfileButtons(
                     formKey: formKey,
                     confirmPasswordController: confirmPasswordController,
+                    currentPasswordController: currentPasswordController,
                     emailController: emailController,
                     nameController: nameController,
                   ),

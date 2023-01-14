@@ -1,6 +1,6 @@
 part of 'auth_cubit.dart';
 
-enum AuthenticationStatus{
+enum AuthenticationStatus {
   initialState,
   googleSignInSuccess,
   googleSignInFailure,
@@ -11,13 +11,16 @@ enum AuthenticationStatus{
   emailRegisterFailure,
   profileUpdateSuccess,
   profileUpdateFailure,
+  reauthenticationFailure,
+  verifyMail
 }
 
 class AuthState extends Equatable {
-  const AuthState({required this.status,this.message,this.user = User.empty});
+  const AuthState(
+      {required this.status, this.message, this.user = User.User.empty});
   final AuthenticationStatus status;
   final String? message;
-  final User user;
+  final User.User user;
   @override
   List<Object> get props => [status];
 }

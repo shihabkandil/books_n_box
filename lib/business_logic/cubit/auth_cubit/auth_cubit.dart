@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/models/user.dart';
+import '../../../data/models/user.dart' as User;
 import '../../../data/repository/auth_repository.dart';
 import '../../../helper/exceptions.dart';
 part 'auth_state.dart';
@@ -68,6 +69,49 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> logOut() async {
     await _authRepository.logOut();
     emit(AuthState(status: AuthenticationStatus.loggedOut));
+  }
+
+  Future<void> UpdateProfile(
+      {String? name,
+      String? pass,
+      String? email,
+      String? imageURL,
+      required String currentPass}) async {
+    try {
+      final user = await FirebaseAuth.instance.currentUser;
+      String? message;
+      if (user == null) {
+        throw FirebaseAuthFailure;
+      }
+      // print(name);
+      if (name != null && name.isNotEmpty) {
+        await user.updateDisplayName(name);
+      }
+
+      if (email != null && email.isNotEmpty && email != user.email) {
+        await user.verifyBeforeUpdateEmail(email);
+        // await user.updateEmail(email);
+      }
+
+      if (pass != null && pass.isNotEmpty) {
+        await user.reauthenticateWithCredential(EmailAuthProvider.credential(
+            email: user.email!, password: currentPass));
+        await user.updatePassword(pass);
+      }
+
+      if (imageURL != null && imageURL.isNotEmpty) {
+        await user.updatePhotoURL(imageURL);
+      }
+      emit(AuthState(status: AuthenticationStatus.profileUpdateSuccess,message: message));
+    } on FirebaseAuthFailure catch (exception) {
+      emit(AuthState(
+          status: AuthenticationStatus.profileUpdateFailure,
+          message: exception.message));
+    } on FirebaseAuthException catch (ex) {
+      emit(AuthState(
+          status: AuthenticationStatus.reauthenticationFailure,
+          message: ex.message));
+    }
   }
 
   void setUserRemember({required bool isRemembered}) {

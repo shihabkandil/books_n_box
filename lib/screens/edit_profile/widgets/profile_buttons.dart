@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
 
@@ -9,10 +10,12 @@ class ProfileButtons extends StatelessWidget {
       {required this.confirmPasswordController,
       required this.emailController,
       required this.nameController,
+      required this.currentPasswordController,
       required this.formKey,
       super.key});
-  final formKey;
+  final GlobalKey<FormState> formKey;
   final TextEditingController emailController;
+  final TextEditingController currentPasswordController;
   final TextEditingController nameController;
   final TextEditingController confirmPasswordController;
   @override
@@ -26,7 +29,9 @@ class ProfileButtons extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 50),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          onPressed: () {},
+          onPressed: () {
+            context.go('/home');
+          },
           child: Text(localization!.cancel,
               style: TextStyle(
                   fontSize: 14,
@@ -36,10 +41,12 @@ class ProfileButtons extends StatelessWidget {
         MaterialButton(
           onPressed: () {
             if (formKey.currentState!.validate()) {
-              BlocProvider.of<AuthCubit>(context).registerEmailAccount(
-                  username: nameController.text.trim(),
-                  email: emailController.text.trim(),
-                  confirmedPassword: confirmPasswordController.text);
+              BlocProvider.of<AuthCubit>(context).UpdateProfile(
+                currentPass: currentPasswordController.text.trim(),
+                name: nameController.text.trim(),
+                email: emailController.text.trim(),
+                pass: confirmPasswordController.text.trim(),
+              );
             }
           },
           color: Theme.of(context).primaryColor,

@@ -52,6 +52,11 @@
   "scifi": "Sci-Fi",
   "romance": "Romance",
   "selfhelp": "Self-help",
-  "nw":"New"
+  "nw":"New",
+  "current": "Current",
+  "verifyMail":"Please verify your email",
+  "updatingFailed":"Failed to update your profile",
+  "wrongPassword":"Incorrect password",
+  "updatingSuccessful": "Profile update successful"
 
 }
