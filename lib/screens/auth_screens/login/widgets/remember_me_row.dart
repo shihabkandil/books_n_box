@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_app_project/utils/screen_block_size.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -53,12 +54,17 @@ class _RememberMeRowState extends State<RememberMeRow> {
             ),
           ],
         ),
-        Text(
-          localization.forgotPass,
-          style: GoogleFonts.cairo(
-              fontWeight: FontWeight.bold,
-              color: Colors.grey,
-              fontSize: widget.sizingConfig.verticalBlockSize * 1.6),
+        InkWell(
+          onTap: () {
+            context.go('/reset_password');
+          },
+          child: Text(
+            localization.forgotPass,
+            style: GoogleFonts.cairo(
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
+                fontSize: widget.sizingConfig.verticalBlockSize * 1.6),
+          ),
         ),
       ],
     );

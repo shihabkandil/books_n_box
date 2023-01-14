@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
-import '../widgets/build_text_fieds.dart';
-import '../widgets/profile_buttons.dart';
-import '../widgets/profile_image.dart';
+import 'widgets/build_text_fieds.dart';
+import 'widgets/profile_buttons.dart';
+import 'widgets/profile_image.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditProfilePage extends StatefulWidget {

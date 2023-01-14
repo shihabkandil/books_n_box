@@ -7,8 +7,8 @@ import '../../../utils/enums/books_data_status_enum.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../widgets/book_card.dart';
 
-class HomeScreenCarousel extends StatelessWidget {
-  const HomeScreenCarousel({super.key});
+class BestSellersCarousel extends StatelessWidget {
+  const BestSellersCarousel({super.key});
 
   @override
   Widget build(BuildContext context) {

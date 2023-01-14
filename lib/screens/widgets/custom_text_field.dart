@@ -8,7 +8,7 @@ class CustomTextField extends StatefulWidget {
   bool? isHidden;
   final TextEditingController? controller;
   final FocusNode? focusNode;
-  final Function(String?)? onSubmitted;
+  final Function(String?)? onSaved;
   final String? Function(String?)? validator;
 
   CustomTextField(
@@ -18,7 +18,7 @@ class CustomTextField extends StatefulWidget {
       this.password,
       this.icon,
       this.isHidden,
-      this.onSubmitted,
+      this.onSaved,
       this.controller,
       Key? key})
       : super(key: key);
@@ -34,6 +34,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return SizedBox(
       width: 300,
       child: TextFormField(
+        onSaved: widget.onSaved,
         validator: widget.validator,
         focusNode: widget.focusNode,
         //onSubmitted: onSubmitted,

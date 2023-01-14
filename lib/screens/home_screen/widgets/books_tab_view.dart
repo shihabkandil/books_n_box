@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../business_logic/cubit/google_books_cubit/google_books_cubit.dart';
+import 'package:mobile_app_project/utils/enums/books_data_status_enum.dart';
 import '../../widgets/books_details.dart';
 import '../../widgets/tab_view.dart';
 
 class BooksTabsView extends StatefulWidget {
   BooksTabsView({super.key, required this.tabController});
-  List<String?> books = [null, null, null, null];
   final TabController tabController;
   Duration sleep = Duration(milliseconds: 5);
   @override
@@ -14,39 +16,39 @@ class BooksTabsView extends StatefulWidget {
 }
 
 class _BooksTabsViewState extends State<BooksTabsView> {
-  var books = {'fantasy': [], 'romance': [], 'science+fiction': [], 'self+help': []};
-  void indexName() async {
-    List<String> GenreName = ['fantasy', 'science+fiction', 'romance', 'self+help'];
-    books['fantasy'] = await GoogleApi().gbsApiCall(GenreName[0]);
-    sleep(widget.sleep);
-    books['romance'] = await GoogleApi().gbsApiCall(GenreName[1]);
-    sleep(widget.sleep);
-    books['science+fiction'] = await GoogleApi().gbsApiCall(GenreName[2]);
-    sleep(widget.sleep);
-    books['self+help'] = await GoogleApi().gbsApiCall(GenreName[3]);
-    setState(() {
-    });
-  }
+
+  Map<String, List> currentBookStates = {"fantasy": [], "romance": [], "science+fiction": [], "self+help": []};
 
   @override
   void initState() {
     super.initState();
-    indexName();
+    BlocProvider.of<GoogleBooksCubit>(context).genreBookresults();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 700 / MediaQuery.of(context).devicePixelRatio,
-      child: TabBarView(
-        controller: widget.tabController,
-        children: <Widget>[
-          BooksTab(books: books['fantasy']!),
-          BooksTab(books: books['romance']!),
-          BooksTab(books: books['science+fiction']!),
-          BooksTab(books: books['self+help']!),
-        ],
-      ),
+    return BlocBuilder<GoogleBooksCubit, GoogleBooksState>(
+      builder: (context, state) {
+        if (state.status == BooksDataStatus.booksLoaded) {
+          currentBookStates = state.genreBooks!;
+          // print('books loaded with information');
+        } else {
+          currentBookStates = {"fantasy": [], "romance": [], "science+fiction": [], "self+help": []};
+          // print('empty books loaded');
+        }
+        return Container(
+          height: 700 / MediaQuery.of(context).devicePixelRatio,
+          child: TabBarView(
+            controller: widget.tabController,
+            children: <Widget>[
+              BooksTab(books: currentBookStates['fantasy']!),
+              BooksTab(books: currentBookStates['romance']!),
+              BooksTab(books: currentBookStates['science+fiction']!),
+              BooksTab(books: currentBookStates['self+help']!),
+            ],
+          ),
+        );
+      },
     );
   }
 }

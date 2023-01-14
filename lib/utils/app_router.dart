@@ -15,8 +15,9 @@ import '../business_logic/bloc/app_status_bloc/app_status_bloc.dart';
 import '../business_logic/cubit/auth_cubit/auth_cubit.dart';
 import '../data/repository/auth_repository.dart';
 import '../screens/auth_screens/login/login_screen.dart';
-import '../screens/edit_profile/home/profile_screen.dart';
-import '../screens/home_screen/home/home_screen.dart';
+import '../screens/auth_screens/reset_password/reset_password_screen.dart';
+import '../screens/edit_profile/profile_screen.dart';
+import '../screens/home_screen/home_screen.dart';
 import '../screens/widgets/search_with_text.dart';
 
 /// To navigate use
@@ -41,6 +42,14 @@ class AppRouter {
                 create: (context) =>
                     AuthCubit(authRepository: context.read<AuthRepository>()),
                 child: RegisterScreen(),
+              ),
+            ),
+            GoRoute(
+              path: 'reset_password',
+              builder: (context, state) => BlocProvider(
+                create: (context) =>
+                    AuthCubit(authRepository: context.read<AuthRepository>()),
+                child: ResetPasswordScreen(),
               ),
             ),
           ],
@@ -86,10 +95,6 @@ class AppRouter {
                     ),
                   )
                 ]),
-            GoRoute(
-              path: 'settings',
-              builder: (context, state) => SettingsScreen(),
-            ),
             GoRoute(
                 path: 'takePicture',
                 builder: (context, state) => BlocProvider(

@@ -114,6 +114,15 @@ class AuthRepository {
     }
   }
 
+  Future<void> resetUserPasswordWithEmail(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    }
+    catch (error){
+      rethrow;
+    }
+  }
+
   Future<void> logOut() async {
     try {
       _userDataCache.writeUserDataCachePreferences(User.empty);

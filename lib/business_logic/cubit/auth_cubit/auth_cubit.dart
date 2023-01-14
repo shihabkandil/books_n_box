@@ -119,6 +119,21 @@ class AuthCubit extends Cubit<AuthState> {
     _authRepository.setUserRememberMe(isRemembered: isRemembered);
   }
 
+  Future<void> resetPassword({String? email}) async {
+    if(email != null && email.isNotEmpty){
+      try {
+        await _authRepository.resetUserPasswordWithEmail(email);
+        emit(AuthState(status: AuthenticationStatus.resetEmailSentSuccessfully));
+      }
+      catch(error){
+        emit(AuthState(status: AuthenticationStatus.resetEmailSendFailed));
+      }
+    }
+    else{
+      emit(AuthState(status: AuthenticationStatus.resetEmailNotValid));
+    }
+  }
+
   @override
   void onChange(Change<AuthState> change) {
     super.onChange(change);
