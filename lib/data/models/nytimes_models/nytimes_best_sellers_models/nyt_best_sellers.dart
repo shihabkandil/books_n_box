@@ -16,8 +16,8 @@ class NytBestSellers {
     status = json['status'];
     copyright = json['copyright'];
     numResults = json['num_results'];
-    print("---------------------------------------------------------------------------------------------------------------");
-    print(json['results']);
+    // print("---------------------------------------------------------------------------------------------------------------");
+    // print(json['results']);
     results = json['results'] != null ? Results.fromJson(json['results']) : null;
   }
 
