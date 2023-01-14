@@ -12,8 +12,8 @@ import '../screens/auth_screens/login/login_screen.dart';
 import '../screens/auth_screens/register/register_screen.dart';
 import '../screens/auth_screens/reset_password/reset_password_screen.dart';
 import '../screens/book_details_screen/book_details_screen.dart';
-import '../screens/edit_profile/home/profile_screen.dart';
-import '../screens/home_screen/home/home_screen.dart';
+import '../screens/edit_profile/profile_screen.dart';
+import '../screens/home_screen/home_screen.dart';
 import '../screens/widgets/display_picture.dart';
 import '../screens/widgets/search_with_text.dart';
 import '../screens/widgets/take_picture.dart';
@@ -80,10 +80,6 @@ class AppRouter {
             GoRoute(
               path: 'profile',
               builder: (context, state) => EditProfilePage(),
-            ),
-            GoRoute(
-              path: 'settings',
-              builder: (context, state) => SettingsScreen(),
             ),
             GoRoute(
                 path: 'takePicture',
