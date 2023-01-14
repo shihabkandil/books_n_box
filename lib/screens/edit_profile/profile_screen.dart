@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../widgets/build_text_fieds.dart';
-import '../widgets/profile_buttons.dart';
-import '../widgets/profile_image.dart';
+import 'widgets/build_text_fieds.dart';
+import 'widgets/profile_buttons.dart';
+import 'widgets/profile_image.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditProfilePage extends StatefulWidget {
