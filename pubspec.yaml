@@ -68,6 +68,7 @@ dependencies:
   flutter_localizations:
       sdk: flutter
   intl: ^0.17.0
+  firebase_messaging: ^14.2.1
   
  
   
