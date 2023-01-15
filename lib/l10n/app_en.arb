@@ -54,5 +54,6 @@
   "selfhelp": "Self-help",
   "reset_password": "Reset Password",
   "reset_password_instructions": "You will receive an email with instructions to change your password",
-  "problem_sending_email" : "Problem sending email"
+  "problem_sending_email" : "Problem sending email",
+  "myshelf" : "My Shelf"
 }
