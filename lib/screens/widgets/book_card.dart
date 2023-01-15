@@ -8,12 +8,11 @@ import '../../business_logic/cubit/bookmarks_cubit/bookmarks_cubit.dart';
 import '../../data/models/google_books/google_book.dart';
 
 class BookCard extends StatelessWidget {
-  
-
   BookCard({
     Key? key,
     this.book,
-    this.imageUrl, required this.hasBookmarkButton,
+    this.imageUrl,
+    required this.hasBookmarkButton,
   }) : super(key: key);
 
   String? imageUrl;
@@ -62,8 +61,22 @@ class BookCard extends StatelessWidget {
                       ),
                     ),
             ),
-            if(hasBookmarkButton)
-              Positioned(left: 63, bottom: -9, child: BookmarkButton(onPressed: ()=>BlocProvider.of<BookmarksCubit>(context).recordBookMark(book),bookId: book?.id,)),
+            if (hasBookmarkButton)
+              Positioned(
+                  left: 63,
+                  bottom: -9,
+                  child: BookmarkButton(
+                    bookId: book?.id,
+                    onChange: (value) {
+                      if (value) {
+                        BlocProvider.of<BookmarksCubit>(context)
+                            .recordBookMark(book);
+                      } else {
+                        BlocProvider.of<BookmarksCubit>(context)
+                            .deleteBookMark(book?.id);
+                      }
+                    },
+                  )),
           ],
         ),
       ),

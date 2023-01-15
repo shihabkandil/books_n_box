@@ -33,31 +33,33 @@ class BookmarksCubit extends Cubit<BookmarksState> {
     }
   }
 
-  void deleteBookMark(String bookID) async {
-    try {
-      await _bookmarksRepository.deleteMyBookMark(bookID);
-      _bookmarkedBooksIds.remove(bookID);
-      emit(BookmarksState(status: BookmarkStatus.notBookmarked));
-    } on SocketException {
-      emit(BookmarksState(status: BookmarkStatus.noInternetConnection));
-    } catch (error) {
+  void deleteBookMark(String? bookID) async {
+    if (bookID == null) {
       emit(BookmarksState(status: BookmarkStatus.bookmarkFailed));
+    } else {
+      try {
+        await _bookmarksRepository.deleteMyBookMark(bookID);
+        _bookmarkedBooksIds.remove(bookID);
+        emit(BookmarksState(status: BookmarkStatus.notBookmarked));
+      } on SocketException {
+        emit(BookmarksState(status: BookmarkStatus.noInternetConnection));
+      } catch (error) {
+        emit(BookmarksState(status: BookmarkStatus.bookmarkFailed));
+      }
     }
   }
 
-  bool IsBookBookmarked(String? id){
-    if(id == null)
-      return false;
+  bool IsBookBookmarked(String? id) {
+    if (id == null) return false;
 
-     return  _bookmarkedBooksIds.contains(id);
+    return _bookmarkedBooksIds.contains(id);
   }
 
-    @override
+  @override
   void onChange(Change<BookmarksState> change) {
     super.onChange(change);
     if (kDebugMode) {
       debugPrint(change.toString());
     }
   }
-  
 }
