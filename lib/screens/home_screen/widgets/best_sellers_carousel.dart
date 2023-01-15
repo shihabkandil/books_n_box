@@ -18,7 +18,7 @@ class BestSellersCarousel extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 30),
       child: BlocBuilder<NytBestSellersCubit, NytBestSellersState>(
         builder: (context, state) {
-          if (state.status == BooksDataStatus.initialState) {
+          if (state.status == BooksDataStatus.loadingState) {
             return CircularProgressIndicator(
               color: Theme.of(context).primaryColor,
             );
@@ -29,7 +29,7 @@ class BestSellersCarousel extends StatelessWidget {
               itemBuilder: (BuildContext context, bookIndex, __) {
                 BestSellerBook bestSellerBook =
                     state.books!.elementAt(bookIndex);
-                return BookCard(imageUrl: bestSellerBook.bookImage);
+                return BookCard(imageUrl: bestSellerBook.bookImage,hasBookmarkButton: false,);
               },
               options: CarouselOptions(
                 height: 1200 / MediaQuery.of(context).devicePixelRatio,

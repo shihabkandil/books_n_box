@@ -1,29 +1,27 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_app_project/business_logic/cubit/bookmarks_cubit/bookmarks_cubit.dart';
 import '../../../business_logic/cubit/google_books_cubit/google_books_cubit.dart';
 import 'package:mobile_app_project/utils/enums/books_data_status_enum.dart';
-import '../../widgets/books_details.dart';
 import '../../widgets/tab_view.dart';
 
 class BooksTabsView extends StatefulWidget {
   BooksTabsView({super.key, required this.tabController});
   final TabController tabController;
-  Duration sleep = Duration(milliseconds: 5);
+
   @override
   State<BooksTabsView> createState() => _BooksTabsViewState();
 }
 
 class _BooksTabsViewState extends State<BooksTabsView> {
+  Duration sleep = Duration(milliseconds: 5);
 
-  Map<String, List> currentBookStates = {"fantasy": [], "romance": [], "science+fiction": [], "self+help": []};
-
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<GoogleBooksCubit>(context).genreBookresults();
-  }
+  Map<String, List> currentBookStates = {
+    "fantasy": [],
+    "romance": [],
+    "science+fiction": [],
+    "self+help": []
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -31,24 +29,32 @@ class _BooksTabsViewState extends State<BooksTabsView> {
       builder: (context, state) {
         if (state.status == BooksDataStatus.booksLoaded) {
           currentBookStates = state.genreBooks!;
-          // print('books loaded with information');
-        } else {
-          currentBookStates = {"fantasy": [], "romance": [], "science+fiction": [], "self+help": []};
-          // print('empty books loaded');
+          return Container(
+            height: 700 / MediaQuery.of(context).devicePixelRatio,
+            child: BlocProvider(
+              create: (context) => BookmarksCubit(),
+              child: TabBarView(
+                  controller: widget.tabController,
+                  children: <Widget>[
+                    BooksTab(books: currentBookStates['fantasy']!),
+                    BooksTab(books: currentBookStates['science+fiction']!),
+                    BooksTab(books: currentBookStates['romance']!),
+                    BooksTab(books: currentBookStates['self+help']!),
+                  ],
+                )
+               ));
+              }
+         else if(state.status == BooksDataStatus.loadingState){
+          return Center(child: CircularProgressIndicator(),);
+        }else{
+          return Center(child: Text("Books Not Retrieved !!"),);
         }
-        return Container(
-          height: 700 / MediaQuery.of(context).devicePixelRatio,
-          child: TabBarView(
-            controller: widget.tabController,
-            children: <Widget>[
-              BooksTab(books: currentBookStates['fantasy']!),
-              BooksTab(books: currentBookStates['romance']!),
-              BooksTab(books: currentBookStates['science+fiction']!),
-              BooksTab(books: currentBookStates['self+help']!),
-            ],
-          ),
-        );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

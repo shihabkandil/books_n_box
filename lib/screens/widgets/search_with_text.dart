@@ -18,7 +18,7 @@ class SearchWithText extends StatelessWidget {
 
       body: BlocBuilder<GoogleBooksCubit , GoogleBooksState>(
         builder:(context, state) {
-          if(state.status == BooksDataStatus.initialState){
+          if(state.status == BooksDataStatus.loadingState){
             return Center(child: CircularProgressIndicator());
           }else if(state.status == BooksDataStatus.booksLoaded){
             return ListView.separated(

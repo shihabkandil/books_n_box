@@ -29,41 +29,39 @@ class AppRouter {
   final GoRouter router = GoRouter(
     routes: [
       GoRoute(
-        path: '/', // /home
-        builder: (context, state) => BlocProvider(
-          create: (context) =>
-              AuthCubit(authRepository: context.read<AuthRepository>()),
-          child: LoginScreen(),
-        ),
-        routes: [
-          GoRoute(
-            path: 'register',
-            builder: (context, state) => BlocProvider(
-              create: (context) =>
-                  AuthCubit(authRepository: context.read<AuthRepository>()),
-              child: RegisterScreen(),
+          path: '/', // /home
+          builder: (context, state) => BlocProvider(
+                create: (context) =>
+                    AuthCubit(authRepository: context.read<AuthRepository>()),
+                child: LoginScreen(),
+              ),
+          routes: [
+            GoRoute(
+              path: 'register',
+              builder: (context, state) => BlocProvider(
+                create: (context) =>
+                    AuthCubit(authRepository: context.read<AuthRepository>()),
+                child: RegisterScreen(),
+              ),
             ),
-          ),
-          GoRoute(
-            path: 'reset_password',
-            builder: (context, state) => BlocProvider(
-              create: (context) =>
-                  AuthCubit(authRepository: context.read<AuthRepository>()),
-              child: ResetPasswordScreen(),
+            GoRoute(
+              path: 'reset_password',
+              builder: (context, state) => BlocProvider(
+                create: (context) =>
+                    AuthCubit(authRepository: context.read<AuthRepository>()),
+                child: ResetPasswordScreen(),
+              ),
             ),
-          ),
-        ],
-        redirect: (context, state) {
-          final appStatus =
-              BlocProvider.of<AppStatusBloc>(context).state.status;
-          if (appStatus == AppStatus.authenticated &&
-              context.read<AuthRepository>().getUserRememberMe()) {
-            return '/home';
-          } else {
-            return null;
-          }
-        },
-      ),
+          ],
+          redirect: (context, state) {
+            final appStatus =
+                BlocProvider.of<AppStatusBloc>(context).state.status;
+            if (appStatus == AppStatus.authenticated) {
+              return '/home';
+            } else {
+              return null;
+            }
+          }),
       GoRoute(
           path: '/home',
           builder: (context, state) => BlocProvider(

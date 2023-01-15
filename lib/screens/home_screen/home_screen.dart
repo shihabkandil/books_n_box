@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           AppHeader(),
           HomeCatigoriesTitles(tabcontroller: _tabController),
           BlocProvider(
-            create: (context) => GoogleBooksCubit(),
+            create: (context) => GoogleBooksCubit()..genreBookresults(),
             child: BooksTabsView(tabController: _tabController),
           ),
           BestSellersTitle(),

@@ -73,7 +73,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       Icons.person,
                       color: iconColor,
                     ),
-                    isHidden: false),
+                    isPassword: false),
                 SizedBox(
                   height: sizeConfig.verticalBlockSize,
                 ),
@@ -94,7 +94,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       }
                       return null;
                     },
-                    isHidden: false),
+                    isPassword: false),
                 SizedBox(
                   height: sizeConfig.verticalBlockSize,
                 ),
@@ -112,8 +112,10 @@ class _RegisterFormState extends State<RegisterForm> {
                     }
                     return null;
                   },
-                  isHidden: true,
-                  hintText: localization.enter + localization.password,
+
+                  isPassword: true,
+                  hintText: localization.enter +  localization.password,
+
                 ),
                 SizedBox(
                   height: sizeConfig.verticalBlockSize,
@@ -132,7 +134,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     Icons.visibility,
                     color: iconColor,
                   ),
-                  isHidden: true,
+                  isPassword: true,
                   hintText: localization.confirmPass,
                 ),
                 SizedBox(
