@@ -13,7 +13,7 @@ class AppTitle extends StatelessWidget {
     var localization = AppLocalizations.of(context);
 
     return Container(
-      margin: EdgeInsets.only(top: 45, left: 35, bottom: 20, right: 20),
+      margin: EdgeInsets.only(top: 45, left: 10, bottom: 20, right: 10),
       alignment: localization!.localeName == 'ar'
           ? Alignment.centerRight
           : Alignment.centerLeft,

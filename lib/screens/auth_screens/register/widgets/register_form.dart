@@ -18,10 +18,12 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
+  static const Color iconColor = Color.fromARGB(170, 0, 0, 0);
   final _passwordFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
   final _confirmPasswordFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
+  
   String? _password;
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
@@ -69,7 +71,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     },
                     icon: Icon(
                       Icons.person,
-                      color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.8),
+                      color: iconColor,
                     ),
                     isPassword: false),
                 SizedBox(
@@ -77,12 +79,12 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
                 CustomTextField(
                     controller: _emailController,
-                    hintText: localization.enter +  localization.emailAddress,
+                    hintText: localization.enter + localization.emailAddress,
                     icon: Icon(
                       Icons.email_sharp,
-                      color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.8),
+                      color: iconColor,
                     ),
-                    validator: (value) {
+                    validator: (value) {  
                       if (value!.isEmpty) {
                         return localization.emptyEmail;
                       } else if (!RegExp(
@@ -99,7 +101,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 CustomTextField(
                   icon: Icon(
                     Icons.visibility,
-                    color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.8),
+                    color: iconColor,
                   ),
                   validator: (value) {
                     _password = value;
@@ -110,8 +112,10 @@ class _RegisterFormState extends State<RegisterForm> {
                     }
                     return null;
                   },
+
                   isPassword: true,
                   hintText: localization.enter +  localization.password,
+
                 ),
                 SizedBox(
                   height: sizeConfig.verticalBlockSize,
@@ -128,7 +132,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   },
                   icon: Icon(
                     Icons.visibility,
-                    color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.8),
+                    color: iconColor,
                   ),
                   isPassword: true,
                   hintText: localization.confirmPass,

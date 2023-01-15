@@ -53,6 +53,13 @@
   "romance": "Romance",
   "selfhelp": "Self-help",
   "reset_password": "Reset Password?",
+  "nw":"New",
+  "current": "Current",
+  "verifyMail":"Please verify your email",
+  "updatingFailed":"Failed to update your profile",
+  "wrongPassword":"Incorrect password",
+  "updatingSuccessful": "Profile update successful",
+  "changePass":"Change Password",
   "reset_password_instructions": "You will receive an email with instructions to change your password",
   "problem_sending_email" : "Problem sending email",
   "myshelf" : "My Shelf"

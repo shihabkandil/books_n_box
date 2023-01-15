@@ -29,7 +29,6 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   bool isVisibleHidden = true;
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -46,6 +45,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             filled: true,
             fillColor: Colors.white.withOpacity(0.8),
             hintText: widget.hintText,
+            
             suffixIcon: widget.isPassword
                 ? IconButton(
                     onPressed: () {
@@ -57,6 +57,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         ? Icon(Icons.visibility_off)
                         : Icon(Icons.visibility))
                 : widget.icon,
+
             contentPadding: const EdgeInsetsDirectional.only(start: 25),
             focusedBorder: customInputBorder(Colors.black),
             errorBorder: customInputBorder(Colors.pinkAccent),

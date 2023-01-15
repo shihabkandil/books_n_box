@@ -12,16 +12,21 @@ class AppHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        SizedBox(
+          width: 10,
+        ),
         IconButton(
           icon: Icon(Icons.menu,
+
               color: Theme.of(context).textTheme.bodyMedium?.color, size: 40),
+
           onPressed: () {
             Scaffold.of(context).openDrawer();
           },
         ),
         AppTitle(),
         SizedBox(
-          width: 50,
+          width: 35,
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(

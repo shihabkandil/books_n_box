@@ -29,7 +29,7 @@ class AuthRepository {
       _userDataCache.writeUserDataCachePreferences(user);
 
       return user;
-     });
+    });
   }
 
   User get currentUser {
@@ -43,6 +43,7 @@ class AuthRepository {
           password: confirmedPassword
       );
       await userCredential.user?.updateDisplayName(displayName);
+
     } on firebase_auth.FirebaseAuthException catch (exception) {
       throw FirebaseAuthFailure.fromCode(exception.code);
     } catch (e) {
@@ -50,12 +51,12 @@ class AuthRepository {
     }
   }
 
-  Future<void> loginWithEmailPassword({required String email, required String password}) async {
+  Future<void> loginWithEmailPassword(
+      {required String email, required String password}) async {
     try {
-      await firebase_auth.FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password
-      );
+      final v = await firebase_auth.FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      print(v.user.toString());
     } on firebase_auth.FirebaseAuthException catch (exception) {
       throw FirebaseAuthFailure.fromCode(exception.code);
     } catch (e) {
@@ -75,15 +76,16 @@ class AuthRepository {
       await _firebaseAuth.signInWithCredential(credential);
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw GoogleSignInFailure(e.code);
-    }
-    catch (_){
+    } catch (_) {
       throw GoogleSignInFailure();
     }
   }
 
   void saveFireStoreUser(User user) {
     if (user.isAuthenticated) {
-      _fireStore.collection(kUsersCollectionName).doc(user.id)
+      _fireStore
+          .collection(kUsersCollectionName)
+          .doc(user.id)
           .set({kUserNameField: user.name ?? "", kUserEmailField: user.email});
     }
   }
@@ -91,7 +93,11 @@ class AuthRepository {
   Future<bool> isNewAccount(String userId) async {
     bool exists = false;
     try {
-      await _fireStore.collection(kUsersCollectionName).doc(userId).get().then((doc) {
+      await _fireStore
+          .collection(kUsersCollectionName)
+          .doc(userId)
+          .get()
+          .then((doc) {
         exists = doc.exists;
       });
       return exists;
@@ -124,6 +130,7 @@ class AuthRepository {
 
 extension on firebase_auth.User {
   User get toUser {
-    return User(id: uid, email: email, name: displayName, profilePicturePath: photoURL);
+    return User(
+        id: uid, email: email, name: displayName, profilePicturePath: photoURL);
   }
 }
