@@ -45,7 +45,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> registerEmailAccount({required String email, required String confirmedPassword,required String username}) async {
     try{
-      await _authRepository.registerEmailAccount(email: email, confirmedPassword: confirmedPassword);
+      await _authRepository.registerEmailAccount(email: email, confirmedPassword: confirmedPassword , displayName: username);
       final user = await _authRepository.user.first;
       _authRepository.saveFireStoreUser(user.copyWith(name: username));
       emit(AuthState(status: AuthenticationStatus.emailRegisterSuccess));

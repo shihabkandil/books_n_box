@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../data/repository/user_data_cache.dart';
+
 class AppTitle extends StatelessWidget {
-  const AppTitle({super.key});
+  AppTitle({super.key});
+
+  UserDataCache user = UserDataCache();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class AppTitle extends StatelessWidget {
                 color: Theme.of(context).textTheme.bodyMedium?.color),
           ),
           Text(
-            localization.welcome + " *UserName*",
+            localization.welcome +" "+ user.readUserDataCachePreferences().name.toString(),
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w500,

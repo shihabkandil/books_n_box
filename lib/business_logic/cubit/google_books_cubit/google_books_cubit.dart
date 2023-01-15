@@ -12,7 +12,7 @@ part 'google_books_state.dart';
 class GoogleBooksCubit extends Cubit<GoogleBooksState> {
   GoogleBooksCubit({GoogleBooksRepository? googleBooksRepository})
       : _googleBooksRepository = googleBooksRepository ?? GoogleBooksRepository(),
-        super(GoogleBooksState(status: BooksDataStatus.initialState));
+        super(GoogleBooksState(status: BooksDataStatus.loadingState));
 
   final GoogleBooksRepository _googleBooksRepository;
   var books = {'fantasy': [], 'romance': [], 'science+fiction': [], 'self+help': []};
@@ -40,24 +40,13 @@ class GoogleBooksCubit extends Cubit<GoogleBooksState> {
 
   void genreBookresults() async {
     try {
-      // sleep();
+      emit(GoogleBooksState(status: BooksDataStatus.loadingState));
       books['fantasy'] = await _googleBooksRepository.searchGoogleBooksByGenre("fantasy");
       books['romance'] = await _googleBooksRepository.searchGoogleBooksByGenre("romance");
       books['science+fiction'] = await _googleBooksRepository.searchGoogleBooksByGenre("science+fiction");
       books['self+help'] = await _googleBooksRepository.searchGoogleBooksByGenre("self+help");
 
-      List<BooksDataStatus> booksListStatus = [];
-      books.forEach(
-        (k, v) {
-          if (books[k] != []) {
-            booksListStatus.add(BooksDataStatus.booksLoaded);
-          } else {
-            booksListStatus.add(BooksDataStatus.noDataReceived);
-          }
-        },
-      );
-
-      emit(GoogleBooksState(status: BooksDataStatus.booksLoaded, genreStatusList: booksListStatus, genreBooks: books));
+      emit(GoogleBooksState(status: BooksDataStatus.booksLoaded, genreBooks: books));
     } on SocketException {
       emit(GoogleBooksState(status: BooksDataStatus.noInternetConnection));
     } catch (error) {

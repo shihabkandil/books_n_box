@@ -27,6 +27,7 @@ class AuthRepository {
     return _firebaseAuth.userChanges().map((firebaseUser) {
       final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
       _userDataCache.writeUserDataCachePreferences(user);
+
       return user;
      });
   }
@@ -35,12 +36,13 @@ class AuthRepository {
     return _userDataCache.readUserDataCachePreferences();
   }
 
-  Future<void> registerEmailAccount({required String email, required String confirmedPassword}) async {
+  Future<void> registerEmailAccount({required String email, required String confirmedPassword , required String displayName}) async {
     try {
-      await firebase_auth.FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final userCredential = await firebase_auth.FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: confirmedPassword
       );
+      await userCredential.user?.updateDisplayName(displayName);
     } on firebase_auth.FirebaseAuthException catch (exception) {
       throw FirebaseAuthFailure.fromCode(exception.code);
     } catch (e) {

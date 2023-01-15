@@ -11,7 +11,7 @@ part 'nyt_best_sellers_state.dart';
 class NytBestSellersCubit extends Cubit<NytBestSellersState> {
   NytBestSellersCubit({NytBooksRepository? nytBooksRepository})
       : _nytBooksRepository = nytBooksRepository ?? NytBooksRepository(),
-        super(NytBestSellersState(status: BooksDataStatus.initialState));
+        super(NytBestSellersState(status: BooksDataStatus.loadingState));
 
   final NytBooksRepository _nytBooksRepository;
 
