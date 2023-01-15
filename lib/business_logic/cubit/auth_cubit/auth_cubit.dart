@@ -76,13 +76,18 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthState(status: AuthenticationStatus.loggedOut));
   }
 
-  Future<String?> saveImage(image) async {
-    File file = File(image);
+  Future<String?> saveImage(newImage, oldImage) async {
+    File file = File(newImage);
     final storageRef = FirebaseStorage.instance.ref();
-    final mountainImagesRef = storageRef.child(image);
+    // final oldImageRef = storageRef.child(oldImage);
+
+    final imageRef = storageRef.child(newImage);
     try {
-      await mountainImagesRef.putFile(file);
-      String t = await mountainImagesRef.getDownloadURL();
+      // print(oldImage);
+      // await oldImageRef.delete();
+      await FirebaseStorage.instance.refFromURL(oldImage).delete();
+      await imageRef.putFile(file);
+      String t = await imageRef.getDownloadURL();
       return t;
     } on FirebaseException catch (e) {
       emit(AuthState(
@@ -122,7 +127,7 @@ class AuthCubit extends Cubit<AuthState> {
       if (imageURL != null &&
           imageURL.isNotEmpty &&
           imageURL != user.photoURL) {
-        String? saved = await saveImage(imageURL);
+        String? saved = await saveImage(imageURL, user.photoURL);
         if (saved != null) {
           await user.updatePhotoURL(saved);
         }
