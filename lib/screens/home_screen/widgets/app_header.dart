@@ -25,7 +25,7 @@ class AppHeader extends StatelessWidget {
         ),
         AppTitle(),
         SizedBox(
-          width: 35,
+          width: 75,
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
