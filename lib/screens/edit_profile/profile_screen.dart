@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mobile_app_project/business_logic/cubit/upload_image_cubit/cubit/upload_image_cubit.dart';
 import '../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
 import 'widgets/build_text_fieds.dart';
 import 'widgets/profile_buttons.dart';
@@ -67,6 +69,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(state.message ??
                     localization.updatingFailed))); //errorupdating
+          } else if (state.status == AuthenticationStatus.imageUploadFailed) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(state.message ??
+                    localization.imageUploadFailed))); //errorupoading
           }
         },
         child: Container(
@@ -78,78 +84,83 @@ class _EditProfilePageState extends State<EditProfilePage> {
             },
             child: ListView(
               children: [
-                Form(
-                  key: formKey,
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 0),
-                      child: Column(
-                        children: [
-                          Text(
-                            localization!.editProfile,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w500,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .color),
-                          ),
-                          SizedBox(
-                            height: 35,
-                          ),
-                          ProfileImage(),
-                          SizedBox(
-                            height: 45,
-                          ),
-                          BuildTextFields(
-                            labelText: localization.username,
-                            controller: nameController,
-                            isPasswordTextField: false,
-                            validator: (input) {
-                              if (input!.isEmpty) {
-                                return localization.emptyUsername;
-                              }
-                              return null;
-                            },
-                          ),
-                          BuildTextFields(
-                            labelText: localization.emailAddress,
-                            initialValue: user.email,
-                            controller: emailController,
-                            isPasswordTextField: false,
-                            validator: (input) {
-                              if (input!.isEmpty) {
-                                emailController.text = user.email!;
-                              } else if (!RegExp(
-                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(input)) {
-                                return localization.invalidEmail;
-                              }
-                              return null;
-                            },
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              context.go('/home/profile/changePassword');
-                            },
-                            child: Text(
-                              'Change password?',
+                BlocProvider(
+                  create: (context) => UploadImageCubit(),
+                  child: Form(
+                    key: formKey,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 0),
+                        child: Column(
+                          children: [
+                            Text(
+                              localization!.editProfile,
+                              textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Theme.of(context).primaryColor),
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .color),
                             ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          ProfileButtons(
-                            formKey: formKey,
-                            emailController: emailController,
-                            nameController: nameController,
-                          ),
-                        ],
+                            SizedBox(
+                              height: 35,
+                            ),
+                            ProfileImage(
+                              userPath: user.photoURL,
+                            ),
+                            SizedBox(
+                              height: 45,
+                            ),
+                            BuildTextFields(
+                              labelText: localization.username,
+                              controller: nameController,
+                              isPasswordTextField: false,
+                              validator: (input) {
+                                if (input!.isEmpty) {
+                                  return localization.emptyUsername;
+                                }
+                                return null;
+                              },
+                            ),
+                            BuildTextFields(
+                              labelText: localization.emailAddress,
+                              initialValue: user.email,
+                              controller: emailController,
+                              isPasswordTextField: false,
+                              validator: (input) {
+                                if (input!.isEmpty) {
+                                  emailController.text = user.email!;
+                                } else if (!RegExp(
+                                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                    .hasMatch(input)) {
+                                  return localization.invalidEmail;
+                                }
+                                return null;
+                              },
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                context.go('/home/profile/changePassword');
+                              },
+                              child: Text(
+                                'Change password?',
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            ProfileButtons(
+                              formKey: formKey,
+                              emailController: emailController,
+                              nameController: nameController,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

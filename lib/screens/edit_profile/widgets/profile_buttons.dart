@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile_app_project/business_logic/cubit/upload_image_cubit/cubit/upload_image_cubit.dart';
 
 import '../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
+import 'profile_image.dart';
 
 class ProfileButtons extends StatelessWidget {
   const ProfileButtons(
@@ -41,12 +43,15 @@ class ProfileButtons extends StatelessWidget {
         MaterialButton(
           onPressed: () {
             if (formKey.currentState!.validate()) {
+              // var img = state.image;
+              // print(img?.path);
+              // print('oooooooooooooooooooooooooooooooo');
               BlocProvider.of<AuthCubit>(context).UpdateProfile(
-                currentPass: currentPasswordController?.text.trim(),
-                name: nameController?.text.trim(),
-                email: emailController?.text.trim(),
-                pass: confirmPasswordController?.text.trim(),
-              );
+                  currentPass: currentPasswordController?.text.trim(),
+                  name: nameController?.text.trim(),
+                  email: emailController?.text.trim(),
+                  pass: confirmPasswordController?.text.trim(),
+                  imageURL: img?.path);
             }
           },
           color: Theme.of(context).primaryColor,
@@ -57,9 +62,7 @@ class ProfileButtons extends StatelessWidget {
           child: Text(
             localization.save,
             style: TextStyle(
-                fontSize: 14,
-                letterSpacing: 2.2,
-                color: Colors.white),
+                fontSize: 14, letterSpacing: 2.2, color: Colors.white),
           ),
         )
       ],

@@ -15,7 +15,8 @@ enum AuthenticationStatus {
   verifyMail,
   resetEmailSentSuccessfully,
   resetEmailSendFailed,
-  resetEmailNotValid
+  resetEmailNotValid,
+  imageUploadFailed
 }
 
 class AuthState extends Equatable {

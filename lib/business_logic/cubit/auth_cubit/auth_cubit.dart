@@ -1,8 +1,13 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mobile_app_project/business_logic/cubit/upload_image_cubit/cubit/upload_image_cubit.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../../data/models/user.dart' as User;
 import '../../../data/repository/auth_repository.dart';
 import '../../../helper/exceptions.dart';
@@ -48,10 +53,17 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-
-  Future<void> registerEmailAccount({required String email, required String confirmedPassword,required String username}) async {
-    try{
-      await _authRepository.registerEmailAccount(email: email, confirmedPassword: confirmedPassword , displayName: username);
+  Future<void> registerEmailAccount(
+      {required String email,
+      required String confirmedPassword,
+      required String username,
+      String? imageUrl}) async {
+    try {
+      await _authRepository.registerEmailAccount(
+          email: email,
+          confirmedPassword: confirmedPassword,
+          displayName: username,
+          imageUrl: imageUrl);
 
       final user = await _authRepository.user.first;
       print(user.copyWith(name: username));
@@ -68,7 +80,7 @@ class AuthCubit extends Cubit<AuthState> {
     await _authRepository.logOut();
     emit(AuthState(status: AuthenticationStatus.loggedOut));
   }
-
+  
   Future<void> UpdateProfile(
       {String? name,
       String? pass,
@@ -97,8 +109,14 @@ class AuthCubit extends Cubit<AuthState> {
         await user.updatePassword(pass);
       }
 
-      if (imageURL != null && imageURL.isNotEmpty) {
-        await user.updatePhotoURL(imageURL);
+      print(imageURL);
+      if (imageURL != null &&
+          imageURL.isNotEmpty &&
+          imageURL != user.photoURL) {
+        String? saved = await _authRepository.saveImage(imageURL, user.photoURL);
+        if (saved != null) {
+          await user.updatePhotoURL(saved);
+        }
       }
       emit(AuthState(
           status: AuthenticationStatus.profileUpdateSuccess, message: message));
@@ -114,16 +132,15 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> resetPassword({String? email}) async {
-    if(email != null && email.isNotEmpty){
+    if (email != null && email.isNotEmpty) {
       try {
         await _authRepository.resetUserPasswordWithEmail(email);
-        emit(AuthState(status: AuthenticationStatus.resetEmailSentSuccessfully));
-      }
-      catch(error){
+        emit(
+            AuthState(status: AuthenticationStatus.resetEmailSentSuccessfully));
+      } catch (error) {
         emit(AuthState(status: AuthenticationStatus.resetEmailSendFailed));
       }
-    }
-    else{
+    } else {
       emit(AuthState(status: AuthenticationStatus.resetEmailNotValid));
     }
   }
