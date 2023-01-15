@@ -11,7 +11,7 @@ import 'center_title.dart';
 import 'dont_have_Account_text.dart';
 import 'google_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'remember_me_row.dart';
+import 'reset_password.dart';
 
 class LoginForm extends StatefulWidget {
   LoginForm({Key? key}) : super(key: key);
@@ -61,7 +61,7 @@ class _LoginFormState extends State<LoginForm> {
                 CenterTitle(localization!.logIn),
                 CustomTextField(
                     controller: emailController,
-                    hintText: localization.enter+ localization.emailAddress,
+                    hintText: localization.enter + localization.emailAddress,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return localization.emptyEmail;
@@ -76,13 +76,13 @@ class _LoginFormState extends State<LoginForm> {
                       Icons.email_sharp,
                       color: iconColor,
                     ),
-                    isHidden: false),
+                    isPassword: false),
                 SizedBox(
                   height: sizeConfig.verticalBlockSize,
                 ),
                 CustomTextField(
                     controller: passwordController,
-                    hintText: localization.enter +  localization.password,
+                    hintText: localization.enter + localization.password,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return localization.emptyPassword;
@@ -93,10 +93,10 @@ class _LoginFormState extends State<LoginForm> {
                       Icons.visibility,
                       color: iconColor,
                     ),
-                    isHidden: true),
-                RememberMeRow(sizingConfig: sizeConfig,onCheckChanged: (isUserRemembered){
-                  BlocProvider.of<AuthCubit>(context).setUserRemember(isRemembered: isUserRemembered);
-                }),
+                    isPassword: true,),
+                ResetPassword(
+                  sizingConfig: sizeConfig,
+                ),
                 SizedBox(
                   height: sizeConfig.verticalBlockSize,
                 ),

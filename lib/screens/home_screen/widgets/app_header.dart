@@ -9,7 +9,6 @@ class AppHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String lang = Localizations.localeOf(context).languageCode;
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -18,7 +17,9 @@ class AppHeader extends StatelessWidget {
         ),
         IconButton(
           icon: Icon(Icons.menu,
-              color: Theme.of(context).textTheme.bodyMedium?.color, size: 35),
+
+              color: Theme.of(context).textTheme.bodyMedium?.color, size: 40),
+
           onPressed: () {
             Scaffold.of(context).openDrawer();
           },

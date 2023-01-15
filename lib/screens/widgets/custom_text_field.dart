@@ -5,7 +5,7 @@ class CustomTextField extends StatefulWidget {
   final String hintText;
   final Icon? icon;
   final String? password;
-  bool? isHidden;
+  final bool isPassword;
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final Function(String?)? onSaved;
@@ -17,10 +17,10 @@ class CustomTextField extends StatefulWidget {
       this.validator,
       this.password,
       this.icon,
-      this.isHidden,
       this.onSaved,
       this.controller,
-      Key? key})
+      Key? key,
+      this.isPassword = false})
       : super(key: key);
 
   @override
@@ -28,7 +28,7 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  bool hide = true;
+  bool isVisibleHidden = true;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -37,8 +37,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         onSaved: widget.onSaved,
         validator: widget.validator,
         focusNode: widget.focusNode,
-        //onSubmitted: onSubmitted,
-        obscureText: widget.isHidden! ? hide : false,
+        obscureText: widget.isPassword ? isVisibleHidden : false,
         controller: widget.controller,
         enabled: true,
         cursorColor: AppColors.primaryColor,
@@ -46,19 +45,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
             filled: true,
             fillColor: Colors.white.withOpacity(0.8),
             hintText: widget.hintText,
-            suffixIcon: (widget.isHidden!
+            
+            suffixIcon: widget.isPassword
                 ? IconButton(
                     onPressed: () {
                       setState(() {
-                        hide = !(hide);
+                        isVisibleHidden = !isVisibleHidden;
                       });
                     },
-                    icon: Icon(
-                      color: widget.icon!.color,
-                      hide ? Icons.visibility_off : Icons.visibility,
-                    ),
-                  )
-                : widget.icon),
+                    icon: isVisibleHidden
+                        ? Icon(Icons.visibility_off)
+                        : Icon(Icons.visibility))
+                : widget.icon,
+
             contentPadding: const EdgeInsetsDirectional.only(start: 25),
             focusedBorder: customInputBorder(Colors.black),
             errorBorder: customInputBorder(Colors.pinkAccent),

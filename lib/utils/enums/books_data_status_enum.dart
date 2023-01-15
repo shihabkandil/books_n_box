@@ -1,8 +1,9 @@
 enum BooksDataStatus {
-  initialState,
+  loadingState,
   booksLoaded,
   booksRetrievalFailed,
   noInternetConnection,
   noDataReceived,
   emptyQuery,
 }
+

@@ -27,6 +27,7 @@ class AuthRepository {
     return _firebaseAuth.userChanges().map((firebaseUser) {
       final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
       _userDataCache.writeUserDataCachePreferences(user);
+
       return user;
     });
   }
@@ -35,15 +36,14 @@ class AuthRepository {
     return _userDataCache.readUserDataCachePreferences();
   }
 
-  Future<void> registerEmailAccount(
-      {required String email,
-      required String confirmedPassword,
-      required String name}) async {
+  Future<void> registerEmailAccount({required String email, required String confirmedPassword , required String displayName}) async {
     try {
-      final credential = await firebase_auth.FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-              email: email, password: confirmedPassword);
-      await credential.user?.updateDisplayName(name);
+      final userCredential = await firebase_auth.FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: confirmedPassword
+      );
+      await userCredential.user?.updateDisplayName(displayName);
+
     } on firebase_auth.FirebaseAuthException catch (exception) {
       throw FirebaseAuthFailure.fromCode(exception.code);
     } catch (e) {
@@ -79,14 +79,6 @@ class AuthRepository {
     } catch (_) {
       throw GoogleSignInFailure();
     }
-  }
-
-  bool getUserRememberMe() {
-    return _userDataCache.isUserRemembered();
-  }
-
-  void setUserRememberMe({required bool isRemembered}) {
-    _userDataCache.setUserRemember(isRemembered);
   }
 
   void saveFireStoreUser(User user) {
@@ -126,7 +118,6 @@ class AuthRepository {
   Future<void> logOut() async {
     try {
       _userDataCache.writeUserDataCachePreferences(User.empty);
-      setUserRememberMe(isRemembered: false);
       await Future.wait([
         _firebaseAuth.signOut(),
         _googleSignIn.signOut(),

@@ -48,13 +48,11 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> registerEmailAccount(
-      {required String email,
-      required String confirmedPassword,
-      required String username}) async {
-    try {
-      await _authRepository.registerEmailAccount(
-          email: email, confirmedPassword: confirmedPassword, name: username);
+
+  Future<void> registerEmailAccount({required String email, required String confirmedPassword,required String username}) async {
+    try{
+      await _authRepository.registerEmailAccount(email: email, confirmedPassword: confirmedPassword , displayName: username);
+
       final user = await _authRepository.user.first;
       print(user.copyWith(name: username));
       _authRepository.saveFireStoreUser(user.copyWith(name: username));
@@ -113,10 +111,6 @@ class AuthCubit extends Cubit<AuthState> {
           status: AuthenticationStatus.reauthenticationFailure,
           message: ex.message));
     }
-  }
-
-  void setUserRemember({required bool isRemembered}) {
-    _authRepository.setUserRememberMe(isRemembered: isRemembered);
   }
 
   Future<void> resetPassword({String? email}) async {
