@@ -60,9 +60,6 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthState(status: AuthenticationStatus.loggedOut));
   }
 
-  void setUserRemember({required bool isRemembered}){
-    _authRepository.setUserRememberMe(isRemembered: isRemembered);
-  }
 
   Future<void> resetPassword({String? email}) async {
     if(email != null && email.isNotEmpty){

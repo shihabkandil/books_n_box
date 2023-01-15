@@ -55,8 +55,7 @@ class AppRouter {
           redirect: (context, state) {
             final appStatus =
                 BlocProvider.of<AppStatusBloc>(context).state.status;
-            if (appStatus == AppStatus.authenticated &&
-                context.read<AuthRepository>().getUserRememberMe()) {
+            if (appStatus == AppStatus.authenticated) {
               return '/home';
             } else {
               return null;

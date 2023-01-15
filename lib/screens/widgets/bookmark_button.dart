@@ -19,14 +19,12 @@ class BookmarkButton extends StatelessWidget {
         child: Container(
           height: 30,
           width: 40,
-          decoration:
-              BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+          decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
           child: FittedBox(
             child: BlocBuilder<BookmarksCubit , BookmarksState>(
               builder: (context, state) {
                 var isBookmarked = BlocProvider.of<BookmarksCubit>(context).IsBookBookmarked(bookId);
-                print(isBookmarked);
-                if(state.status==BookmarkStatus.bookmarked && isBookmarked){
+                if(isBookmarked){
                      return IconButton(
                     onPressed: onPressed,
                     icon:Icon(Icons.favorite),
@@ -41,7 +39,7 @@ class BookmarkButton extends StatelessWidget {
                     color: Colors.red,
                   );
                 }
-                   
+
               }
             ),
           ),

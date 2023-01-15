@@ -11,9 +11,7 @@ class UserDataCache {
   }
 
   void writeUserDataCachePreferences(User user) async {
-    if (isUserRemembered()) {
       sharedPreferences?.setString(kUserGlobalCacheKey, jsonEncode(user.toJson()));
-    }
   }
 
   User readUserDataCachePreferences() {
@@ -28,14 +26,6 @@ class UserDataCache {
 
   void setUserRemember(bool isRemembered) {
     sharedPreferences?.setBool(kRememberMe, isRemembered);
-  }
-
-  bool isUserRemembered() {
-    final isRemembered = sharedPreferences?.getBool(kRememberMe);
-    if (isRemembered == null) {
-      return false;
-    }
-    return isRemembered;
   }
 
   void writeLanguagePreference(String lang) async {

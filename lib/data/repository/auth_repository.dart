@@ -81,14 +81,6 @@ class AuthRepository {
     }
   }
 
-  bool getUserRememberMe(){
-    return _userDataCache.isUserRemembered();
-  }
-
-  void setUserRememberMe({required bool isRemembered}){
-    _userDataCache.setUserRemember(isRemembered);
-  }
-
   void saveFireStoreUser(User user) {
     if (user.isAuthenticated) {
       _fireStore.collection(kUsersCollectionName).doc(user.id)
@@ -120,7 +112,6 @@ class AuthRepository {
   Future<void> logOut() async {
     try {
       _userDataCache.writeUserDataCachePreferences(User.empty);
-      setUserRememberMe(isRemembered: false);
       await Future.wait([
         _firebaseAuth.signOut(),
         _googleSignIn.signOut(),

@@ -5,10 +5,17 @@ import '../../../business_logic/cubit/google_books_cubit/google_books_cubit.dart
 import 'package:mobile_app_project/utils/enums/books_data_status_enum.dart';
 import '../../widgets/tab_view.dart';
 
-class BooksTabsView extends StatelessWidget {
+class BooksTabsView extends StatefulWidget {
   BooksTabsView({super.key, required this.tabController});
   final TabController tabController;
+
+  @override
+  State<BooksTabsView> createState() => _BooksTabsViewState();
+}
+
+class _BooksTabsViewState extends State<BooksTabsView> {
   Duration sleep = Duration(milliseconds: 5);
+
   Map<String, List> currentBookStates = {
     "fantasy": [],
     "romance": [],
@@ -27,7 +34,7 @@ class BooksTabsView extends StatelessWidget {
             child: BlocProvider(
               create: (context) => BookmarksCubit(),
               child: TabBarView(
-                  controller: tabController,
+                  controller: widget.tabController,
                   children: <Widget>[
                     BooksTab(books: currentBookStates['fantasy']!),
                     BooksTab(books: currentBookStates['science+fiction']!),
@@ -40,9 +47,14 @@ class BooksTabsView extends StatelessWidget {
          else if(state.status == BooksDataStatus.loadingState){
           return Center(child: CircularProgressIndicator(),);
         }else{
-          return Center(child: Text("Books Not Retrived !!"),);
+          return Center(child: Text("Books Not Retrieved !!"),);
         }
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
