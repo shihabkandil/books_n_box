@@ -1,20 +1,27 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_app_project/business_logic/cubit/upload_image_cubit/cubit/upload_image_cubit.dart';
 
+XFile? img;
+
 class ProfileImage extends StatelessWidget {
   ProfileImage({super.key, required this.userPath});
-  XFile? img;
   String? userPath;
   image(state, context) {
-    return (state.image == null
-        ? AssetImage(userPath ?? "assets/images/default_profile_image.png")
-        : FileImage(
-            File(state.image!.path),
-          ));
+    if (state.image == null) {
+      if (userPath == null) {
+        return AssetImage("assets/images/default_profile_image.png");
+      }
+      return CachedNetworkImageProvider(userPath!);
+    } else {
+      return FileImage(
+        File(state.image!.path),
+      );
+    }
   }
 
   @override
@@ -27,9 +34,12 @@ class ProfileImage extends StatelessWidget {
               BlocListener<UploadImageCubit, UploadImageState>(
                 listener: (context, state) {
                   if (state.image != img) {
+                    // print('-----------------eeeeeeeeeeeeeeeeee---------------');
+                    // print(state.image!.path);
                     img = state.image;
                   }
                 },
+                // child: image(state, context),
                 child: CircleAvatar(
                   radius: 65,
                   backgroundColor: Theme.of(context).primaryColor,

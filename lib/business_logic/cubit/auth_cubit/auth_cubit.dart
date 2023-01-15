@@ -1,8 +1,13 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mobile_app_project/business_logic/cubit/upload_image_cubit/cubit/upload_image_cubit.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../../data/models/user.dart' as User;
 import '../../../data/repository/auth_repository.dart';
 import '../../../helper/exceptions.dart';
@@ -71,6 +76,20 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthState(status: AuthenticationStatus.loggedOut));
   }
 
+  Future<String?> saveImage(image) async {
+    File file = File(image);
+    final storageRef = FirebaseStorage.instance.ref();
+    final mountainImagesRef = storageRef.child(image);
+    try {
+      await mountainImagesRef.putFile(file);
+      String t = await mountainImagesRef.getDownloadURL();
+      return t;
+    } on FirebaseException catch (e) {
+      emit(AuthState(
+          status: AuthenticationStatus.imageUploadFailed, message: e.message));
+    }
+  }
+
   Future<void> UpdateProfile(
       {String? name,
       String? pass,
@@ -99,8 +118,14 @@ class AuthCubit extends Cubit<AuthState> {
         await user.updatePassword(pass);
       }
 
-      if (imageURL != null && imageURL.isNotEmpty) {
-        await user.updatePhotoURL(imageURL);
+      print(imageURL);
+      if (imageURL != null &&
+          imageURL.isNotEmpty &&
+          imageURL != user.photoURL) {
+        String? saved = await saveImage(imageURL);
+        if (saved != null) {
+          await user.updatePhotoURL(saved);
+        }
       }
       emit(AuthState(
           status: AuthenticationStatus.profileUpdateSuccess, message: message));
@@ -120,16 +145,15 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> resetPassword({String? email}) async {
-    if(email != null && email.isNotEmpty){
+    if (email != null && email.isNotEmpty) {
       try {
         await _authRepository.resetUserPasswordWithEmail(email);
-        emit(AuthState(status: AuthenticationStatus.resetEmailSentSuccessfully));
-      }
-      catch(error){
+        emit(
+            AuthState(status: AuthenticationStatus.resetEmailSentSuccessfully));
+      } catch (error) {
         emit(AuthState(status: AuthenticationStatus.resetEmailSendFailed));
       }
-    }
-    else{
+    } else {
       emit(AuthState(status: AuthenticationStatus.resetEmailNotValid));
     }
   }
