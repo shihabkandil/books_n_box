@@ -30,9 +30,9 @@ class ShelfColumn extends StatelessWidget {
             ),
             TileTemplate(
                 icon: Icon(Icons.person, color: Colors.white),
-                onTap: () =>context.go('/home/profile'),
+                onTap: () => context.go('/home/profile'),
                 text: Text(
-                  localization!.profile,
+                  localization!.editProfile,
                   style: TextStyle(color: Colors.white),
                 ),
                 tail: Icon(Icons.arrow_forward, color: Colors.white),
@@ -43,7 +43,8 @@ class ShelfColumn extends StatelessWidget {
             TileTemplate(
                 icon: Icon(Icons.settings, color: Colors.white),
                 onTap: () => context.go('/home/settings'),
-                text: Text("Settings", style: TextStyle(color: Colors.white)),
+                text: Text(localization.settings,
+                    style: TextStyle(color: Colors.white)),
                 tail: Icon(Icons.arrow_forward, color: Colors.white),
                 color: AppColors.tileColor.withOpacity(0.7)),
             SizedBox(

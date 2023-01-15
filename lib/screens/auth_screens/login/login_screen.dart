@@ -5,6 +5,7 @@ import 'widgets/login_form.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     String lang = Localizations.localeOf(context).languageCode;

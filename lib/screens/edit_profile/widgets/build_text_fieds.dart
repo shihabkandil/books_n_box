@@ -2,27 +2,39 @@ import 'package:flutter/material.dart';
 
 class BuildTextFields extends StatefulWidget {
   BuildTextFields(
-      {this.labelText, this.placeholder, this.isPasswordTextField, super.key});
+      {this.labelText,
+      this.placeholder,
+      this.initialValue,
+      this.isPasswordTextField,
+      this.validator,
+      required this.controller,
+      super.key});
   final String? labelText;
+  final String? initialValue;
+  final String? Function(String?)? validator;
   final String? placeholder;
   final bool? isPasswordTextField;
+  final TextEditingController controller;
 
   @override
   State<BuildTextFields> createState() => _BuildTextFieldsState();
 }
 
 class _BuildTextFieldsState extends State<BuildTextFields> {
-  bool showPassword = false;
+  bool hidePassword = true;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
-      child: TextField(
+      child: TextFormField(
+        controller: widget.controller,
+        // initialValue: '',
+        validator: widget.validator,
         style: TextStyle(
           color: Theme.of(context).textTheme.bodyMedium?.color,
         ),
-        obscureText: widget.isPasswordTextField! ? showPassword : false,
+        obscureText: widget.isPasswordTextField! ? hidePassword : false,
         decoration: InputDecoration(
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Theme.of(context).primaryColor),
@@ -34,11 +46,11 @@ class _BuildTextFieldsState extends State<BuildTextFields> {
               ? IconButton(
                   onPressed: () {
                     setState(() {
-                      showPassword = !showPassword;
+                      hidePassword = !hidePassword;
                     });
                   },
                   icon: Icon(
-                    Icons.remove_red_eye,
+                    hidePassword ? Icons.visibility_off : Icons.visibility,
                     color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 )
@@ -46,7 +58,8 @@ class _BuildTextFieldsState extends State<BuildTextFields> {
           contentPadding: EdgeInsets.only(bottom: 3),
           labelText: widget.labelText,
           labelStyle: TextStyle(
-            color: Theme.of(context).primaryColor,
+            fontSize: 20,
+            color: Theme.of(context).textTheme.bodyMedium!.color,
           ),
           floatingLabelBehavior: FloatingLabelBehavior.always,
           hintText: widget.placeholder,
