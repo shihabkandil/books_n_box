@@ -89,7 +89,7 @@ class SettingsScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 275,
+                height: 245,
               ),
               Container(
                 child: Text(
