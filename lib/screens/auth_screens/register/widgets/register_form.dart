@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile_app_project/screens/edit_profile/widgets/profile_image.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
 import '../../../../utils/screen_block_size.dart';
@@ -23,7 +24,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final _emailFocusNode = FocusNode();
   final _confirmPasswordFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
-  
+
   String? _password;
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
@@ -60,9 +61,13 @@ class _RegisterFormState extends State<RegisterForm> {
                   height: sizeConfig.verticalBlockSize,
                 ),
                 CenterTitle(localization!.register),
+                ProfileImage(userPath: null),
+                SizedBox(
+                  height: 35,
+                ),
                 CustomTextField(
                     controller: _usernameController,
-                    hintText: localization.enter +  localization.username,
+                    hintText: localization.enter + localization.username,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return localization.emptyUsername;
@@ -84,7 +89,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       Icons.email_sharp,
                       color: iconColor,
                     ),
-                    validator: (value) {  
+                    validator: (value) {
                       if (value!.isEmpty) {
                         return localization.emptyEmail;
                       } else if (!RegExp(
@@ -112,10 +117,8 @@ class _RegisterFormState extends State<RegisterForm> {
                     }
                     return null;
                   },
-
                   isPassword: true,
-                  hintText: localization.enter +  localization.password,
-
+                  hintText: localization.enter + localization.password,
                 ),
                 SizedBox(
                   height: sizeConfig.verticalBlockSize,
@@ -145,10 +148,12 @@ class _RegisterFormState extends State<RegisterForm> {
                   text: localization.register,
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
+                      print(img?.path);
                       BlocProvider.of<AuthCubit>(context).registerEmailAccount(
-                        username: _usernameController.text.trim(),
+                          username: _usernameController.text.trim(),
                           email: _emailController.text.trim(),
-                          confirmedPassword: _confirmPasswordController.text);
+                          confirmedPassword: _confirmPasswordController.text,
+                          imageUrl: img?.path);
                     }
                   },
                 ),

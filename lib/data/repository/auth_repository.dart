@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../helper/exceptions.dart';
 import '../../utils/constants/firestore_fields.dart';
@@ -36,14 +38,36 @@ class AuthRepository {
     return _userDataCache.readUserDataCachePreferences();
   }
 
-  Future<void> registerEmailAccount({required String email, required String confirmedPassword , required String displayName}) async {
-    try {
-      final userCredential = await firebase_auth.FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email,
-          password: confirmedPassword
-      );
-      await userCredential.user?.updateDisplayName(displayName);
+  Future<String?> saveImage(String newImage, String? oldImage) async {
+    File file = File(newImage);
+    final storageRef = FirebaseStorage.instance.ref();
+    final imageRef = storageRef.child(newImage);
 
+    try {
+      if (oldImage != null) {
+        await FirebaseStorage.instance.refFromURL(oldImage).delete();
+      }
+      print('aaaaaaaaaaaaaaaa');
+      await imageRef.putFile(file);
+      String t = await imageRef.getDownloadURL();
+      return t;
+    } catch (e) {}
+  }
+
+  Future<void> registerEmailAccount(
+      {required String email,
+      required String confirmedPassword,
+      required String displayName,
+      String? imageUrl}) async {
+    try {
+      final userCredential = await firebase_auth.FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: email, password: confirmedPassword);
+      await userCredential.user?.updateDisplayName(displayName);
+      if (imageUrl != null) {
+        String? savedImage = await saveImage(imageUrl, null);
+        await userCredential.user?.updatePhotoURL(savedImage);
+      }
     } on firebase_auth.FirebaseAuthException catch (exception) {
       throw FirebaseAuthFailure.fromCode(exception.code);
     } catch (e) {
@@ -109,8 +133,7 @@ class AuthRepository {
   Future<void> resetUserPasswordWithEmail(String email) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
-    }
-    catch (error){
+    } catch (error) {
       rethrow;
     }
   }

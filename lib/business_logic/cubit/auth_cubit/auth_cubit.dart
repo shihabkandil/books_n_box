@@ -53,10 +53,17 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-
-  Future<void> registerEmailAccount({required String email, required String confirmedPassword,required String username}) async {
-    try{
-      await _authRepository.registerEmailAccount(email: email, confirmedPassword: confirmedPassword , displayName: username);
+  Future<void> registerEmailAccount(
+      {required String email,
+      required String confirmedPassword,
+      required String username,
+      String? imageUrl}) async {
+    try {
+      await _authRepository.registerEmailAccount(
+          email: email,
+          confirmedPassword: confirmedPassword,
+          displayName: username,
+          imageUrl: imageUrl);
 
       final user = await _authRepository.user.first;
       print(user.copyWith(name: username));
@@ -73,26 +80,7 @@ class AuthCubit extends Cubit<AuthState> {
     await _authRepository.logOut();
     emit(AuthState(status: AuthenticationStatus.loggedOut));
   }
-
-  Future<String?> saveImage(newImage, oldImage) async {
-    File file = File(newImage);
-    final storageRef = FirebaseStorage.instance.ref();
-    // final oldImageRef = storageRef.child(oldImage);
-
-    final imageRef = storageRef.child(newImage);
-    try {
-      // print(oldImage);
-      // await oldImageRef.delete();
-      await FirebaseStorage.instance.refFromURL(oldImage).delete();
-      await imageRef.putFile(file);
-      String t = await imageRef.getDownloadURL();
-      return t;
-    } on FirebaseException catch (e) {
-      emit(AuthState(
-          status: AuthenticationStatus.imageUploadFailed, message: e.message));
-    }
-  }
-
+  
   Future<void> UpdateProfile(
       {String? name,
       String? pass,
@@ -125,7 +113,7 @@ class AuthCubit extends Cubit<AuthState> {
       if (imageURL != null &&
           imageURL.isNotEmpty &&
           imageURL != user.photoURL) {
-        String? saved = await saveImage(imageURL, user.photoURL);
+        String? saved = await _authRepository.saveImage(imageURL, user.photoURL);
         if (saved != null) {
           await user.updatePhotoURL(saved);
         }
