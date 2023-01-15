@@ -64,11 +64,38 @@ class ProfileImage extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                   ),
                   child: IconButton(
+                    padding: EdgeInsets.zero,
                     onPressed: () {
                       BlocProvider.of<UploadImageCubit>(context).uploadImage();
                     },
                     icon: Icon(
                       Icons.edit,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      width: 4,
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                    ),
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      BlocProvider.of<UploadImageCubit>(context).resetImage();
+                    },
+                    icon: Icon(
+                      Icons.close,
                       color: Colors.white,
                     ),
                   ),

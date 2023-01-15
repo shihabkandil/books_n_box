@@ -62,5 +62,6 @@
   "changePass":"تغيير كلمة المرور",
   "reset_password_instructions": "ستتلقى رسالة بريد إلكتروني تحتوي على إرشادات لتغيير كلمة المرور الخاصة بك",
   "problem_sending_email" : "مشكلة في إرسال البريد الإلكتروني",
-  "myshelf" : "كتبي"
+  "myshelf" : "كتبي",
+  "imageUploadFailed":"فشل رفع الصور"
 }

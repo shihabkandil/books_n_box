@@ -69,12 +69,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(state.message ??
                     localization.updatingFailed))); //errorupdating
-          }
-          else if (state.status ==
-              AuthenticationStatus.imageUploadFailed) {
+          } else if (state.status == AuthenticationStatus.imageUploadFailed) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(state.message ??
-                    localization.updatingFailed))); //errorupdating
+                    localization.imageUploadFailed))); //errorupoading
           }
         },
         child: Container(
