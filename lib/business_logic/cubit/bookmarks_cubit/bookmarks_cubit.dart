@@ -17,6 +17,7 @@ class BookmarksCubit extends Cubit<BookmarksState> {
   Set<String> _bookmarkedBooksIds = {};
 
   void recordBookMark(GoogleBook? book) async {
+    emit(BookmarksState(status: BookmarkStatus.notBookmarked));
     if (book == null) {
       emit(BookmarksState(status: BookmarkStatus.bookmarkFailed));
     } else {
