@@ -19,7 +19,7 @@ class TileTemplate extends StatelessWidget {
     return ListTile(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))),
-      tileColor: color,
+      tileColor: Theme.of(context).textTheme.bodyMedium?.color!.withOpacity(0.6),
       leading: icon,
       trailing: tail,
       title: text,

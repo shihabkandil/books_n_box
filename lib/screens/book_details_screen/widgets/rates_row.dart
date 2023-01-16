@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../data/models/google_books/google_book.dart';
 
 class RatesRow extends StatelessWidget {
-  const RatesRow({super.key});
+  final String? price;
+  final num? rating;
+  final num? ratingsCount;
+  final num? pagecount;
+  const RatesRow({super.key, this.rating, this.ratingsCount, this.pagecount,this.price});
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +18,7 @@ class RatesRow extends StatelessWidget {
         left: 10,
         right: 10,
       ),
-      margin: EdgeInsets.only(
-          bottom: 120 / MediaQuery.of(context).devicePixelRatio),
+      margin: EdgeInsets.only(bottom: 120 / MediaQuery.of(context).devicePixelRatio),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -24,20 +28,12 @@ class RatesRow extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'xxxxx',
-                    style: TextStyle(
-                        fontSize: 28,
-                        color: Colors.orangeAccent,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500),
+                    '${pagecount?? price}',
+                    style: TextStyle(fontSize: 28, color: Colors.orangeAccent, fontFamily: 'Poppins', fontWeight: FontWeight.w500),
                   ),
                   Text(
-                    'Readers',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w400,
-                        color: Theme.of(context).textTheme.bodyMedium?.color),
+                    pagecount==null?localization!.price:localization!.pages,
+                    style: TextStyle(fontSize: 20, fontFamily: 'Poppins', fontWeight: FontWeight.w400, color: Theme.of(context).textTheme.bodyMedium?.color),
                   )
                 ],
               ),
@@ -48,15 +44,11 @@ class RatesRow extends StatelessWidget {
               Icon(
                 Icons.star,
                 size: 55,
-                color: Theme.of(context).primaryColor,
+                color: Colors.orangeAccent,
               ),
               Text(
-                'x.x/10',
-                style: TextStyle(
-                    fontSize: 28,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).textTheme.bodyMedium?.color),
+                rating == null ? localization.norating : '$rating/5',
+                style: TextStyle(fontSize: 28, fontFamily: 'Poppins', fontWeight: FontWeight.w500, color: Theme.of(context).textTheme.bodyMedium?.color),
               ),
             ],
           ),
@@ -66,20 +58,12 @@ class RatesRow extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'xx',
-                    style: TextStyle(
-                        fontSize: 28,
-                        color: Colors.orangeAccent,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500),
+                    ratingsCount == null ? '0' : '$ratingsCount',
+                    style: TextStyle(fontSize: 28, color: Colors.orangeAccent, fontFamily: 'Poppins', fontWeight: FontWeight.w500),
                   ),
                   Text(
-                    'Votes',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w400,
-                        color: Theme.of(context).textTheme.bodyMedium?.color),
+                    localization.vote,
+                    style: TextStyle(fontSize: 20, fontFamily: 'Poppins', fontWeight: FontWeight.w400, color: Theme.of(context).textTheme.bodyMedium?.color),
                   )
                 ],
               ),
