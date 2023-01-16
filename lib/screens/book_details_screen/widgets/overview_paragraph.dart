@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:readmore/readmore.dart';
-
+import '../../../data/models/google_books/google_book.dart';
 class OverViewParagraph extends StatelessWidget {
-  const OverViewParagraph({super.key});
+final String? bookDescription;
+  const OverViewParagraph({super.key,this.bookDescription});
+
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class OverViewParagraph extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 30, left: 20, right: 20),
       alignment: Alignment.centerLeft,
       child: ReadMoreText(
-        'A good book description is a detailed, descriptive copy that is good for public display, used for your book marketing, book discovery, and for sales purposes. It helps potential buyers find and understand your book. It',
+        "$bookDescription",
         trimLines: 4,
         trimMode: TrimMode.Line,
         trimCollapsedText: localization!.showMore,

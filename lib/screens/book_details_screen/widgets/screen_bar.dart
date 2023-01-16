@@ -1,20 +1,25 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import '../../../data/models/google_books/google_book.dart';
 import '../../widgets/back_icon_button.dart';
 
 class ScreenBar extends StatelessWidget {
-  const ScreenBar({super.key});
+  final String? bookName;
+  final String? imageUrl;
+  const ScreenBar({super.key,this.bookName,this.imageUrl});
+
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: Theme.of(context).textTheme.bodyMedium?.color,
+      backgroundColor: Theme.of(context).backgroundColor,
       expandedHeight: 300,
       flexibleSpace: FlexibleSpaceBar(
           centerTitle: true,
           title: Container(
             padding: EdgeInsets.all(15),
             child: Text(
-              'Book Name From API',
+              bookName!,
               textAlign: TextAlign.start,
               style: TextStyle(
                   fontFamily: 'Poppins',
@@ -26,10 +31,10 @@ class ScreenBar extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               Container(
-               // child: Image.network(
-                  //Dummy.chooseRand(),
-                 // fit: BoxFit.cover,
-               // ),
+               child: CachedNetworkImage(
+                  imageUrl: imageUrl!,
+                 fit: BoxFit.cover,
+               ),
               ),
               Container(
                 width: double.infinity,

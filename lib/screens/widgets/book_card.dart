@@ -6,17 +6,20 @@ import 'package:mobile_app_project/screens/widgets/bookmark_button.dart';
 
 import '../../business_logic/cubit/bookmarks_cubit/bookmarks_cubit.dart';
 import '../../data/models/google_books/google_book.dart';
+import '../../data/models/nytimes_models/nytimes_best_sellers_models/nyt_best_sellers.dart';
 
 class BookCard extends StatelessWidget {
   BookCard({
     Key? key,
     this.book,
+    this.bestSellerBook,
     this.imageUrl,
     required this.hasBookmarkButton,
   }) : super(key: key);
 
   String? imageUrl;
   final GoogleBook? book;
+  final BestSellerBook? bestSellerBook;
   final hasBookmarkButton;
 
   @override
@@ -33,7 +36,14 @@ class BookCard extends StatelessWidget {
       ),
       margin: EdgeInsets.all(8),
       child: InkWell(
-        onTap: () => {context.go('/home/book_details')},
+        onTap: () {
+          Map<String, dynamic> allBooks = {'GoogleBooks': book,'BestSellerBook':bestSellerBook};
+          if (book != null) {
+            context.go('/home/book_details', extra: allBooks);
+          } else if (bestSellerBook != null) {
+            context.go('/home/bestseller_details', extra: allBooks);
+          }
+        },
         child: Stack(
           fit: StackFit.expand,
           clipBehavior: Clip.none,
@@ -45,11 +55,9 @@ class BookCard extends StatelessWidget {
                       fit: BoxFit.fill,
                       imageUrl: imageUrl!,
                       placeholder: (context, url) => Center(
-                        child: CircularProgressIndicator(
-                            color: Theme.of(context).primaryColor),
+                        child: CircularProgressIndicator(color: Theme.of(context).primaryColor),
                       ),
-                      errorWidget: (context, url, error) =>
-                          Icon(Icons.error_outline_rounded),
+                      errorWidget: (context, url, error) => Icon(Icons.error_outline_rounded),
                     )
                   : Center(
                       child: SizedBox(
@@ -69,11 +77,9 @@ class BookCard extends StatelessWidget {
                     bookId: book?.id,
                     onChange: (value) {
                       if (value) {
-                        BlocProvider.of<BookmarksCubit>(context)
-                            .recordBookMark(book);
+                        BlocProvider.of<BookmarksCubit>(context).recordBookMark(book);
                       } else {
-                        BlocProvider.of<BookmarksCubit>(context)
-                            .deleteBookMark(book?.id);
+                        BlocProvider.of<BookmarksCubit>(context).deleteBookMark(book?.id);
                       }
                     },
                   )),

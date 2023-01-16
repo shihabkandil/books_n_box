@@ -22,14 +22,16 @@ class BestSellersCarousel extends StatelessWidget {
             return CircularProgressIndicator(
               color: Theme.of(context).primaryColor,
             );
-          } else if (state.status == BooksDataStatus.booksLoaded &&
-              state.books != null) {
+          } else if (state.status == BooksDataStatus.booksLoaded && state.books != null) {
             return CarouselSlider.builder(
               itemCount: state.books!.length,
               itemBuilder: (BuildContext context, bookIndex, __) {
-                BestSellerBook bestSellerBook =
-                    state.books!.elementAt(bookIndex);
-                return BookCard(imageUrl: bestSellerBook.bookImage,hasBookmarkButton: false,);
+                BestSellerBook bestSellerBook = state.books!.elementAt(bookIndex);
+                return BookCard(
+                  bestSellerBook: bestSellerBook,
+                  imageUrl: bestSellerBook.bookImage,
+                  hasBookmarkButton: false,
+                );
               },
               options: CarouselOptions(
                 height: 1200 / MediaQuery.of(context).devicePixelRatio,
