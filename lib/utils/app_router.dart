@@ -18,6 +18,7 @@ import '../screens/auth_screens/login/login_screen.dart';
 import '../screens/auth_screens/reset_password/reset_password_screen.dart';
 import '../screens/edit_profile/profile_screen.dart';
 import '../screens/home_screen/home_screen.dart';
+import '../screens/my_shelf_screen/my_shelf_screen.dart';
 import '../screens/widgets/search_with_text.dart';
 
 /// To navigate use
@@ -72,6 +73,10 @@ class AppRouter {
             GoRoute(
               path: 'settings',
               builder: (context, state) => SettingsScreen(),
+            ),
+            GoRoute(
+              path: 'my_shelf',
+              builder: (context, state) => MyShelfScreen(),
             ),
             GoRoute(
               path: 'book_details',

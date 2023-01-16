@@ -52,8 +52,9 @@ class ShelfColumn extends StatelessWidget {
               height: 20,
             ),
             TileTemplate(
+              // HERE !!!!!!!!!!!!!!!!!!!!!
                 icon: Icon(Icons.book, color: Colors.white),
-                onTap: () => context.go('/home/settings'),
+                onTap: () => context.go('/home/my_shelf'),
                 text: Text(localization.myshelf, style: TextStyle(color: Colors.white)),
                 tail: Icon(Icons.arrow_forward, color: Colors.white),
                 color: Color.fromARGB(255, 6, 37, 121).withOpacity(0.7)),

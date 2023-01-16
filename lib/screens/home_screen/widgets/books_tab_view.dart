@@ -16,12 +16,7 @@ class BooksTabsView extends StatefulWidget {
 class _BooksTabsViewState extends State<BooksTabsView> {
   Duration sleep = Duration(milliseconds: 5);
 
-  Map<String, List> currentBookStates = {
-    "fantasy": [],
-    "romance": [],
-    "science+fiction": [],
-    "self+help": []
-  };
+  Map<String, List> currentBookStates = {"fantasy": [], "romance": [], "science+fiction": [], "self+help": []};
 
   @override
   Widget build(BuildContext context) {
@@ -30,24 +25,26 @@ class _BooksTabsViewState extends State<BooksTabsView> {
         if (state.status == BooksDataStatus.booksLoaded) {
           currentBookStates = state.genreBooks!;
           return Container(
-            height: 700 / MediaQuery.of(context).devicePixelRatio,
-            child: BlocProvider(
-              create: (context) => BookmarksCubit(),
-              child: TabBarView(
-                  controller: widget.tabController,
-                  children: <Widget>[
-                    BooksTab(books: currentBookStates['fantasy']!),
-                    BooksTab(books: currentBookStates['science+fiction']!),
-                    BooksTab(books: currentBookStates['romance']!),
-                    BooksTab(books: currentBookStates['self+help']!),
-                  ],
-                )
-               ));
-              }
-         else if(state.status == BooksDataStatus.loadingState){
-          return Center(child: CircularProgressIndicator(),);
-        }else{
-          return Center(child: Text("Books Not Retrieved !!"),);
+              height: 700 / MediaQuery.of(context).devicePixelRatio,
+              child: BlocProvider(
+                  create: (context) => BookmarksCubit(),
+                  child: TabBarView(
+                    controller: widget.tabController,
+                    children: <Widget>[
+                      BooksTab(books: currentBookStates['fantasy']!),
+                      BooksTab(books: currentBookStates['science+fiction']!),
+                      BooksTab(books: currentBookStates['romance']!),
+                      BooksTab(books: currentBookStates['self+help']!),
+                    ],
+                  )));
+        } else if (state.status == BooksDataStatus.loadingState) {
+          return Center(
+            child: CircularProgressIndicator(color: Theme.of(context).primaryColor),
+          );
+        } else {
+          return Center(
+            child: Text("Books Not Retrieved !!"),
+          );
         }
       },
     );
