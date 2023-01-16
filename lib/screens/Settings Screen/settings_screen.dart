@@ -16,117 +16,98 @@ class SettingsScreen extends StatelessWidget {
     var localization = AppLocalizations.of(context);
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).backgroundColor,
-          elevation: 1,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Theme.of(context).textTheme.bodyMedium!.color,
-            ),
-            onPressed: () {
-              context.pop();
-            },
-          ),
-        ),
+      appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
-        body: Container(
-          margin: EdgeInsets.only(top: 25, left: 35, right: 40),
-          child: Column(
-            children: [
-              Text(
-                localization!.settings,
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 40,
-                    color: Theme.of(context).textTheme.bodyMedium?.color),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    child: Text(
-                      localization.language,
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Theme.of(context).textTheme.bodyMedium?.color),
-                    ),
-                  ),
-                  Container(child: LangBtn()),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    child: Text(
-                      localization.theme,
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Theme.of(context).textTheme.bodyMedium?.color),
-                    ),
-                  ),
-                  Container(
-                    child: BlocBuilder<ThemeCubit, ThemeState>(
-                      builder: (context, state) {
-                        return SwitcherButton(
-                          value: state.appTheme == AppColors.darkTheme,
-                          onChange: (value) {
-                            BlocProvider.of<ThemeCubit>(context)
-                                .switchTheme(value);
-                            UserDataCache().writeThemePreferences(value);
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 245,
-              ),
-              Container(
-                child: Text(
-                  localization.help,
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Theme.of(context).textTheme.bodyMedium?.color),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TileTemplate(
-                  icon: Icon(Icons.question_mark_sharp, color: Colors.white),
-                  onTap: () {},
-                  text: Text(localization.faq,
-                      style: TextStyle(color: Colors.white)),
-                  color: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .color!
-                      .withOpacity(0.7)),
-              SizedBox(
-                height: 20,
-              ),
-              TileTemplate(
-                  icon: Icon(Icons.lock, color: Colors.white),
-                  onTap: () {},
-                  text: Text(localization.privacyPolicy,
-                      style: TextStyle(color: Colors.white)),
-                  color: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .color!
-                      .withOpacity(0.7)),
-            ],
+        elevation: 1,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Theme.of(context).textTheme.bodyMedium!.color,
           ),
-        ));
+          onPressed: () {
+            context.pop();
+          },
+        ),
+      ),
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Container(
+        margin: EdgeInsets.only(top: 25, left: 35, right: 40),
+        child: Column(
+          children: [
+            Text(
+              localization!.settings,
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 40, color: Theme.of(context).textTheme.bodyMedium?.color),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: Text(
+                    localization.language,
+                    style: TextStyle(fontSize: 16, color: Theme.of(context).textTheme.bodyMedium?.color),
+                  ),
+                ),
+                Container(child: LangBtn()),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: Text(
+                    localization.theme,
+                    style: TextStyle(fontSize: 16, color: Theme.of(context).textTheme.bodyMedium?.color),
+                  ),
+                ),
+                Container(
+                  child: BlocBuilder<ThemeCubit, ThemeState>(
+                    builder: (context, state) {
+                      return SwitcherButton(
+                        value: state.appTheme == AppColors.darkTheme,
+                        onChange: (value) {
+                          BlocProvider.of<ThemeCubit>(context).switchTheme(value);
+                          UserDataCache().writeThemePreferences(value);
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 245,
+            ),
+            Container(
+              child: Text(
+                localization.help,
+                style: TextStyle(fontSize: 16, color: Theme.of(context).textTheme.bodyMedium?.color),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            TileTemplate(
+                icon: Icon(Icons.question_mark_sharp, color: Colors.white),
+                onTap: () {},
+                text: Text(localization.faq, style: TextStyle(color: Colors.white)),
+                color: Theme.of(context).textTheme.bodyMedium!.color!.withOpacity(0.7)),
+            SizedBox(
+              height: 20,
+            ),
+            TileTemplate(
+                icon: Icon(Icons.lock, color: Colors.white),
+                onTap: () {},
+                text: Text(localization.privacyPolicy, style: TextStyle(color: Colors.white)),
+                color: Theme.of(context).textTheme.bodyMedium!.color!.withOpacity(0.7)),
+          ],
+        ),
+      ),
+    );
   }
 }

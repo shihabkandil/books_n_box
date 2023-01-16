@@ -62,7 +62,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               SizedBox(
                 height: 20,
               ),
-              CircularProgressIndicator(),
+              CircularProgressIndicator(color: Theme.of(context).primaryColor),
             ],
           ),
         ),
