@@ -27,4 +27,10 @@ class AppStatusBloc extends Bloc<AppStatusEvent,AppStatusState> {
         ? AppStatusState.authenticated(event.user)
         : const AppStatusState.unauthenticated());
   }
+
+  @override
+  void onTransition(Transition<AppStatusEvent, AppStatusState> transition) {
+    print(transition.toString());
+    super.onTransition(transition);
+  }
 }

@@ -14,62 +14,55 @@ class ShelfColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context);
 
-    return BlocListener<AuthCubit, AuthState>(
-      listener: (context, state) {
-        if (state.status == AuthenticationStatus.loggedOut) {
-          context.go("/");
-        }
-      },
-      child: Container(
-        padding: EdgeInsets.all(50),
-        child: Column(
-          children: [
-            ProfileAvatarCircle(),
-            SizedBox(
-              height: 20,
-            ),
-            TileTemplate(
-                icon: Icon(Icons.person, color: Colors.white),
-                onTap: () => context.go('/home/profile'),
-                text: Text(
-                  localization!.editProfile,
-                  style: TextStyle(color: Colors.white),
-                ),
-                tail: Icon(Icons.arrow_forward, color: Colors.white),
-                color: AppColors.tileColor.withOpacity(0.7)),
-            SizedBox(
-              height: 20,
-            ),
-            TileTemplate(
-                icon: Icon(Icons.settings, color: Colors.white),
-                onTap: () => context.go('/home/settings'),
+    return Container(
+      padding: EdgeInsets.all(50),
+      child: Column(
+        children: [
+          ProfileAvatarCircle(),
+          SizedBox(
+            height: 20,
+          ),
+          TileTemplate(
+              icon: Icon(Icons.person, color: Colors.white),
+              onTap: () => context.go('/home/profile'),
+              text: Text(
+                localization!.editProfile,
+                style: TextStyle(color: Colors.white),
+              ),
+              tail: Icon(Icons.arrow_forward, color: Colors.white),
+              color: AppColors.tileColor.withOpacity(0.7)),
+          SizedBox(
+            height: 20,
+          ),
+          TileTemplate(
+              icon: Icon(Icons.settings, color: Colors.white),
+              onTap: () => context.go('/home/settings'),
 
-                text: Text(localization.settings, style: TextStyle(color: Colors.white)),
+              text: Text(localization.settings, style: TextStyle(color: Colors.white)),
 
-                tail: Icon(Icons.arrow_forward, color: Colors.white),
-                color: AppColors.tileColor.withOpacity(0.7)),
-            SizedBox(
-              height: 20,
-            ),
-            TileTemplate(
-              // HERE !!!!!!!!!!!!!!!!!!!!!
-                icon: Icon(Icons.book, color: Colors.white),
-                onTap: () => context.go('/home/my_shelf'),
-                text: Text(localization.myshelf, style: TextStyle(color: Colors.white)),
-                tail: Icon(Icons.arrow_forward, color: Colors.white),
-                color: Color.fromARGB(255, 6, 37, 121).withOpacity(0.7)),
-            SizedBox(
-              height: 20,
-            ),
-            TileTemplate(
-                icon: Icon(Icons.logout, color: Colors.white),
-                onTap: () => BlocProvider.of<AuthCubit>(context).logOut(),
-                text: Text(localization.logOut,
-                    style: TextStyle(color: Colors.white)),
-                tail: Icon(Icons.arrow_forward, color: Colors.white),
-                color: Colors.red.withOpacity(0.7)),
-          ],
-        ),
+              tail: Icon(Icons.arrow_forward, color: Colors.white),
+              color: AppColors.tileColor.withOpacity(0.7)),
+          SizedBox(
+            height: 20,
+          ),
+          TileTemplate(
+            // HERE !!!!!!!!!!!!!!!!!!!!!
+              icon: Icon(Icons.book, color: Colors.white),
+              onTap: () => context.go('/home/my_shelf'),
+              text: Text(localization.myshelf, style: TextStyle(color: Colors.white)),
+              tail: Icon(Icons.arrow_forward, color: Colors.white),
+              color: Color.fromARGB(255, 6, 37, 121).withOpacity(0.7)),
+          SizedBox(
+            height: 20,
+          ),
+          TileTemplate(
+              icon: Icon(Icons.logout, color: Colors.white),
+              onTap: () => BlocProvider.of<AuthCubit>(context).logOut(),
+              text: Text(localization.logOut,
+                  style: TextStyle(color: Colors.white)),
+              tail: Icon(Icons.arrow_forward, color: Colors.white),
+              color: Colors.red.withOpacity(0.7)),
+        ],
       ),
     );
   }
