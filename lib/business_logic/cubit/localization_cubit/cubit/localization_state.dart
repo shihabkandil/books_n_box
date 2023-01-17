@@ -4,10 +4,8 @@ enum LanguageState { Initial, ar, en }
 
 class LocalizationState extends Equatable {
   LocalizationState({required this.locale, required this.state});
-  Locale locale;
-  LanguageState state;
+  final Locale locale;
+  final LanguageState state;
   @override
   List<Object> get props => [locale, state];
 }
-
-// class LocalizationInitial extends LocalizationState {}

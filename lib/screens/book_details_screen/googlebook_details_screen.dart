@@ -14,11 +14,12 @@ class GoogleBookDetailsScreen extends StatelessWidget {
     googleBook= allBook['GoogleBooks'];
     final String? bookName = googleBook!.volumeInfo!.title;
     final String authors = (googleBook!.volumeInfo!.authors).toString();
-    final String? imageUrl = googleBook!.volumeInfo?.imageLinks?.thumbnail;
+    final String? imageUrl = googleBook!.volumeInfo?.imageLinks?.small;
     final num? rating = googleBook!.volumeInfo!.averageRating;
     final num? ratingsCount = googleBook!.volumeInfo!.ratingsCount;
     final num? pagecount = googleBook!.volumeInfo!.pageCount;
     final String? bookDescription = googleBook!.volumeInfo!.description;
+    print(googleBook!.volumeInfo?.imageLinks?.small);
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,

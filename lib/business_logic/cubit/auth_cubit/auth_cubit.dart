@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/models/user.dart' as User;
@@ -73,6 +74,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> logOut() async {
     await _authRepository.logOut();
+    if(!isClosed)
     emit(AuthState(status: AuthenticationStatus.loggedOut));
   }
   
@@ -143,6 +145,7 @@ class AuthCubit extends Cubit<AuthState> {
   @override
   void onChange(Change<AuthState> change) {
     super.onChange(change);
-    debugPrint(change.toString());
+    if(kDebugMode)
+      debugPrint(change.toString());
   }
 }

@@ -32,7 +32,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 300,
+      width: MediaQuery.of(context).size.width / 100 * 80,
       child: TextFormField(
         onSaved: widget.onSaved,
         validator: widget.validator,

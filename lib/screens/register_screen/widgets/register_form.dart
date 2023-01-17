@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_app_project/screens/edit_profile/widgets/profile_image.dart';
+import 'package:mobile_app_project/screens/widgets/custom_text_field.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
 import '../../../../utils/screen_block_size.dart';
-import '../../../widgets/button.dart';
-import '../../../widgets/custom_text_field.dart';
-import '../../login/widgets/center_logo.dart';
-import '../../login/widgets/center_title.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../login_screen/widgets/center_logo.dart';
+import '../../login_screen/widgets/center_title.dart';
+import '../../widgets/button.dart';
 
 class RegisterForm extends StatefulWidget {
   RegisterForm({super.key});
