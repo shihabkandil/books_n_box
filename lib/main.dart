@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_app_project/data/repository/user_data_cache.dart';
 import 'business_logic/bloc/app_status_bloc/app_status_bloc.dart';
 import 'business_logic/cubit/localization_cubit/cubit/localization_cubit.dart';
@@ -16,6 +17,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 List<CameraDescription> cameras = [];
 CameraDescription? firstCamera;
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 // var appTheme;
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -23,8 +25,6 @@ void main() async {
   // appTheme = theme ? AppColors.lightTheme : AppColors.darkTheme;
   await Firebase.initializeApp();
   await UserDataCache.init();
-  final authRepository = AuthRepository();
-  await authRepository.user.first;
   var theme = await UserDataCache().readThemePreferences();
   var currentTheme = AppColors.darkTheme;
   if (theme == null) {
@@ -36,12 +36,10 @@ void main() async {
     currentTheme = AppColors.lightTheme;
   }
 
-final fcmToken = await FirebaseMessaging.instance.getToken();
-print(fcmToken);
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  print(fcmToken);
   String lang = UserDataCache().readLanguagePreference();
   FlutterNativeSplash.remove();
-
-  WidgetsFlutterBinding.ensureInitialized();
 
   // Obtain a list of the available cameras on the device.
   cameras = await availableCameras();
@@ -49,14 +47,18 @@ print(fcmToken);
   firstCamera = cameras.first;
 
   runApp(BooksNBox(
-    authRepository: authRepository,
     currentTheme: currentTheme,
     lang: Locale(lang, ''),
   ));
 }
 
 class BooksNBox extends StatelessWidget {
-  BooksNBox({Key? key, AppRouter? appRouter, AuthRepository? authRepository, required this.currentTheme,required this.lang})
+  BooksNBox(
+      {Key? key,
+      AppRouter? appRouter,
+      AuthRepository? authRepository,
+      required this.currentTheme,
+      required this.lang})
       : _appRouter = appRouter ?? AppRouter(),
         _authRepository = authRepository ?? AuthRepository(),
         super(key: key);
@@ -65,6 +67,7 @@ class BooksNBox extends StatelessWidget {
   final AuthRepository _authRepository;
   ThemeData currentTheme = AppColors.darkTheme;
   final Locale lang;
+
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
@@ -81,29 +84,37 @@ class BooksNBox extends StatelessWidget {
             create: (context) => ThemeCubit(currentTheme),
           ),
         ],
-        child: BlocBuilder<LocalizationCubit, LocalizationState>(
-          builder: (context, state) {
-            return BlocBuilder<ThemeCubit, ThemeState>(
-              builder: (context, state2) {
-                return MaterialApp.router(
-                  locale: state.locale,
-                  localizationsDelegates: [
-                    AppLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  supportedLocales: [
-                    Locale('en', ''), // English, no country code
-                    Locale('ar', ''),
-                  ],
-                  routerConfig: _appRouter.router,
-                  theme: state2.appTheme,
-                  debugShowCheckedModeBanner: false,
-                );
-              },
-            );
+        child: BlocListener<AppStatusBloc, AppStatusState>(
+          listener: (context, state) {
+            if (state.status == AppStatus.unAuthenticated) {
+              _appRouter.router.go('/');
+            }
           },
+          child: BlocBuilder<LocalizationCubit, LocalizationState>(
+            builder: (context, state) {
+              return BlocBuilder<ThemeCubit, ThemeState>(
+                builder: (context, state2) {
+                  return MaterialApp.router(
+                    key: navigatorKey,
+                    locale: state.locale,
+                    localizationsDelegates: [
+                      AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                    ],
+                    supportedLocales: [
+                      Locale('en', ''), // English, no country code
+                      Locale('ar', ''),
+                    ],
+                    routerConfig: _appRouter.router,
+                    theme: state2.appTheme,
+                    debugShowCheckedModeBanner: false,
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );
