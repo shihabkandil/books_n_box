@@ -4,40 +4,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mobile_app_project/data/repository/user_data_cache.dart';
+import 'package:mobile_app_project/utils/app_theme.dart';
 import 'business_logic/bloc/app_status_bloc/app_status_bloc.dart';
 import 'business_logic/cubit/localization_cubit/cubit/localization_cubit.dart';
 import 'package:mobile_app_project/business_logic/cubit/theme_cubit/cubit/theme_cubit.dart';
-import 'package:mobile_app_project/utils/constants/app_colors.dart';
 import 'data/repository/auth_repository.dart';
 import 'utils/app_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'utils/main_bloc_providers.dart';
+
 List<CameraDescription> cameras = [];
 CameraDescription? firstCamera;
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-// var appTheme;
+
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  // appTheme = theme ? AppColors.lightTheme : AppColors.darkTheme;
+
   await Firebase.initializeApp();
   await UserDataCache.init();
   var theme = await UserDataCache().readThemePreferences();
-  var currentTheme = AppColors.darkTheme;
+  var currentTheme = AppTheme.darkTheme;
   if (theme == null) {
     theme = true;
     UserDataCache().writeThemePreferences(theme);
   }
-  print(theme);
   if (theme == false) {
-    currentTheme = AppColors.lightTheme;
+    currentTheme = AppTheme.lightTheme;
   }
 
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-  print(fcmToken);
+  await FirebaseMessaging.instance.getToken();
   String lang = UserDataCache().readLanguagePreference();
   FlutterNativeSplash.remove();
 
@@ -48,7 +46,7 @@ void main() async {
 
   runApp(BooksNBox(
     currentTheme: currentTheme,
-    lang: Locale(lang, ''),
+    locale: Locale(lang),
   ));
 }
 
@@ -58,32 +56,23 @@ class BooksNBox extends StatelessWidget {
       AppRouter? appRouter,
       AuthRepository? authRepository,
       required this.currentTheme,
-      required this.lang})
+      required this.locale})
       : _appRouter = appRouter ?? AppRouter(),
         _authRepository = authRepository ?? AuthRepository(),
         super(key: key);
 
   final AppRouter _appRouter;
   final AuthRepository _authRepository;
-  ThemeData currentTheme = AppColors.darkTheme;
-  final Locale lang;
+  final ThemeData currentTheme;
+  final Locale locale;
 
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: _authRepository,
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<AppStatusBloc>(
-            create: (context) => AppStatusBloc(authRepository: _authRepository),
-          ),
-          BlocProvider<LocalizationCubit>(
-            create: (context) => LocalizationCubit(lang),
-          ),
-          BlocProvider<ThemeCubit>(
-            create: (context) => ThemeCubit(currentTheme),
-          ),
-        ],
+      child: MainBlocProviders(
+        appTheme: currentTheme,
+        appLocale: locale,
         child: BlocListener<AppStatusBloc, AppStatusState>(
           listener: (context, state) {
             if (state.status == AppStatus.unAuthenticated) {
@@ -93,9 +82,8 @@ class BooksNBox extends StatelessWidget {
           child: BlocBuilder<LocalizationCubit, LocalizationState>(
             builder: (context, state) {
               return BlocBuilder<ThemeCubit, ThemeState>(
-                builder: (context, state2) {
+                builder: (context, themeState) {
                   return MaterialApp.router(
-                    key: navigatorKey,
                     locale: state.locale,
                     localizationsDelegates: [
                       AppLocalizations.delegate,
@@ -108,7 +96,7 @@ class BooksNBox extends StatelessWidget {
                       Locale('ar', ''),
                     ],
                     routerConfig: _appRouter.router,
-                    theme: state2.appTheme,
+                    theme: themeState.appTheme,
                     debugShowCheckedModeBanner: false,
                   );
                 },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../business_logic/cubit/localization_cubit/cubit/localization_cubit.dart';
+import '../../business_logic/cubit/localization_cubit/cubit/localization_cubit.dart';
 import 'widgets/login_form.dart';
 
 class LoginScreen extends StatelessWidget {

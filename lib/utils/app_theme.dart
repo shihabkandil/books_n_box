@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app_project/utils/constants/app_colors.dart';
 
-class AppThemeData {
-  static ThemeData get materialTheme {
-    return ThemeData(
-      fontFamily: 'Poppins',
-      primaryColor: AppColors.primaryColor,
-      backgroundColor: AppColors.backgroundColor,
-      //canvasColor: Colors.white,
-      //primaryColorDark: Constants.GREY_COLOR,
-      // Theme.of(context).primaryColor this is the usage
-    );
-  }
+class AppTheme {
+  static var lightTheme = ThemeData(
+    textTheme: TextTheme(
+      displayLarge: TextStyle(),
+    ).apply(bodyColor: Colors.black),
+    backgroundColor: Colors.white,
+    primaryColor: Color(0xff0646DC),
+  );
+  static var darkTheme = ThemeData(
+    textTheme: TextTheme(
+      bodyMedium: TextStyle(),
+    ).apply(bodyColor: Colors.white),
+    backgroundColor: Colors.black,
+    primaryColor: Color(0xff0646DC),
+  );
 }

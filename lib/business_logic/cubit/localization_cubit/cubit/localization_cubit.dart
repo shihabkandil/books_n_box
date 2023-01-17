@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app_project/data/repository/user_data_cache.dart';
 part 'localization_state.dart';
@@ -36,5 +37,13 @@ class LocalizationCubit extends Cubit<LocalizationState> {
 
   void setPreference(String lang) {
     UserDataCache().writeLanguagePreference(lang);
+  }
+
+  @override
+  void onChange(Change<LocalizationState> change) {
+    super.onChange(change);
+    if (kDebugMode) {
+      debugPrint(change.toString());
+    }
   }
 }

@@ -25,23 +25,21 @@ class _ResetPasswordState extends State<ResetPassword> {
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context);
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(),
-        InkWell(
-          onTap: () {
-            context.go('/reset_password');
-          },
-          child: Text(
-            localization!.reset_password,
-            style: GoogleFonts.cairo(
-                fontWeight: FontWeight.bold,
-                color: Colors.grey,
-                fontSize: widget.sizingConfig.verticalBlockSize * 1.6),
-          ),
+    return Container(
+      width: MediaQuery.of(context).size.width / 100 * 80,
+      alignment: Alignment.centerRight,
+      child: InkWell(
+        onTap: () {
+          context.go('/reset_password');
+        },
+        child: Text(
+          localization!.reset_password,
+          style: GoogleFonts.cairo(
+              fontWeight: FontWeight.bold,
+              color: Colors.grey,
+              fontSize: widget.sizingConfig.verticalBlockSize * 1.6),
         ),
-      ],
+      ),
     );
   }
 }

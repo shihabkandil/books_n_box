@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile_app_project/business_logic/cubit/theme_cubit/cubit/theme_cubit.dart';
-import 'package:mobile_app_project/utils/constants/app_colors.dart';
 import 'package:switcher_button/switcher_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../business_logic/cubit/theme_cubit/cubit/theme_cubit.dart';
 import '../../data/repository/user_data_cache.dart';
+import '../../utils/app_theme.dart';
 import '../home_screen/widgets/tile_template.dart';
 import 'widgets/lang_btn.dart';
 
@@ -69,7 +69,7 @@ class SettingsScreen extends StatelessWidget {
                   child: BlocBuilder<ThemeCubit, ThemeState>(
                     builder: (context, state) {
                       return SwitcherButton(
-                        value: state.appTheme == AppColors.darkTheme,
+                        value: state.appTheme == AppTheme.darkTheme,
                         onChange: (value) {
                           BlocProvider.of<ThemeCubit>(context).switchTheme(value);
                           UserDataCache().writeThemePreferences(value);

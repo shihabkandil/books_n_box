@@ -39,7 +39,7 @@ class NytBestSellersCubit extends Cubit<NytBestSellersState> {
   void onChange(Change<NytBestSellersState> change) {
     super.onChange(change);
     if(kDebugMode){
-      // debugPrint(change.toString());
+      debugPrint(change.toString());
     }
   }
 }

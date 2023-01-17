@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/models/user.dart';
 import '../../../data/repository/auth_repository.dart';
@@ -30,7 +31,8 @@ class AppStatusBloc extends Bloc<AppStatusEvent,AppStatusState> {
 
   @override
   void onTransition(Transition<AppStatusEvent, AppStatusState> transition) {
-    print(transition.toString());
+    if(kDebugMode)
+      debugPrint(transition.toString());
     super.onTransition(transition);
   }
 }

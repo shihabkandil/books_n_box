@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,12 +33,9 @@ class ProfileImage extends StatelessWidget {
               BlocListener<UploadImageCubit, UploadImageState>(
                 listener: (context, state) {
                   if (state.image != img) {
-                    // print('-----------------eeeeeeeeeeeeeeeeee---------------');
-                    // print(state.image!.path);
                     img = state.image;
                   }
                 },
-                // child: image(state, context),
                 child: CircleAvatar(
                   radius: 65,
                   backgroundColor: Theme.of(context).primaryColor,

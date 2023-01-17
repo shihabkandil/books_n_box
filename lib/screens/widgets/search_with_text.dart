@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mobile_app_project/business_logic/cubit/google_books_cubit/google_books_cubit.dart';
 import 'package:mobile_app_project/utils/enums/books_data_status_enum.dart';
 
@@ -10,7 +9,6 @@ class SearchWithText extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-     var localization = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,

@@ -1,6 +1,7 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../../data/models/google_books/google_book.dart';
 import '../../widgets/back_icon_button.dart';
 
 class ScreenBar extends StatelessWidget {
@@ -31,9 +32,21 @@ class ScreenBar extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               Container(
-               child: CachedNetworkImage(
-                  imageUrl: imageUrl!,
-                 fit: BoxFit.cover,
+               child: Stack(
+                 fit: StackFit.expand,
+                 children: [
+                   ImageFiltered(
+                     imageFilter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+                     child: CachedNetworkImage(
+                       imageUrl: imageUrl!,
+                       fit: BoxFit.fitWidth,
+                     ),
+                   ),
+                   CachedNetworkImage(
+                     imageUrl: imageUrl!,
+                     fit: BoxFit.fitHeight,
+                   ),
+                 ],
                ),
               ),
               Container(

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import '../../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
-import '../../../../utils/screen_block_size.dart';
-import '../../../widgets/button.dart';
-import '../../../widgets/custom_text_field.dart';
+import '../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
+import '../../../utils/screen_block_size.dart';
+import '../../widgets/button.dart';
+import '../../widgets/custom_text_field.dart';
 import 'center_logo.dart';
 import 'center_title.dart';
 import 'dont_have_Account_text.dart';
@@ -45,8 +45,7 @@ class _LoginFormState extends State<LoginForm> {
         }
       },
       child: ResponsiveBuilder(builder: (context, screenConfig) {
-        final ScreenBlockSize sizeConfig =
-            ScreenBlockSize(screenSizeConfig: screenConfig);
+        final ScreenBlockSize sizeConfig = ScreenBlockSize(screenSizeConfig: screenConfig);
         return Form(
           key: _formKey,
           child: Container(
