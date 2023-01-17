@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:readmore/readmore.dart';
-import '../../../data/models/google_books/google_book.dart';
 class OverViewParagraph extends StatelessWidget {
 final String? bookDescription;
   const OverViewParagraph({super.key,this.bookDescription});

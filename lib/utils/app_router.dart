@@ -4,7 +4,6 @@ import 'package:mobile_app_project/business_logic/cubit/camera_cubit/camera_cubi
 import 'package:mobile_app_project/business_logic/cubit/google_books_cubit/google_books_cubit.dart';
 import 'package:mobile_app_project/business_logic/cubit/text_recognition_cubit/text_recognition_cubit.dart';
 import 'package:mobile_app_project/business_logic/cubit/nyt_best_sellers_cubit/nyt_best_sellers_cubit.dart';
-import 'package:mobile_app_project/data/models/google_books/google_book.dart';
 import 'package:mobile_app_project/screens/auth_screens/register/register_screen.dart';
 import 'package:mobile_app_project/screens/Settings%20Screen/settings_screen.dart';
 import 'package:mobile_app_project/screens/book_details_screen/googlebook_details_screen.dart';

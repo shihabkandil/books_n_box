@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../data/models/google_books/google_book.dart';
 
 class OverViewHeader extends StatelessWidget {
   final String? authors;

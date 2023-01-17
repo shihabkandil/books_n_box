@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mobile_app_project/data/repository/user_data_cache.dart';
 import 'business_logic/bloc/app_status_bloc/app_status_bloc.dart';
 import 'business_logic/cubit/localization_cubit/cubit/localization_cubit.dart';

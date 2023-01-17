@@ -47,7 +47,6 @@ class AuthRepository {
       if (oldImage != null) {
         await FirebaseStorage.instance.refFromURL(oldImage).delete();
       }
-      print('aaaaaaaaaaaaaaaa');
       await imageRef.putFile(file);
       String t = await imageRef.getDownloadURL();
       return t;

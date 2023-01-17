@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../../data/models/google_books/google_book.dart';
 import '../../widgets/back_icon_button.dart';
 
 class ScreenBar extends StatelessWidget {
