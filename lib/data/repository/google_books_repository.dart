@@ -33,7 +33,6 @@ class GoogleBooksRepository {
         for (int i = 1; i < 6; i++) {
           booksInfo.add(jsonResponse.books![i]);
         }
-        // print(booksInfo[1].volumeInfo!.authors);
         return booksInfo;
       }
     } on SocketException {

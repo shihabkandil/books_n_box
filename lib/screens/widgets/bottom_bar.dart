@@ -40,9 +40,12 @@ class AppBottomNavBar extends StatelessWidget {
           },
         ),
         GButton(
-          icon: CupertinoIcons.search,
-          text: localization.search,
-          onPressed: () {},
+          icon: CupertinoIcons.compass,
+          text: localization.discoverrevs,
+          onPressed: () {
+            
+            context.go("/home/discover");
+          },
         ),
       ],
     );

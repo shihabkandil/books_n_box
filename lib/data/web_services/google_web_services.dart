@@ -1,5 +1,5 @@
 import 'package:http/http.dart';
-import '../../utils/constants/strings.dart';
+import '../../utils/constants/api_links.dart';
 import 'package:http/http.dart' as http;
 
 class GoogleWebService {

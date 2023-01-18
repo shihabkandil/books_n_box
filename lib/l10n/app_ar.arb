@@ -1,5 +1,5 @@
 {
-  "appTitle": "بوكس إن بكس",
+  "appTitle": "بوكس إن بوكس",
   "settings": "الإعدادات",
   "enter": "أدخل ",
   "emailAddress": "البريد الالكتروني",
@@ -50,7 +50,7 @@
   "privacyPolicy": "سياستنا الخصوصية",
   "home": "الصفحه الرئيسيه",
   "camera": "كاميرا",
-  "search": "بحث",
+  "discoverrevs": "اطلع على الاراء",
   "recognizedText": "النص المعترف به",
   "loading": "جاري تحميل",
   "nowpopular": "شائع الآن",
@@ -69,5 +69,6 @@
   "reset_password_instructions": "ستتلقى رسالة بريد إلكتروني تحتوي على إرشادات لتغيير كلمة المرور الخاصة بك",
   "problem_sending_email" : "مشكلة في إرسال البريد الإلكتروني",
   "myshelf" : "كتبي",
-  "imageUploadFailed":"فشل رفع الصور"
+  "imageUploadFailed":"فشل رفع الصور",
+  "latestrevs":"احدث الاراء والتقييمات"
 }

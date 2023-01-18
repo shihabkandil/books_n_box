@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_app_project/utils/enums/bookarks_enum.dart';
+import 'package:mobile_app_project/utils/enums/bookmarks_enum.dart';
 import '../../../data/models/google_books/google_book.dart';
 import '../../../data/repository/bookmarks_repository.dart';
 part 'bookmarks_state.dart';

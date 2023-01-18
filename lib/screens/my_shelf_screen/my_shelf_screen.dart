@@ -3,9 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mobile_app_project/screens/my_shelf_screen/widgets/book_image.dart';
 import 'package:mobile_app_project/screens/my_shelf_screen/widgets/single_book_details.dart';
-
 import '../../business_logic/cubit/bookmarks_cubit/bookmarks_cubit.dart';
-import '../../utils/enums/bookarks_enum.dart';
+import '../../utils/enums/bookmarks_enum.dart';
 import '../widgets/back_icon_button.dart';
 
 class MyShelfScreen extends StatefulWidget {
