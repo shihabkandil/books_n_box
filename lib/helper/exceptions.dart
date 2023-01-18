@@ -57,3 +57,35 @@ class FirebaseAuthFailure implements Exception{
     }
   }
 }
+
+class ImageUploadFailure implements Exception {
+  final String message;
+  const ImageUploadFailure([this.message = "Profile Update Failure"]);
+
+  factory ImageUploadFailure.fromCode(String code) {
+    switch (code) {
+      case 'storage/object-not-found':
+        return const ImageUploadFailure(
+          'Image not found',
+        );
+      case 'storage/unauthenticated':
+        return const ImageUploadFailure(
+          'Please log in and try again',
+        );
+      case 'storage/invalid-url':
+        return const ImageUploadFailure(
+          'Unable to delete old image.',
+        );
+      case 'storage/invalid-checksum':
+        return const ImageUploadFailure(
+          'Checksum error, please try uploading again',
+        );
+      case 'storage/retry-limit-exceeded':
+        return const ImageUploadFailure(
+          'Time limit exceeded, please try again',
+        );
+      default:
+        return const ImageUploadFailure();
+    }
+  }
+}
