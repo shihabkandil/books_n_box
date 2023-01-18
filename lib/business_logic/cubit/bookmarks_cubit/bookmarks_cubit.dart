@@ -9,7 +9,9 @@ import '../../../data/repository/bookmarks_repository.dart';
 part 'bookmarks_state.dart';
 
 class BookmarksCubit extends Cubit<BookmarksState> {
-  BookmarksCubit({BookmarksRepository? bookmarksRepository, required Map<String, List<GoogleBook>> retrivedBooks})
+  BookmarksCubit(
+      {BookmarksRepository? bookmarksRepository,
+      required Map<String, List<GoogleBook>> retrivedBooks})
       : _bookmarksRepository = bookmarksRepository ?? BookmarksRepository(),
         _retrivedBooks = retrivedBooks,
         super(BookmarksState(status: BookmarkStatus.notBookmarked));
@@ -17,7 +19,6 @@ class BookmarksCubit extends Cubit<BookmarksState> {
   final BookmarksRepository _bookmarksRepository;
   Set<String> _bookmarkedBooksIds = {};
   final Map<String, List<GoogleBook>> _retrivedBooks;
-  List<GoogleBook>? bookmarkedBooks;
 
   void recordBookMark(GoogleBook? book) async {
     emit(BookmarksState(status: BookmarkStatus.notBookmarked));
@@ -43,7 +44,9 @@ class BookmarksCubit extends Cubit<BookmarksState> {
       try {
         await _bookmarksRepository.deleteMyBookMark(bookID);
         _bookmarkedBooksIds.remove(bookID);
-        emit(BookmarksState(status: BookmarkStatus.notBookmarked));
+        emit(BookmarksState(
+            status: BookmarkStatus.notBookmarked,
+            bookmarkedBooks: state.bookmarkedBooks));
       } on SocketException {
         emit(BookmarksState(status: BookmarkStatus.noInternetConnection));
       } catch (error) {
@@ -60,7 +63,8 @@ class BookmarksCubit extends Cubit<BookmarksState> {
 
   void syncUserBookmarks() async {
     try {
-      List<GoogleBook> bookmarkedUserBooks = await _bookmarksRepository.syncUserBookmarks();
+      List<GoogleBook> bookmarkedUserBooks =
+          await _bookmarksRepository.syncUserBookmarks();
 
       _retrivedBooks.forEach((key, value) {
         bookmarkedUserBooks.forEach((element) {
@@ -82,8 +86,11 @@ class BookmarksCubit extends Cubit<BookmarksState> {
   void getAllBookmarkedBooks() async {
     try {
       emit(BookmarksState(status: BookmarkStatus.fetchingBookmarks));
-      bookmarkedBooks = await _bookmarksRepository.syncUserBookmarks();
-      emit(BookmarksState(status: BookmarkStatus.syncedBookmarks));
+      List<GoogleBook>? bookmarkedBooks =
+          await _bookmarksRepository.syncUserBookmarks();
+      emit(BookmarksState(
+          status: BookmarkStatus.syncedBookmarks,
+          bookmarkedBooks: bookmarkedBooks));
       // return bookmarkedUserBooks;
     } on SocketException {
       emit(BookmarksState(status: BookmarkStatus.noInternetConnection));

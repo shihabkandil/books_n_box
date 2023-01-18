@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:mobile_app_project/data/models/google_books/google_book.dart';
 import 'package:mobile_app_project/screens/my_shelf_screen/widgets/book_image.dart';
 import 'package:mobile_app_project/screens/my_shelf_screen/widgets/single_book_details.dart';
 
@@ -35,32 +34,47 @@ class _MyShelfScreenState extends State<MyShelfScreen> {
             Text(
               textAlign: TextAlign.center,
               localization!.myshelf,
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 40, color: Theme.of(context).textTheme.bodyMedium?.color),
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 40,
+                  color: Theme.of(context).textTheme.bodyMedium?.color),
             ),
             SizedBox(
               height: 50,
             ),
             BlocBuilder<BookmarksCubit, BookmarksState>(
               builder: (context, state) {
-                if (state.status == BookmarkStatus.syncedBookmarks || BlocProvider.of<BookmarksCubit>(context).bookmarkedBooks != null) {
+                if ((state.status == BookmarkStatus.notBookmarked ||
+                        state.status == BookmarkStatus.syncedBookmarks) &&
+                    state.bookmarkedBooks != null) {
                   return Expanded(
                     child: ListView.builder(
-                      itemCount:  BlocProvider.of<BookmarksCubit>(context).bookmarkedBooks?.length,
+                      itemCount: state.bookmarkedBooks?.length,
                       itemBuilder: (context, index) {
                         return Row(
                           children: [
-                            BookImage(thumbnailLink:  BlocProvider.of<BookmarksCubit>(context).bookmarkedBooks![index].volumeInfo!.imageLinks!.thumbnail!),
-                            SingleBookDetail(bookDetails:  BlocProvider.of<BookmarksCubit>(context).bookmarkedBooks![index]),
+                            BookImage(
+                                thumbnailLink: state.bookmarkedBooks![index]
+                                    .volumeInfo!.imageLinks!.thumbnail!),
+                            SingleBookDetail(
+                                bookDetails: state.bookmarkedBooks![index]),
                           ],
                         );
                       },
                     ),
                   );
-                } else {
-
+                } else if (state.status == BookmarkStatus.fetchingBookmarks) {
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      children: [CircularProgressIndicator()],
+                    ),
+                  );
+                } else {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [Text("No bookmarks yet")],
                     ),
                   );
                 }

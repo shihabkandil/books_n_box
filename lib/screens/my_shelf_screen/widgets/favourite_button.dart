@@ -15,7 +15,7 @@ class FavoriteButton extends StatelessWidget {
           onPressed: () {
             BlocProvider.of<BookmarksCubit>(context).deleteBookMark(bookId);
             BlocProvider.of<BookmarksCubit>(context).getAllBookmarkedBooks();
-            print("I am so sorry Farah :( ......");
+            
           },
           icon: Icon(Icons.favorite),
           iconSize: 24,
