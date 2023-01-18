@@ -19,7 +19,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
 
-  // String? _password;
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -31,11 +30,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
     nameController.text = user!.displayName ?? '';
     emailController.text = user.email ?? '';
-    // passwordController.text = user.pas ?? '';
 
-    //  = repo.currentUser;
-    // user.uid
-    print(user.toString());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,

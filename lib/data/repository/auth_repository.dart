@@ -79,7 +79,6 @@ class AuthRepository {
     try {
       final v = await firebase_auth.FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      print(v.user.toString());
     } on firebase_auth.FirebaseAuthException catch (exception) {
       throw FirebaseAuthFailure.fromCode(exception.code);
     } catch (e) {

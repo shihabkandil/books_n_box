@@ -26,7 +26,7 @@ class ProfileAvatarCircle extends StatelessWidget {
           ),
         ),
         Text(
-          "Bilal Ghareeb",
+           user.readUserDataCachePreferences().name!,
           style: TextStyle(
             color: Colors.white,
           ),

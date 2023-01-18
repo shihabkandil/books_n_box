@@ -64,9 +64,6 @@ class _LangBtnState extends State<LangBtn> {
               .toList(),
           value: selectedValue,
           onChanged: (value) {
-            // setState(() {
-            //   selectedValue = value as String;
-            // });
             if (value != null) {
               BlocProvider.of<LocalizationCubit>(context).changeLanguage(value);
             }
