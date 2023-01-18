@@ -3,6 +3,7 @@ import 'package:mobile_app_project/data/models/google_books/google_book.dart';
 import 'package:mobile_app_project/data/repository/user_data_cache.dart';
 import 'package:mobile_app_project/utils/constants/firestore_fields.dart';
 
+
 class BookmarksRepository {
   BookmarksRepository({
     UserDataCache? userDataCache,
@@ -48,6 +49,31 @@ class BookmarksRepository {
     }
     return false;
   }
+
+
+    Future syncUserBookmarks() async {
+    final userID = _userDataCache.readUserDataCachePreferences().id;
+    if (userID.isNotEmpty) {
+      try {
+        final snapshot = await _fireStore
+            .collection(kUsersCollectionName)
+            .doc(userID)
+            .collection(kMyBookMMarksSubCollectionName).get();
+
+            List<GoogleBook> books = [];
+
+            snapshot.docs.forEach((element) {
+               books.add(GoogleBook.fromJson(element.data()));
+            });
+            return books;
+            
+      } catch (error) {
+        rethrow;
+      }
+    }
+  }
+
+
 
   Future<void> deleteMyBookMark(String bookID) async {
     final userID = _userDataCache.readUserDataCachePreferences().id;
