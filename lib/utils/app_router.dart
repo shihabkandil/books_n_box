@@ -4,6 +4,7 @@ import 'package:mobile_app_project/business_logic/cubit/user_cubit/cubit/user_cu
 import 'package:mobile_app_project/data/repository/user_repository.dart';
 import '../business_logic/bloc/app_status_bloc/app_status_bloc.dart';
 import '../business_logic/cubit/auth_cubit/auth_cubit.dart';
+import '../business_logic/cubit/bookmarks_cubit/bookmarks_cubit.dart';
 import '../business_logic/cubit/camera_cubit/camera_cubit.dart';
 import '../business_logic/cubit/google_books_cubit/google_books_cubit.dart';
 import '../business_logic/cubit/nyt_best_sellers_cubit/nyt_best_sellers_cubit.dart';
@@ -36,31 +37,27 @@ class AppRouter {
       GoRoute(
           path: '/', // /home
           builder: (context, state) => BlocProvider(
-                create: (context) =>
-                    AuthCubit(authRepository: context.read<AuthRepository>()),
+                create: (context) => AuthCubit(authRepository: context.read<AuthRepository>()),
                 child: LoginScreen(),
               ),
           routes: [
             GoRoute(
               path: 'register',
               builder: (context, state) => BlocProvider(
-                create: (context) =>
-                    AuthCubit(authRepository: context.read<AuthRepository>()),
+                create: (context) => AuthCubit(authRepository: context.read<AuthRepository>()),
                 child: RegisterScreen(),
               ),
             ),
             GoRoute(
               path: 'reset_password',
               builder: (context, state) => BlocProvider(
-                create: (context) =>
-                    AuthCubit(authRepository: context.read<AuthRepository>()),
+                create: (context) => AuthCubit(authRepository: context.read<AuthRepository>()),
                 child: ResetPasswordScreen(),
               ),
             ),
           ],
           redirect: (context, state) {
-            final appStatus =
-                BlocProvider.of<AppStatusBloc>(context).state.status;
+            final appStatus = BlocProvider.of<AppStatusBloc>(context).state.status;
             if (appStatus == AppStatus.authenticated) {
               return '/home';
             } else {
@@ -80,7 +77,10 @@ class AppRouter {
             ),
             GoRoute(
               path: 'my_shelf',
-              builder: (context, state) => MyShelfScreen(),
+              builder: (context, state) => BlocProvider(
+                create: (context) => BookmarksCubit(retrivedBooks: {}),
+                child: MyShelfScreen(),
+              ),
             ),
             GoRoute(
               path: 'discover',
@@ -124,8 +124,7 @@ class AppRouter {
                     path: 'textRecognizer',
                     builder: (context, state) => BlocProvider(
                       create: (context) => TextRecognitionCubit(),
-                      child:
-                          TextRecognizerView(imagePath: state.extra as String),
+                      child: TextRecognizerView(imagePath: state.extra as String),
                     ),
                   )
                 ]),
@@ -144,8 +143,7 @@ class AppRouter {
               name: 'SearchWithTextScreen',
               builder: (context, state) {
                 return BlocProvider(
-                  create: (context) => GoogleBooksCubit()
-                    ..searchGoogleBooks(state.params["text"]!),
+                  create: (context) => GoogleBooksCubit()..searchGoogleBooks(state.params["text"]!),
                   child: SearchWithText(text: state.params["text"]!),
                 );
               },

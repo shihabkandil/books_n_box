@@ -40,11 +40,11 @@ class UserDataCache {
     return lang;
   }
 
-  void writeThemePreferences(bool theme) async {
+  void writeThemePreferences(bool theme){
     sharedPreferences?.setBool("Theme", theme);
   }
 
-  readThemePreferences() async {
+  readThemePreferences(){
     return sharedPreferences?.getBool("Theme");
   }
 }
