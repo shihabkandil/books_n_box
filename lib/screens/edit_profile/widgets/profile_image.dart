@@ -6,15 +6,21 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mobile_app_project/business_logic/cubit/upload_image_cubit/cubit/upload_image_cubit.dart';
 
 XFile? img;
-class ProfileImage extends StatelessWidget {
+class ProfileImage extends StatefulWidget {
   ProfileImage({super.key, required this.userPath});
-  String? userPath;
+
+  final String? userPath;
+  @override
+  State<ProfileImage> createState() => _ProfileImageState();
+}
+
+class _ProfileImageState extends State<ProfileImage> {
   image(state, context) {
     if (state.image == null) {
-      if (userPath == null) {
+      if (widget.userPath == null) {
         return AssetImage("assets/images/default_profile_image.png");
       }
-      return CachedNetworkImageProvider(userPath!);
+      return CachedNetworkImageProvider(widget.userPath!);
     } else {
       return FileImage(
         File(state.image!.path),
