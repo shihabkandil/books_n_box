@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class BookImage extends StatelessWidget {
-  const BookImage({super.key});
-
+  const BookImage({super.key,required this.thumbnailLink});
+  final String thumbnailLink;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,7 +14,7 @@ class BookImage extends StatelessWidget {
         color: Colors.white38,
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: AssetImage("assets/images/bilalprofile.jpg"),
+          image: NetworkImage(thumbnailLink),
         ),
       ),
     );
