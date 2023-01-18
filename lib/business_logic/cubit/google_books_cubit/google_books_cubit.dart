@@ -16,7 +16,7 @@ class GoogleBooksCubit extends Cubit<GoogleBooksState> {
         super(GoogleBooksState(status: BooksDataStatus.loadingState));
 
   final GoogleBooksRepository _googleBooksRepository;
-  var books = {
+  Map<String, List<GoogleBook>> books = {
     'fantasy': [],
     'romance': [],
     'science+fiction': [],

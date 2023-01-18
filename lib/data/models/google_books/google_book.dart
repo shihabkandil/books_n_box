@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 import 'package:mobile_app_project/data/models/google_books/volume_info.dart';
 
 
@@ -11,7 +12,7 @@ GoogleBook bookFromJson(String str) => GoogleBook.fromJson(json.decode(str));
 
 String bookToJson(GoogleBook data) => json.encode(data.toJson());
 
-class GoogleBook {
+class GoogleBook extends Equatable{
   GoogleBook({required this.id,
       this.selfLink,
       this.volumeInfo,
@@ -35,4 +36,8 @@ class GoogleBook {
         "selfLink": selfLink,
         "volumeInfo": (volumeInfo == null ? null : volumeInfo!.toJson()),
       };
+      
+        @override
+        
+        List<Object?> get props => [id];
 }
