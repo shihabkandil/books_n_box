@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_app_project/business_logic/cubit/upload_image_cubit/cubit/upload_image_cubit.dart';
-import '../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
+import 'package:mobile_app_project/business_logic/cubit/user_cubit/cubit/user_cubit.dart';
+import '../../utils/enums/profile_enum.dart';
 import 'widgets/build_text_fieds.dart';
 import 'widgets/profile_buttons.dart';
 import 'widgets/profile_image.dart';
@@ -19,7 +20,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
 
-  // String? _password;
+  
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -31,11 +32,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
     nameController.text = user!.displayName ?? '';
     emailController.text = user.email ?? '';
-    // passwordController.text = user.pas ?? '';
-
-    //  = repo.currentUser;
-    // user.uid
-    print(user.toString());
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -50,9 +47,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
           },
         ),
       ),
-      body: BlocListener<AuthCubit, AuthState>(
+      body: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
-          if (state.status == AuthenticationStatus.profileUpdateSuccess) {
+          if (state.status == ProfileStatus.profileUpdateSuccess) {
             context.go('/home');
             if (state.message != null) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -64,11 +61,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       Text(state.message ?? localization.updatingSuccessful)));
             }
           } else if (state.status ==
-              AuthenticationStatus.profileUpdateFailure) {
+              ProfileStatus.profileUpdateFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(state.message ??
                     localization.updatingFailed))); //errorupdating
-          } else if (state.status == AuthenticationStatus.imageUploadFailed) {
+          } else if (state.status == ProfileStatus.imageUploadFailed) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(state.message ??
                     localization.imageUploadFailed))); //errorupoading

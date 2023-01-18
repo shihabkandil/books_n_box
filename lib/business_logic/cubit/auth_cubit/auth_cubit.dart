@@ -78,55 +78,55 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthState(status: AuthenticationStatus.loggedOut));
   }
   
-  Future<void> UpdateProfile(
-      {String? name,
-      String? pass,
-      String? email,
-      String? imageURL,
-      required String? currentPass}) async {
-    try {
-      final user = await FirebaseAuth.instance.currentUser;
-      String? message;
-      if (user == null) {
-        throw FirebaseAuthFailure;
-      }
-      // print(name);
-      if (name != null && name.isNotEmpty) {
-        await user.updateDisplayName(name);
-      }
+  // Future<void> UpdateProfile(
+  //     {String? name,
+  //     String? pass,
+  //     String? email,
+  //     String? imageURL,
+  //     required String? currentPass}) async {
+  //   try {
+  //     final user = await FirebaseAuth.instance.currentUser;
+  //     String? message;
+  //     if (user == null) {
+  //       throw FirebaseAuthFailure;
+  //     }
+   
+  //     if (name != null && name.isNotEmpty) {
+  //       await user.updateDisplayName(name);
+  //     }
 
-      if (email != null && email.isNotEmpty && email != user.email) {
-        await user.verifyBeforeUpdateEmail(email);
-        // await user.updateEmail(email);
-      }
+  //     if (email != null && email.isNotEmpty && email != user.email) {
+  //       await user.verifyBeforeUpdateEmail(email);
+    
+  //     }
 
-      if (pass != null && pass.isNotEmpty) {
-        await user.reauthenticateWithCredential(EmailAuthProvider.credential(
-            email: user.email!, password: currentPass ?? ''));
-        await user.updatePassword(pass);
-      }
+  //     if (pass != null && pass.isNotEmpty) {
+  //       await user.reauthenticateWithCredential(EmailAuthProvider.credential(
+  //           email: user.email!, password: currentPass ?? ''));
+  //       await user.updatePassword(pass);
+  //     }
 
-      print(imageURL);
-      if (imageURL != null &&
-          imageURL.isNotEmpty &&
-          imageURL != user.photoURL) {
-        String? saved = await _authRepository.saveImage(imageURL, user.photoURL);
-        if (saved != null) {
-          await user.updatePhotoURL(saved);
-        }
-      }
-      emit(AuthState(
-          status: AuthenticationStatus.profileUpdateSuccess, message: message));
-    } on FirebaseAuthFailure catch (exception) {
-      emit(AuthState(
-          status: AuthenticationStatus.profileUpdateFailure,
-          message: exception.message));
-    } on FirebaseAuthException catch (ex) {
-      emit(AuthState(
-          status: AuthenticationStatus.reauthenticationFailure,
-          message: ex.message));
-    }
-  }
+  //     print(imageURL);
+  //     if (imageURL != null &&
+  //         imageURL.isNotEmpty &&
+  //         imageURL != user.photoURL) {
+  //       String? saved = await _authRepository.saveImage(imageURL, user.photoURL);
+  //       if (saved != null) {
+  //         await user.updatePhotoURL(saved);
+  //       }
+  //     }
+  //     emit(AuthState(
+  //         status: AuthenticationStatus.profileUpdateSuccess, message: message));
+  //   } on FirebaseAuthFailure catch (exception) {
+  //     emit(AuthState(
+  //         status: AuthenticationStatus.profileUpdateFailure,
+  //         message: exception.message));
+  //   } on FirebaseAuthException catch (ex) {
+  //     emit(AuthState(
+  //         status: AuthenticationStatus.reauthenticationFailure,
+  //         message: ex.message));
+  //   }
+  // }
 
   Future<void> resetPassword({String? email}) async {
     if (email != null && email.isNotEmpty) {

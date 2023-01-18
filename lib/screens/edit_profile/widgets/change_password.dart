@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile_app_project/business_logic/cubit/auth_cubit/auth_cubit.dart';
-
+import 'package:mobile_app_project/business_logic/cubit/user_cubit/cubit/user_cubit.dart';
+import '../../../utils/enums/profile_enum.dart';
 import 'build_text_fieds.dart';
 import 'profile_buttons.dart';
 
@@ -42,20 +42,18 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           },
         ),
       ),
-      body: BlocListener<AuthCubit, AuthState>(
+      body: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
-          if (state.status == AuthenticationStatus.profileUpdateSuccess) {
+          if (state.status == ProfileStatus.profileUpdateSuccess) {
             context.go('/home');
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content:
                     Text(state.message ?? localization.updatingSuccessful)));
-          } else if (state.status ==
-              AuthenticationStatus.profileUpdateFailure) {
+          } else if (state.status == ProfileStatus.profileUpdateFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(state.message ??
                     localization.updatingFailed))); //errorupdating
-          } else if (state.status ==
-              AuthenticationStatus.reauthenticationFailure) {
+          } else if (state.status == ProfileStatus.reauthenticationFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(localization.wrongPassword))); //password error
           }
@@ -87,7 +85,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         children: [
                           BuildTextFields(
                             labelText: localization.current +
-                                '' +
+                                ' ' +
                                 localization.password,
                             controller: currentPasswordController,
                             placeholder: '',

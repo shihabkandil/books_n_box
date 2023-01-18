@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mobile_app_project/business_logic/cubit/upload_image_cubit/cubit/upload_image_cubit.dart';
 
 XFile? img;
-
 class ProfileImage extends StatelessWidget {
   ProfileImage({super.key, required this.userPath});
   String? userPath;
