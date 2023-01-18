@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:mobile_app_project/utils/constants/app_colors.dart';
 import '../../../../utils/app_theme.dart';
 import '/../../utils/enums/current_theme_enum.dart';
 part 'theme_state.dart';

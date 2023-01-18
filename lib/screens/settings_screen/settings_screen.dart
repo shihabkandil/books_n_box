@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+import 'package:mobile_app_project/business_logic/cubit/theme_cubit/cubit/theme_cubit.dart';
 import 'package:switcher_button/switcher_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../business_logic/cubit/theme_cubit/cubit/theme_cubit.dart';
 import '../../data/repository/user_data_cache.dart';
 import '../../utils/app_theme.dart';
 import '../home_screen/widgets/tile_template.dart';
+import '../widgets/back_icon_button.dart';
 import 'widgets/lang_btn.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -19,15 +19,7 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 1,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Theme.of(context).textTheme.bodyMedium!.color,
-          ),
-          onPressed: () {
-            context.pop();
-          },
-        ),
+        leading: BackIconButton(),
       ),
       backgroundColor: Theme.of(context).backgroundColor,
       body: Container(

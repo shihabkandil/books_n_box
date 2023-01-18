@@ -6,6 +6,7 @@ import 'package:mobile_app_project/business_logic/cubit/upload_image_cubit/cubit
 import 'package:mobile_app_project/business_logic/cubit/user_cubit/cubit/user_cubit.dart';
 import 'package:mobile_app_project/screens/edit_profile/widgets/update_profile_form.dart';
 import '../../utils/enums/profile_enum.dart';
+import '../widgets/back_icon_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -34,15 +35,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 1,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Theme.of(context).textTheme.bodyMedium!.color,
-          ),
-          onPressed: () {
-            context.pop();
-          },
-        ),
+        leading: BackIconButton(),
       ),
       body: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
