@@ -10,6 +10,7 @@ import '../business_logic/cubit/nyt_best_sellers_cubit/nyt_best_sellers_cubit.da
 import '../business_logic/cubit/text_recognition_cubit/text_recognition_cubit.dart';
 import '../data/repository/auth_repository.dart';
 import '../screens/book_details_screen/googlebook_details_screen.dart';
+import '../screens/discover_reviews_screen/discover_reviews_screen.dart';
 import '../screens/edit_profile/widgets/change_password.dart';
 import '../screens/login_screen/login_screen.dart';
 import '../screens/register_screen/register_screen.dart';
@@ -80,6 +81,10 @@ class AppRouter {
             GoRoute(
               path: 'my_shelf',
               builder: (context, state) => MyShelfScreen(),
+            ),
+            GoRoute(
+              path: 'discover',
+              builder: (context, state) => DiscoverReviewsScreen(),
             ),
             GoRoute(
               path: 'book_details',

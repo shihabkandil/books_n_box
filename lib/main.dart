@@ -23,8 +23,8 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  await Firebase.initializeApp();
-  await UserDataCache.init();
+ await Firebase.initializeApp();
+  await UserDataCache.init(); 
   var theme = await UserDataCache().readThemePreferences();
   var currentTheme = AppTheme.darkTheme;
   if (theme == null) {

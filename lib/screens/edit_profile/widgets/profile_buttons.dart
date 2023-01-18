@@ -41,7 +41,6 @@ class ProfileButtons extends StatelessWidget {
         MaterialButton(
           onPressed: () {
             if (formKey.currentState!.validate()) {
-             
               BlocProvider.of<UserCubit>(context).UpdateProfile(
                   currentPass: currentPasswordController?.text.trim(),
                   name: nameController?.text.trim(),

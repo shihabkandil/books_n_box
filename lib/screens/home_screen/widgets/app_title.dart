@@ -20,7 +20,7 @@ class AppTitle extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            "BooksNBox",
+            localization.appTitle,
             style: TextStyle(
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w500,
