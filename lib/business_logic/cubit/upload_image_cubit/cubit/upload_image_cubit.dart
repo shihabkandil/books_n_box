@@ -9,7 +9,6 @@ class UploadImageCubit extends Cubit<UploadImageState> {
       : super(UploadImageState(status: UploadImageStatus.initialState));
 
   Future uploadImage() async {
-    //ImageSource gallery
     try {
       final ImagePicker picker = ImagePicker();
       emit(UploadImageState(status: UploadImageStatus.choosingImage));

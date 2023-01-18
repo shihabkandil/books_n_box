@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
+import 'package:mobile_app_project/business_logic/cubit/user_cubit/cubit/user_cubit.dart';
 import 'profile_image.dart';
 
 class ProfileButtons extends StatelessWidget {
@@ -42,7 +41,7 @@ class ProfileButtons extends StatelessWidget {
         MaterialButton(
           onPressed: () {
             if (formKey.currentState!.validate()) {
-              BlocProvider.of<AuthCubit>(context).UpdateProfile(
+              BlocProvider.of<UserCubit>(context).UpdateProfile(
                   currentPass: currentPasswordController?.text.trim(),
                   name: nameController?.text.trim(),
                   email: emailController?.text.trim(),
