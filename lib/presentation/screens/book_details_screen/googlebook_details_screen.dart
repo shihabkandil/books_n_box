@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app_project/data/models/google_books/google_book.dart';
-import 'package:mobile_app_project/screens/book_details_screen/widgets/overview_paragraph.dart';
 import 'widgets/overview_header.dart';
+import 'widgets/overview_paragraph.dart';
 import 'widgets/rates_row.dart';
 import 'widgets/screen_bar.dart';
 

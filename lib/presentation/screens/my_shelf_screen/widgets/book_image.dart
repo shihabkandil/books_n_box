@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile_app_project/data/models/google_books/google_book.dart';
 
 class BookImage extends StatelessWidget {
-  const BookImage({super.key, required this.thumbnailLink,required this.book});
+  const BookImage({super.key, required this.thumbnailLink, required this.book});
   final String thumbnailLink;
   final GoogleBook book;
   @override
@@ -22,7 +22,7 @@ class BookImage extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: () => {context.go("/home/book_details", extra: {"GoogleBooks":book})},
+      onPressed: () => {context.go("/home/book_details", extra: book)},
     );
   }
 }
