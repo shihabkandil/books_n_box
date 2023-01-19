@@ -1,5 +1,5 @@
 {
-  "appTitle": "بوكس إن بوكس",
+  "appTitle": "بوكس إن بكس",
   "settings": "الإعدادات",
   "enter": "أدخل ",
   "emailAddress": "البريد الالكتروني",
@@ -50,7 +50,7 @@
   "privacyPolicy": "سياستنا الخصوصية",
   "home": "الصفحه الرئيسيه",
   "camera": "كاميرا",
-  "discoverrevs": "اطلع على الاراء",
+  "search": "بحث",
   "recognizedText": "النص المعترف به",
   "loading": "جاري تحميل",
   "nowpopular": "شائع الآن",
@@ -70,5 +70,9 @@
   "problem_sending_email" : "مشكلة في إرسال البريد الإلكتروني",
   "myshelf" : "كتبي",
   "imageUploadFailed":"فشل رفع الصور",
-  "latestrevs":"احدث الاراء والتقييمات"
+  "latestrevs":"احدث الاراء والتقييمات",
+  "write_a_review": "اكتب مراجعه",
+  "submit_review" : "إرسال المراجعة",
+  "cant_be_empty" : "لا يمكن ان يكون فارغ",
+  "review_submitted" : "المراجعه سجلت"
 }
