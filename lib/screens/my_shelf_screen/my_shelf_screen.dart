@@ -53,6 +53,7 @@ class _MyShelfScreenState extends State<MyShelfScreen> {
                         return Row(
                           children: [
                             BookImage(
+                                book: state.bookmarkedBooks![index] ,
                                 thumbnailLink: state.bookmarkedBooks![index]
                                     .volumeInfo!.imageLinks!.thumbnail!),
                             SingleBookDetail(
