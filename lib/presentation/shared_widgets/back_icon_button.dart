@@ -10,7 +10,7 @@ class BackIconButton extends StatelessWidget {
       margin: EdgeInsets.all(6),
       child: Ink(
         decoration: ShapeDecoration(
-            color: Theme.of(context).primaryColor,
+            color: Colors.transparent,
             shape: CircleBorder()
           ),
           child: IconButton(

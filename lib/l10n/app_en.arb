@@ -73,5 +73,6 @@
   "write_a_review": "Write a review",
   "submit_review" : "Submit review",
   "cant_be_empty" : "Can't be empty",
-  "review_submitted" : "Review submitted"
+  "review_submitted" : "Review submitted",
+  "latestrevs":"Latest Reviews"
 }

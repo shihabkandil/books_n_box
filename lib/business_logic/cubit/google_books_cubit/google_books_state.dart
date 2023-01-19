@@ -6,7 +6,7 @@ class GoogleBooksState extends Equatable {
   final BooksDataStatus status;
   final String? message;
   final List<GoogleBook>? books;
-  final Map<String, List>? genreBooks;
+  final Map<String, List<GoogleBook>>? genreBooks;
   @override
   List<Object> get props => [status];
 }

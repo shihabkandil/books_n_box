@@ -1,11 +1,14 @@
+
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../business_logic/cubit/bookmarks_cubit/bookmarks_cubit.dart';
 import '../../../../business_logic/cubit/google_books_cubit/google_books_cubit.dart';
-import 'package:mobile_app_project/utils/enums/books_data_status_enum.dart';
-
+import '../../../../data/models/google_books/google_book.dart';
+import '../../../../utils/enums/books_data_status_enum.dart';
 import '../../../shared_widgets/tab_view.dart';
-
 
 class BooksTabsView extends StatefulWidget {
   BooksTabsView({super.key, required this.tabController});
@@ -16,9 +19,8 @@ class BooksTabsView extends StatefulWidget {
 }
 
 class _BooksTabsViewState extends State<BooksTabsView> {
-  Duration sleep = Duration(milliseconds: 5);
-
-  Map<String, List> currentBookStates = {"fantasy": [], "romance": [], "science+fiction": [], "self+help": []};
+  
+  Map<String, List<GoogleBook>> currentBookStates = {"fantasy": [], "romance": [], "science+fiction": [], "self+help": []};
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class _BooksTabsViewState extends State<BooksTabsView> {
           return Container(
               height: 700 / MediaQuery.of(context).devicePixelRatio,
               child: BlocProvider(
-                  create: (context) => BookmarksCubit(),
+                  create: (context) => BookmarksCubit(retrivedBooks:  currentBookStates)..syncUserBookmarks(),
                   child: TabBarView(
                     controller: widget.tabController,
                     children: <Widget>[

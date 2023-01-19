@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_app_project/business_logic/cubit/upload_image_cubit/cubit/upload_image_cubit.dart';
-import '../../../../business_logic/cubit/auth_cubit/auth_cubit.dart';
-import 'widgets/build_text_fieds.dart';
-import 'widgets/profile_buttons.dart';
-import 'widgets/profile_image.dart';
+import 'package:mobile_app_project/business_logic/cubit/user_cubit/cubit/user_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../utils/enums/profile_enum.dart';
+import '../../shared_widgets/back_icon_button.dart';
+import '../widgets/update_profile_form.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -19,7 +19,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
 
-  // String? _password;
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -31,47 +30,34 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
     nameController.text = user!.displayName ?? '';
     emailController.text = user.email ?? '';
-    // passwordController.text = user.pas ?? '';
 
-    //  = repo.currentUser;
-    // user.uid
-    print(user.toString());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 1,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Theme.of(context).textTheme.bodyMedium!.color,
-          ),
-          onPressed: () {
-            context.pop();
-          },
-        ),
+        leading: BackIconButton(),
       ),
-      body: BlocListener<AuthCubit, AuthState>(
+      body: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
-          if (state.status == AuthenticationStatus.profileUpdateSuccess) {
+          if (state.status == ProfileStatus.profileUpdateSuccess) {
             context.go('/home');
             if (state.message != null) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text(
-                      state.message ?? localization.verifyMail))); //verifyMail
+                      state.message ?? localization!.verifyMail))); //verifyMail
             } else {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content:
-                      Text(state.message ?? localization.updatingSuccessful)));
+                      Text(state.message ?? localization!.updatingSuccessful)));
             }
-          } else if (state.status ==
-              AuthenticationStatus.profileUpdateFailure) {
+          } else if (state.status == ProfileStatus.profileUpdateFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(state.message ??
-                    localization.updatingFailed))); //errorupdating
-          } else if (state.status == AuthenticationStatus.imageUploadFailed) {
+                    localization!.updatingFailed))); //errorupdating
+          } else if (state.status == ProfileStatus.imageUploadFailed) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(state.message ??
-                    localization.imageUploadFailed))); //errorupoading
+                    localization!.imageUploadFailed))); //errorupoading
           }
         },
         child: Container(
@@ -89,78 +75,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     key: formKey,
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 0),
-                        child: Column(
-                          children: [
-                            Text(
-                              localization!.editProfile,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w500,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .color),
-                            ),
-                            SizedBox(
-                              height: 35,
-                            ),
-                            ProfileImage(
-                              userPath: user.photoURL,
-                            ),
-                            SizedBox(
-                              height: 45,
-                            ),
-                            BuildTextFields(
-                              labelText: localization.username,
-                              controller: nameController,
-                              isPasswordTextField: false,
-                              validator: (input) {
-                                if (input!.isEmpty) {
-                                  return localization.emptyUsername;
-                                }
-                                return null;
-                              },
-                            ),
-                            BuildTextFields(
-                              labelText: localization.emailAddress,
-                              initialValue: user.email,
-                              controller: emailController,
-                              isPasswordTextField: false,
-                              validator: (input) {
-                                if (input!.isEmpty) {
-                                  emailController.text = user.email!;
-                                } else if (!RegExp(
-                                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                    .hasMatch(input)) {
-                                  return localization.invalidEmail;
-                                }
-                                return null;
-                              },
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                context.go('/home/profile/changePassword');
-                              },
-                              child: Text(
-                                'Change password?',
-                                style: TextStyle(
-                                    color: Theme.of(context).primaryColor),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            ProfileButtons(
-                              formKey: formKey,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 0),
+                          child: UpdateProfileForm(
                               emailController: emailController,
                               nameController: nameController,
-                            ),
-                          ],
-                        ),
-                      ),
+                              formKey: formKey)),
                     ),
                   ),
                 ),

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import '../repository/user_repository.dart';
 import '../../helper/exceptions.dart';
 import '../../utils/constants/firestore_fields.dart';
 import '../models/user.dart';
@@ -47,6 +48,7 @@ class AuthRepository {
       if (oldImage != null) {
         await FirebaseStorage.instance.refFromURL(oldImage).delete();
       }
+     
       await imageRef.putFile(file);
       String t = await imageRef.getDownloadURL();
       return t;
@@ -59,12 +61,13 @@ class AuthRepository {
       required String displayName,
       String? imageUrl}) async {
     try {
+      final userRepository = UserRepository();
       final userCredential = await firebase_auth.FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: email, password: confirmedPassword);
       await userCredential.user?.updateDisplayName(displayName);
       if (imageUrl != null) {
-        String? savedImage = await saveImage(imageUrl, null);
+        String? savedImage = await userRepository.saveImage(imageUrl, null);
         await userCredential.user?.updatePhotoURL(savedImage);
       }
     } on firebase_auth.FirebaseAuthException catch (exception) {
@@ -79,7 +82,6 @@ class AuthRepository {
     try {
       final v = await firebase_auth.FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      print(v.user.toString());
     } on firebase_auth.FirebaseAuthException catch (exception) {
       throw FirebaseAuthFailure.fromCode(exception.code);
     } catch (e) {

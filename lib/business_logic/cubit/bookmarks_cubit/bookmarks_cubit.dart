@@ -2,18 +2,22 @@ import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_app_project/utils/enums/bookarks_enum.dart';
+import 'package:mobile_app_project/utils/enums/bookmarks_enum.dart';
 import '../../../data/models/google_books/google_book.dart';
 import '../../../data/repository/bookmarks_repository.dart';
 part 'bookmarks_state.dart';
 
 class BookmarksCubit extends Cubit<BookmarksState> {
-  BookmarksCubit({BookmarksRepository? bookmarksRepository})
+  BookmarksCubit(
+      {BookmarksRepository? bookmarksRepository,
+      required Map<String, List<GoogleBook>> retrivedBooks})
       : _bookmarksRepository = bookmarksRepository ?? BookmarksRepository(),
+        _retrivedBooks = retrivedBooks,
         super(BookmarksState(status: BookmarkStatus.notBookmarked));
 
   final BookmarksRepository _bookmarksRepository;
   Set<String> _bookmarkedBooksIds = {};
+  final Map<String, List<GoogleBook>> _retrivedBooks;
 
   void recordBookMark(GoogleBook? book) async {
     emit(BookmarksState(status: BookmarkStatus.notBookmarked));
@@ -39,7 +43,9 @@ class BookmarksCubit extends Cubit<BookmarksState> {
       try {
         await _bookmarksRepository.deleteMyBookMark(bookID);
         _bookmarkedBooksIds.remove(bookID);
-        emit(BookmarksState(status: BookmarkStatus.notBookmarked));
+        emit(BookmarksState(
+            status: BookmarkStatus.notBookmarked,
+            bookmarkedBooks: state.bookmarkedBooks));
       } on SocketException {
         emit(BookmarksState(status: BookmarkStatus.noInternetConnection));
       } catch (error) {
@@ -52,6 +58,44 @@ class BookmarksCubit extends Cubit<BookmarksState> {
     if (id == null) return false;
 
     return _bookmarkedBooksIds.contains(id);
+  }
+
+  void syncUserBookmarks() async {
+    try {
+      List<GoogleBook> bookmarkedUserBooks =
+          await _bookmarksRepository.syncUserBookmarks();
+
+      _retrivedBooks.forEach((key, value) {
+        bookmarkedUserBooks.forEach((element) {
+          for (int i = 0; i < value.length; i++) {
+            if (value[i].id == element.id) {
+              _bookmarkedBooksIds.add(element.id);
+            }
+          }
+        });
+      });
+      emit(BookmarksState(status: BookmarkStatus.syncedBookmarks));
+    } on SocketException {
+      emit(BookmarksState(status: BookmarkStatus.noInternetConnection));
+    } catch (error) {
+      emit(BookmarksState(status: BookmarkStatus.bookmarkFailed));
+    }
+  }
+
+  void getAllBookmarkedBooks() async {
+    try {
+      emit(BookmarksState(status: BookmarkStatus.fetchingBookmarks));
+      List<GoogleBook>? bookmarkedBooks =
+          await _bookmarksRepository.syncUserBookmarks();
+      emit(BookmarksState(
+          status: BookmarkStatus.syncedBookmarks,
+          bookmarkedBooks: bookmarkedBooks));
+      // return bookmarkedUserBooks;
+    } on SocketException {
+      emit(BookmarksState(status: BookmarkStatus.noInternetConnection));
+    } catch (error) {
+      emit(BookmarksState(status: BookmarkStatus.bookmarkFailed));
+    }
   }
 
   @override

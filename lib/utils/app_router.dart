@@ -1,8 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile_app_project/business_logic/cubit/reviews_cubit/reviews_cubit.dart';
+import 'package:mobile_app_project/business_logic/cubit/user_cubit/cubit/user_cubit.dart';
 import '../business_logic/bloc/app_status_bloc/app_status_bloc.dart';
 import '../business_logic/cubit/auth_cubit/auth_cubit.dart';
+import '../business_logic/cubit/bookmarks_cubit/bookmarks_cubit.dart';
 import '../business_logic/cubit/camera_cubit/camera_cubit.dart';
 import '../business_logic/cubit/google_books_cubit/google_books_cubit.dart';
 import '../business_logic/cubit/nyt_best_sellers_cubit/nyt_best_sellers_cubit.dart';
@@ -23,6 +24,7 @@ import '../presentation/shared_widgets/display_picture.dart';
 import '../presentation/shared_widgets/search_with_text.dart';
 import '../presentation/shared_widgets/take_picture.dart';
 import '../presentation/shared_widgets/text_recognizer_view.dart';
+import '../presentation/screens/discover_reviews_screen/discover_reviews_screen.dart';
 
 /// To navigate use
 /// onTap: () => GoRouter.of(context).go('/page_path')
@@ -75,15 +77,19 @@ class AppRouter {
             ),
             GoRoute(
               path: 'my_shelf',
-              builder: (context, state) => MyShelfScreen(),
+              builder: (context, state) => BlocProvider(
+                create: (context) => BookmarksCubit(retrivedBooks: {}),
+                child: MyShelfScreen(),
+              ),
+            ),
+            GoRoute(
+              path: 'discover',
+              builder: (context, state) => DiscoverReviewsScreen(),
             ),
             GoRoute(
               path: 'book_details',
-              builder: (context, state) => BlocProvider(
-                create:(context) => ReviewsCubit(googleBook: state.extra as GoogleBook),
-                child: GoogleBookDetailsScreen(
-                  googleBook: state.extra as GoogleBook,
-                ),
+              builder: (context, state) => GoogleBookDetailsScreen(
+                googleBook: state.extra as GoogleBook,
               ),
             ),
             GoRoute(
@@ -95,14 +101,14 @@ class AppRouter {
             GoRoute(
                 path: 'profile',
                 builder: (context, state) => BlocProvider(
-                      create: (context) => AuthCubit(authRepository: context.read<AuthRepository>()),
+                      create: (context) => UserCubit(),
                       child: EditProfilePage(),
                     ),
                 routes: [
                   GoRoute(
                     path: 'changePassword',
                     builder: (context, state) => BlocProvider(
-                      create: (context) => AuthCubit(authRepository: context.read<AuthRepository>()),
+                      create: (context) => UserCubit(),
                       child: ChangePasswordScreen(),
                     ),
                   )

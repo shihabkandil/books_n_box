@@ -9,14 +9,10 @@ enum AuthenticationStatus {
   loggedOut,
   emailRegisterSuccess,
   emailRegisterFailure,
-  profileUpdateSuccess,
-  profileUpdateFailure,
-  reauthenticationFailure,
   verifyMail,
   resetEmailSentSuccessfully,
   resetEmailSendFailed,
-  resetEmailNotValid,
-  imageUploadFailed
+  resetEmailNotValid
 }
 
 class AuthState extends Equatable {

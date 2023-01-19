@@ -12,22 +12,6 @@ class HomeCatigoriesTitles extends StatefulWidget {
 }
 
 class _HomeCatigoriesTitlesState extends State<HomeCatigoriesTitles> {
-  var defalutValue;
-  var selectedIndex;
-
-  @override
-  void initState() {
-    super.initState();
-    widget.tabcontroller.addListener(
-      () {
-        setState(
-          () {
-            selectedIndex = widget.tabcontroller.index;
-          },
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

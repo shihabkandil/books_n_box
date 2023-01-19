@@ -3,4 +3,6 @@ enum BookmarkStatus{
   notBookmarked,
   noInternetConnection,
   bookmarkFailed,
+  syncedBookmarks,
+  fetchingBookmarks,
 }
