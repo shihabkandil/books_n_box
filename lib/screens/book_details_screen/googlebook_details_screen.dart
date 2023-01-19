@@ -6,19 +6,20 @@ import 'package:mobile_app_project/screens/book_details_screen/widgets/rates_row
 import 'widgets/screen_bar.dart';
 
 class GoogleBookDetailsScreen extends StatelessWidget {
-   GoogleBook? googleBook;
-   Map<String, dynamic> allBook;
-   GoogleBookDetailsScreen({Key? key, this.googleBook,required this.allBook}) : super(key: key);
+  GoogleBook? googleBook;
+  Map<String, dynamic> allBook;
+  GoogleBookDetailsScreen({Key? key, this.googleBook, required this.allBook})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
-    googleBook= allBook['GoogleBooks'];
-    final String? bookName = googleBook!.volumeInfo!.title;
-    final String authors = (googleBook!.volumeInfo!.authors).toString();
-    final String? imageUrl = googleBook!.volumeInfo?.imageLinks?.small;
-    final num? rating = googleBook!.volumeInfo!.averageRating;
-    final num? ratingsCount = googleBook!.volumeInfo!.ratingsCount;
-    final num? pagecount = googleBook!.volumeInfo!.pageCount;
-    final String? bookDescription = googleBook!.volumeInfo!.description;
+    googleBook = allBook['GoogleBooks'];
+    final String? bookName = googleBook?.volumeInfo!.title;
+    final String authors = (googleBook?.volumeInfo!.authors).toString();
+    final String? imageUrl = googleBook?.volumeInfo?.imageLinks?.thumbnail; 
+    final num? rating = googleBook?.volumeInfo!.averageRating;
+    final num? ratingsCount = googleBook?.volumeInfo!.ratingsCount;
+    final num? pagecount = googleBook?.volumeInfo!.pageCount;
+    final String? bookDescription = googleBook?.volumeInfo!.description;
     print(googleBook!.volumeInfo?.imageLinks?.small);
 
     return Scaffold(
@@ -32,7 +33,10 @@ class GoogleBookDetailsScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                RatesRow(rating: rating, ratingsCount: ratingsCount, pagecount: pagecount),
+                RatesRow(
+                    rating: rating,
+                    ratingsCount: ratingsCount,
+                    pagecount: pagecount),
                 OverViewHeader(authors: authors),
                 OverViewParagraph(bookDescription: bookDescription),
               ],
