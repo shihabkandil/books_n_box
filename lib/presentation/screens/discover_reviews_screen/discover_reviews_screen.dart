@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mobile_app_project/business_logic/cubit/reviews_cubit/reviews_cubit.dart';
 import 'package:mobile_app_project/presentation/screens/discover_reviews_screen/widgets/book_reviews_modal_sheet_body.dart';
-import 'package:mobile_app_project/presentation/shared_widgets/book_card.dart';
 import 'package:mobile_app_project/presentation/shared_widgets/header_text.dart';
+import 'widgets/reviewed_book_card.dart';
 
 class DiscoverReviewsScreen extends StatelessWidget {
   const DiscoverReviewsScreen({super.key});
@@ -32,24 +32,23 @@ class DiscoverReviewsScreen extends StatelessWidget {
                         state.googleBooks != null) {
                       return ListView.separated(
                           shrinkWrap: true,
-                          itemBuilder: (context, index) => ListTile(
+                          itemBuilder: (context, index) => InkWell(
                                 onTap: () => showModalBottomSheet(
                                   context: context,
                                   builder: (context) =>
                                       BookReviewsModalSheetBody(
                                           bookId: state.googleBooks![index].id),
                                 ),
-                                title: HeaderText(
-                                  text: state.googleBooks![index].volumeInfo
-                                          ?.title ??
-                                      'Not specified',
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.width /
+                                      100 *
+                                      90,
+                                  child: ReviewedBookCard(
+                                      googleBook: state.googleBooks![index]),
                                 ),
-                                leading: BookCard(
-                                    imageUrl: state.googleBooks![index]
-                                        .volumeInfo?.imageLinks?.thumbnail,
-                                    hasBookmarkButton: false),
                               ),
-                          separatorBuilder: (context, index) => SizedBox(),
+                          separatorBuilder: (context, index) =>
+                              SizedBox(height: 20),
                           itemCount: state.googleBooks!.length);
                     } else if (state.status ==
                         ReviewsStatus.latestReviewsLoadFailure) {

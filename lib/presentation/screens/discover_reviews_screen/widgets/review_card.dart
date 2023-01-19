@@ -49,8 +49,7 @@ class ReviewCard extends StatelessWidget {
                               text: userName.split(" ").elementAt(0) +
                                   ' ' +
                                   userName.split(" ").elementAt(1),
-                              color:
-                                  Theme.of(context).textTheme.bodyMedium?.color,
+                              color: Theme.of(context).backgroundColor,
                               fontWeight: FontWeight.w500,
                             )
                           : HeaderText(text: userName.split(" ").elementAt(0))
@@ -59,7 +58,7 @@ class ReviewCard extends StatelessWidget {
                   Divider(),
                   HeaderText(
                     text: review,
-                    color: Theme.of(context).textTheme.bodyMedium?.color,
+                    color: Theme.of(context).backgroundColor,
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                   )

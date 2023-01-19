@@ -46,7 +46,10 @@ class GoogleBookDetailsScreen extends StatelessWidget {
                 BlocBuilder<ReviewsCubit,ReviewsState>(
                   builder: (context,state) {
                     if(state.status == ReviewsStatus.submittingReview){
-                      return CircularProgressIndicator();
+                      return SizedBox(
+                          height: MediaQuery.of(context).size.width / 100 * 4,
+                          width: MediaQuery.of(context).size.width / 100 * 4,
+                          child: Center(child: CircularProgressIndicator()));
                     }
                     else if(state.status == ReviewsStatus.reviewSaved){
                       return Container(
