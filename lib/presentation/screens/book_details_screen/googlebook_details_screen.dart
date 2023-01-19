@@ -39,6 +39,28 @@ class GoogleBookDetailsScreen extends StatelessWidget {
                     pagecount: pagecount),
                 OverViewHeader(authors: authors),
                 OverViewParagraph(bookDescription: bookDescription),
+                BlocBuilder<ReviewsCubit,ReviewsState>(
+                  builder: (context,state) {
+                    if(state.status == ReviewsStatus.submittingReview){
+                      return SizedBox(
+                          height: MediaQuery.of(context).size.width / 100 * 4,
+                          width: MediaQuery.of(context).size.width / 100 * 4,
+                          child: Center(child: CircularProgressIndicator()));
+                    }
+                    else if(state.status == ReviewsStatus.reviewSaved){
+                      return Container(
+                        margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height / 100 * 5,vertical: MediaQuery.of(context).size.height / 100 * 2),
+                        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height / 100 * 5,vertical: MediaQuery.of(context).size.height / 100 * 2),
+                        decoration: BoxDecoration(
+                          color: Colors.orange,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: HeaderText(text: AppLocalizations.of(context)!.review_submitted,color: Colors.white),
+                      );
+                    }
+                    return ReviewSwitcher();
+                  }
+                ),
               ],
             ),
           ),

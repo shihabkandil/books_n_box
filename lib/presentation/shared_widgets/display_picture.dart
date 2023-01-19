@@ -44,8 +44,8 @@ class DisplayPictureScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
+                        width: MediaQuery.of(context).size.width / 100 * 75,
                         child: Image.file(File(imagePath)),
-                        width: 300,
                       ),
                     ],
                   ),

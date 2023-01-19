@@ -1,13 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile_app_project/business_logic/cubit/user_cubit/cubit/user_cubit.dart';
 import '../business_logic/bloc/app_status_bloc/app_status_bloc.dart';
 import '../business_logic/cubit/auth_cubit/auth_cubit.dart';
 import '../business_logic/cubit/bookmarks_cubit/bookmarks_cubit.dart';
 import '../business_logic/cubit/camera_cubit/camera_cubit.dart';
 import '../business_logic/cubit/google_books_cubit/google_books_cubit.dart';
 import '../business_logic/cubit/nyt_best_sellers_cubit/nyt_best_sellers_cubit.dart';
+import '../business_logic/cubit/reviews_cubit/reviews_cubit.dart';
 import '../business_logic/cubit/text_recognition_cubit/text_recognition_cubit.dart';
+import '../business_logic/cubit/user_cubit/cubit/user_cubit.dart';
 import '../data/models/google_books/google_book.dart';
 import '../data/repository/auth_repository.dart';
 import '../presentation/screens/book_details_screen/bestsellers_details_screen.dart';
@@ -20,6 +21,7 @@ import '../presentation/screens/my_shelf_screen/my_shelf_screen.dart';
 import '../presentation/screens/register_screen/register_screen.dart';
 import '../presentation/screens/reset_password_screen/reset_password_screen.dart';
 import '../presentation/screens/settings_screen/settings_screen.dart';
+import '../presentation/shared_widgets/bottom_bar.dart';
 import '../presentation/shared_widgets/display_picture.dart';
 import '../presentation/shared_widgets/search_with_text.dart';
 import '../presentation/shared_widgets/take_picture.dart';
@@ -68,7 +70,7 @@ class AppRouter {
           path: '/home',
           builder: (context, state) => BlocProvider(
                 create: (context) => NytBestSellersCubit(),
-                child: HomeScreen(),
+                child: PersistentView(),
               ),
           routes: [
             GoRoute(
@@ -78,7 +80,7 @@ class AppRouter {
             GoRoute(
               path: 'my_shelf',
               builder: (context, state) => BlocProvider(
-                create: (context) => BookmarksCubit(retrivedBooks: {}),
+                create: (context) => BookmarksCubit(retrievedBooks: {}),
                 child: MyShelfScreen(),
               ),
             ),
@@ -88,8 +90,11 @@ class AppRouter {
             ),
             GoRoute(
               path: 'book_details',
-              builder: (context, state) => GoogleBookDetailsScreen(
-                googleBook: state.extra as GoogleBook,
+              builder: (context, state) => BlocProvider(
+                create: (context) => ReviewsCubit(googleBook: state.extra as GoogleBook),
+                child: GoogleBookDetailsScreen(
+                  googleBook: state.extra as GoogleBook,
+                ),
               ),
             ),
             GoRoute(
@@ -114,21 +119,6 @@ class AppRouter {
                   )
                 ]),
             GoRoute(
-                path: 'takePicture',
-                builder: (context, state) => BlocProvider(
-                      create: (context) => CameraCubit(),
-                      child: TakePictureScreen(),
-                    ),
-                routes: [
-                  GoRoute(
-                    path: 'textRecognizer',
-                    builder: (context, state) => BlocProvider(
-                      create: (context) => TextRecognitionCubit(),
-                      child: TextRecognizerView(imagePath: state.extra as String),
-                    ),
-                  )
-                ]),
-            GoRoute(
               path: 'displayPicture/:imagePath/:text',
               name: 'DisplayPictureScreen',
               builder: (context, state) {
@@ -138,6 +128,21 @@ class AppRouter {
                 );
               },
             ),
+            GoRoute(
+                path: 'takePicture',
+                builder: (context, state) => BlocProvider(
+                  create: (context) => CameraCubit(),
+                  child: TakePictureScreen(),
+                ),
+                routes: [
+                  GoRoute(
+                    path: 'textRecognizer',
+                    builder: (context, state) => BlocProvider(
+                      create: (context) => TextRecognitionCubit(),
+                      child: TextRecognizerView(imagePath: state.extra as String),
+                    ),
+                  )
+                ]),
             GoRoute(
               path: 'searchwithtextscreen/:text',
               name: 'SearchWithTextScreen',

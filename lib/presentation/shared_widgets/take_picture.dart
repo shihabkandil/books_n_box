@@ -27,9 +27,6 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<CameraCubit>(context).getImage().catchError((e) {
-      print(e);
-    });
   }
 
   @override
@@ -41,8 +38,10 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context);
 
-    return Scaffold(
-      backgroundColor: Colors.black,
+    return BlocProvider(
+        create: (context) => CameraCubit()..getImage(),
+    child: Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: BlocListener<CameraCubit, CameraState>(
         listener: (context, state) {
           if (state.status == cameraStatus.hasImage) {
@@ -67,6 +66,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
           ),
         ),
       ),
+    )
     );
   }
 }

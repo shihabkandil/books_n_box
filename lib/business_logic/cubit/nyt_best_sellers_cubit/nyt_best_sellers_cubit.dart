@@ -24,6 +24,7 @@ class NytBestSellersCubit extends Cubit<NytBestSellersState> {
         if (bestSellerBooks.isEmpty) {
           emit(NytBestSellersState(status: BooksDataStatus.noDataReceived));
         } else {
+          bestSellerBooks.removeWhere((element) => element.bookImage == null);
           emit(NytBestSellersState(status: BooksDataStatus.booksLoaded, books: bestSellerBooks),
           );
         }

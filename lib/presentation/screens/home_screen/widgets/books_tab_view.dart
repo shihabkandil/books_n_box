@@ -31,7 +31,7 @@ class _BooksTabsViewState extends State<BooksTabsView> {
           return Container(
               height: 700 / MediaQuery.of(context).devicePixelRatio,
               child: BlocProvider(
-                  create: (context) => BookmarksCubit(retrivedBooks:  currentBookStates)..syncUserBookmarks(),
+                  create: (context) => BookmarksCubit(retrievedBooks:  currentBookStates)..syncUserBookmarks(),
                   child: TabBarView(
                     controller: widget.tabController,
                     children: <Widget>[
