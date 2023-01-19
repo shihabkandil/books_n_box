@@ -26,7 +26,7 @@ class ProfileAvatarCircle extends StatelessWidget {
           ),
         ),
         Text(
-           user.readUserDataCachePreferences().name!,
+           user.readUserDataCachePreferences().name??'',
           style: TextStyle(
             color: Colors.white,
           ),
