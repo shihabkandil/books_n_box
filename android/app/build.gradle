@@ -47,8 +47,8 @@ android {
         applicationId "eg.edu.miuegypt.booksnbox"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 3
-        versionName 'v1.2'
+        versionCode 4
+        versionName 'v1.4'
     }
 
     signingConfigs {

@@ -48,6 +48,7 @@ dependencies:
   readmore: ^2.1.0
   carousel_slider: ^4.1.1
   google_nav_bar: ^5.0.6
+  auto_size_text_field: ^2.1.0
 
   # Bloc State management
   flutter_bloc: ^8.1.1
