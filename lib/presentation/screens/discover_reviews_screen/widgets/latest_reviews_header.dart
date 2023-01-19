@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../business_logic/cubit/localization_cubit/cubit/localization_cubit.dart';
-import 'app_title.dart';
 
-class AppHeader extends StatelessWidget {
-  const AppHeader({super.key});
+class LatestReviewsHeader extends StatelessWidget {
+  const LatestReviewsHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context);
     String lang = Localizations.localeOf(context).languageCode;
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        IconButton(
-          icon: Icon(Icons.menu,
-              color: Theme.of(context).textTheme.bodyMedium?.color, size: 20),
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
+        Text(
+          localization!.latestrevs,
+          style: TextStyle(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w500,
+              fontSize: 20,
+              color: Theme.of(context).textTheme.bodyMedium?.color),
         ),
-        AppTitle(),
-        SizedBox(
-          width: 20,
-        ),
+        SizedBox(width: 20,),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.transparent,

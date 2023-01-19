@@ -1,60 +1,76 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../business_logic/cubit/localization_cubit/cubit/localization_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:mobile_app_project/business_logic/cubit/reviews_cubit/reviews_cubit.dart';
+import 'package:mobile_app_project/presentation/screens/discover_reviews_screen/widgets/book_reviews_modal_sheet_body.dart';
+import 'package:mobile_app_project/presentation/shared_widgets/book_card.dart';
+import 'package:mobile_app_project/presentation/shared_widgets/header_text.dart';
 
 class DiscoverReviewsScreen extends StatelessWidget {
   const DiscoverReviewsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-
     var localization = AppLocalizations.of(context);
-    String lang = Localizations.localeOf(context).languageCode;
-
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.only(top: 45, left: 20, bottom: 20, right: 10),
-          alignment: localization!.localeName == 'ar'
-              ? Alignment.centerRight
-              : Alignment.centerLeft,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Text(
-                    localization.latestrevs,
-                    style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 30,
-                        color: Theme.of(context).textTheme.bodyMedium?.color),
-                  ),
-                  SizedBox(width: 70,),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                    ),
-                    onPressed: () {
-                      BlocProvider.of<LocalizationCubit>(context).switchLanguage();
-                    },
-                    child: Text(
-                      lang == 'en' ? 'Ar' : 'En',
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ],
+    return BlocProvider<ReviewsCubit>(
+      create: (context) => ReviewsCubit()..getLatestReviewedBooks(),
+      child: Builder(builder: (context) {
+        return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.only(top: 45, left: 20, bottom: 20, right: 10),
+              alignment: localization!.localeName == 'ar'
+                  ? Alignment.centerRight
+                  : Alignment.centerLeft,
+              child: RefreshIndicator(
+                onRefresh: () => BlocProvider.of<ReviewsCubit>(context)
+                    .getLatestReviewedBooks(),
+                child: BlocBuilder<ReviewsCubit, ReviewsState>(
+                  builder: (context, state) {
+                    if (state.status == ReviewsStatus.latestReviewsLoaded &&
+                        state.googleBooks != null) {
+                      return ListView.separated(
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => ListTile(
+                                onTap: () => showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) =>
+                                      BookReviewsModalSheetBody(
+                                          bookId: state.googleBooks![index].id),
+                                ),
+                                title: HeaderText(
+                                  text: state.googleBooks![index].volumeInfo
+                                          ?.title ??
+                                      'Not specified',
+                                ),
+                                leading: BookCard(
+                                    imageUrl: state.googleBooks![index]
+                                        .volumeInfo?.imageLinks?.thumbnail,
+                                    hasBookmarkButton: false),
+                              ),
+                          separatorBuilder: (context, index) => SizedBox(),
+                          itemCount: state.googleBooks!.length);
+                    } else if (state.status ==
+                        ReviewsStatus.latestReviewsLoadFailure) {
+                      return Center(
+                        child: HeaderText(
+                            text: 'Sorry but we didn\'t find reviewed books'),
+                      );
+                    } else {
+                      return SizedBox(
+                          height: MediaQuery.of(context).size.height / 2,
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ));
+                    }
+                  },
+                ),
               ),
-
-              
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

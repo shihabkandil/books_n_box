@@ -16,7 +16,7 @@ class PersistentView extends StatelessWidget {
       screens: _mainScreens(),
       items: _navBarsItems(context),
       confineInSafeArea: true,
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       // Default is Colors.white.
       handleAndroidBackButtonPress: true,
       // Default is true.
@@ -60,13 +60,13 @@ class PersistentView extends StatelessWidget {
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.home),
         title: (AppLocalizations.of(context)!.home),
-        activeColorPrimary: AppColors.primaryColor,
+        activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.compass),
         title: (AppLocalizations.of(context)!.latestrevs),
-        activeColorPrimary: AppColors.primaryColor,
+        activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
     ];

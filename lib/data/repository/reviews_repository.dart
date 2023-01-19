@@ -20,8 +20,10 @@ class ReviewRepository {
     final currentUser = _userDataCache.readUserDataCachePreferences();
     if (currentUser.isAuthenticated) {
       try {
-        await _fireStore.collection(kReviewedBooksCollectionName)
-            .doc(googleBook.id).set(googleBook.toJson());
+        await _fireStore
+            .collection(kReviewedBooksCollectionName)
+            .doc(googleBook.id)
+            .set(googleBook.toJson());
         await _fireStore
             .collection(kReviewedBooksCollectionName)
             .doc(googleBook.id)
@@ -80,7 +82,8 @@ class ReviewRepository {
 
   Future<List<UserReview>> getBookReviews({required String bookId}) async {
     try {
-      final bool isBookDocumentExist = await _isReviewedBookExists(bookId: bookId);
+      final bool isBookDocumentExist =
+          await _isReviewedBookExists(bookId: bookId);
       if (isBookDocumentExist) {
         final booksReviewsDocuments = await _fireStore
             .collection(kReviewedBooksCollectionName)
@@ -96,6 +99,21 @@ class ReviewRepository {
         return [];
       }
     } catch (error) {
+      print(error);
+      rethrow;
+    }
+  }
+
+  Future<List<GoogleBook>> getLatestReviewedBooks() async {
+    try {
+      final booksReviewsDocuments =
+          await _fireStore.collection(kReviewedBooksCollectionName).get();
+      List<GoogleBook> reviewedBooks = [];
+      booksReviewsDocuments.docs.forEach((element) {
+        reviewedBooks.add(GoogleBook.fromJson(element.data()));
+      });
+      return reviewedBooks;
+    } catch (e) {
       rethrow;
     }
   }

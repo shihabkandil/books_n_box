@@ -1,4 +1,4 @@
-part of'reviews_cubit.dart';
+part of 'reviews_cubit.dart';
 
 enum ReviewsStatus {
   initialState,
@@ -6,14 +6,23 @@ enum ReviewsStatus {
   submittedReviewCantBeEmpty,
   savingReviewFailed,
   failedToGetBookDataForReview,
-  submittingReview
+  submittingReview,
+  latestReviewsLoaded,
+  loadingLatestReviews,
+  latestReviewsLoadFailure,
+  noLatestReviewsFound,
+  booksReviewsLoadedSuccessfully,
+  booksReviewsLoadingFailure,
+  booksReviewsLoading
 }
 
 class ReviewsState extends Equatable {
   final ReviewsStatus status;
 
-  //final List<Reviews>? reviews;
-  ReviewsState({required this.status});
+  final List<UserReview>? reviews;
+  final List<GoogleBook>? googleBooks;
+
+  ReviewsState({this.reviews, this.googleBooks, required this.status});
 
   @override
   List<Object?> get props => [status];
