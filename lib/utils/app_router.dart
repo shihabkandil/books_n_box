@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile_app_project/business_logic/cubit/reviews_cubit/reviews_cubit.dart';
 import 'package:mobile_app_project/business_logic/cubit/user_cubit/cubit/user_cubit.dart';
 import '../business_logic/bloc/app_status_bloc/app_status_bloc.dart';
 import '../business_logic/cubit/auth_cubit/auth_cubit.dart';
@@ -88,8 +89,11 @@ class AppRouter {
             ),
             GoRoute(
               path: 'book_details',
-              builder: (context, state) => GoogleBookDetailsScreen(
-                googleBook: state.extra as GoogleBook,
+              builder: (context, state) => BlocProvider(
+                create: (context) => ReviewsCubit(googleBook: state.extra as GoogleBook),
+                child: GoogleBookDetailsScreen(
+                  googleBook: state.extra as GoogleBook,
+                ),
               ),
             ),
             GoRoute(
