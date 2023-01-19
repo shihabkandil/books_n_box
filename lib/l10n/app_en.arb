@@ -69,5 +69,9 @@
   "reset_password_instructions": "You will receive an email with instructions to change your password",
   "problem_sending_email" : "Problem sending email",
   "myshelf" : "My Shelf",
-  "imageUploadFailed":"Image Upload Failed"
+  "imageUploadFailed": "Image Upload Failed",
+  "write_a_review": "Write a review",
+  "submit_review" : "Submit review",
+  "cant_be_empty" : "Can't be empty",
+  "review_submitted" : "Review submitted"
 }

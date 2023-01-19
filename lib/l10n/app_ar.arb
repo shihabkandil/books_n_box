@@ -69,5 +69,9 @@
   "reset_password_instructions": "ستتلقى رسالة بريد إلكتروني تحتوي على إرشادات لتغيير كلمة المرور الخاصة بك",
   "problem_sending_email" : "مشكلة في إرسال البريد الإلكتروني",
   "myshelf" : "كتبي",
-  "imageUploadFailed":"فشل رفع الصور"
+  "imageUploadFailed": "فشل رفع الصور",
+  "write_a_review": "اكتب مراجعه",
+  "submit_review" : "إرسال المراجعة",
+  "cant_be_empty" : "لا يمكن ان يكون فارغ",
+  "review_submitted" : "المراجعه سجلت"
 }
