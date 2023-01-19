@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../business_logic/cubit/localization_cubit/cubit/localization_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../shared_widgets/bottom_bar.dart';
+
 
 class DiscoverReviewsScreen extends StatelessWidget {
   const DiscoverReviewsScreen({super.key});
@@ -13,7 +13,6 @@ class DiscoverReviewsScreen extends StatelessWidget {
     String lang = Localizations.localeOf(context).languageCode;
 
     return Scaffold(
-      bottomNavigationBar: AppBottomNavBar(),
       backgroundColor: Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
         child: Container(

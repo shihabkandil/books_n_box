@@ -1,52 +1,74 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-class AppBottomNavBar extends StatelessWidget {
-  const AppBottomNavBar({Key? key, int? index})
-      : _index = index ?? 0,
-        super(key: key);
+import '../../utils/constants/app_colors.dart';
+import '../screens/discover_reviews_screen/discover_reviews_screen.dart';
+import '../screens/home_screen/home_screen.dart';
 
-  final int _index;
+class PersistentView extends StatelessWidget {
+  const PersistentView({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    var localization = AppLocalizations.of(context);
-
-    return GNav(
-      selectedIndex: _index,
-      gap: 12,
-      activeColor: Theme.of(context).textTheme.bodyMedium?.color,
-      iconSize: 24,
-      tabMargin: EdgeInsets.only(top: 12),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-      duration: Duration(milliseconds: 400),
-      tabBackgroundColor: Colors.white10,
-      color: Colors.grey,
-      tabs: [
-        GButton(
-          icon: CupertinoIcons.home,
-          text: localization!.home,
-          onPressed: () {
-            context.go("/home");
-          },
-        ),
-        GButton(
-          icon: Icons.camera_alt,
-          text: localization.camera,
-          onPressed: () {
-            context.go("/home/takePicture"); 
-          },
-        ),
-        GButton(
-          icon: CupertinoIcons.compass,
-          text: localization.latestrevs,
-          onPressed: () {
-            context.go("/home/discover");
-          },
-        ),
-      ],
+    return PersistentTabView(
+      context,
+      screens: _mainScreens(),
+      items: _navBarsItems(context),
+      confineInSafeArea: true,
+      backgroundColor: Colors.white,
+      // Default is Colors.white.
+      handleAndroidBackButtonPress: true,
+      // Default is true.
+      resizeToAvoidBottomInset: true,
+      // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+      stateManagement: true,
+      // Default is true.
+      hideNavigationBarWhenKeyboardShows: true,
+      // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+      decoration: NavBarDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        colorBehindNavBar: Colors.white,
+      ),
+      popAllScreensOnTapOfSelectedTab: false,
+      popAllScreensOnTapAnyTabs: false,
+      itemAnimationProperties: ItemAnimationProperties(
+        // Navigation Bar's items animation properties.
+        duration: Duration(milliseconds: 200),
+        curve: Curves.ease,
+      ),
+      screenTransitionAnimation: ScreenTransitionAnimation(
+        // Screen transition animation on change of selected tab.
+        animateTabTransition: true,
+        curve: Curves.ease,
+        duration: Duration(milliseconds: 200),
+      ),
+      navBarStyle:
+          NavBarStyle.style1, // Choose the nav bar style with this property.
     );
+  }
+
+  List<Widget> _mainScreens() {
+    return [
+      HomeScreen(),
+      DiscoverReviewsScreen()
+    ];
+  }
+
+  List<PersistentBottomNavBarItem> _navBarsItems(BuildContext context) {
+    return [
+      PersistentBottomNavBarItem(
+        icon: Icon(CupertinoIcons.home),
+        title: (AppLocalizations.of(context)!.home),
+        activeColorPrimary: AppColors.primaryColor,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(CupertinoIcons.compass),
+        title: (AppLocalizations.of(context)!.latestrevs),
+        activeColorPrimary: AppColors.primaryColor,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+      ),
+    ];
   }
 }

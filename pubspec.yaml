@@ -47,7 +47,7 @@ dependencies:
   equatable: ^2.0.5
   readmore: ^2.1.0
   carousel_slider: ^4.1.1
-  google_nav_bar: ^5.0.6
+  persistent_bottom_nav_bar: ^5.0.2
   auto_size_text_field: ^2.1.0
 
   # Bloc State management

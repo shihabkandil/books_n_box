@@ -10,14 +10,14 @@ part 'bookmarks_state.dart';
 class BookmarksCubit extends Cubit<BookmarksState> {
   BookmarksCubit(
       {BookmarksRepository? bookmarksRepository,
-      required Map<String, List<GoogleBook>> retrivedBooks})
+      required Map<String, List<GoogleBook>> retrievedBooks})
       : _bookmarksRepository = bookmarksRepository ?? BookmarksRepository(),
-        _retrivedBooks = retrivedBooks,
+        _retrievedBooks = retrievedBooks,
         super(BookmarksState(status: BookmarkStatus.notBookmarked));
 
   final BookmarksRepository _bookmarksRepository;
   Set<String> _bookmarkedBooksIds = {};
-  final Map<String, List<GoogleBook>> _retrivedBooks;
+  final Map<String, List<GoogleBook>> _retrievedBooks;
 
   void recordBookMark(GoogleBook? book) async {
     emit(BookmarksState(status: BookmarkStatus.notBookmarked));
@@ -65,7 +65,7 @@ class BookmarksCubit extends Cubit<BookmarksState> {
       List<GoogleBook> bookmarkedUserBooks =
           await _bookmarksRepository.syncUserBookmarks();
 
-      _retrivedBooks.forEach((key, value) {
+      _retrievedBooks.forEach((key, value) {
         bookmarkedUserBooks.forEach((element) {
           for (int i = 0; i < value.length; i++) {
             if (value[i].id == element.id) {
