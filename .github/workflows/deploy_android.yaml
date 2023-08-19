@@ -3,22 +3,10 @@ name: 📦🚀 Build & deploy Android app for an environment
 on:
   workflow_call:
     inputs:
-      environment-name:
-        required: true
-        type: string
-      environment-url:
-        required: true
-        type: string
       package-name:
         required: true
         type: string
       release-status:
-        required: true
-        type: string
-      short-environment-name:
-        required: true
-        type: string
-      flavor:
         required: true
         type: string
       new-pubspec-version:

@@ -63,8 +63,6 @@ jobs:
       KEYSTORE_PASSWORD: "${{ secrets.KEYSTORE_PASSWORD }}"
       GOOGLE_PLAY_SERVICE_ACCOUNT_KEY_JSON: "${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_KEY_JSON }}"
     with:
-      android-environment-name: 'Android UAT'
-      android-environment-url: 'https://play.google.com/console/u/0/developers/7200533445067191438/app/4975719898219218293/tracks/internal-testing'
       android-package-name: 'eg.edu.miuegypt.booksnbox'
       android-release-status: 'completed'
       short-environment-name: 'UAT'
