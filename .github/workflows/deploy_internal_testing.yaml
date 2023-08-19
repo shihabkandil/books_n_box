@@ -54,7 +54,7 @@ jobs:
 
   deployUat:
     name: Deploy UAT
-    uses: .github/workflows/_deploy_android.yml
+    uses: ./.github/workflows/deploy_android.yml
     needs: gitRelease
     secrets: inherit
     with:
