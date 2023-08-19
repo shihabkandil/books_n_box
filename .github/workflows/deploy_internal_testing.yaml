@@ -13,8 +13,6 @@ on:
       - '.vscode/'
 
 jobs:
-  testAndCoverage:
-
   gitRelease:
     name: Create git release for UAT app
     runs-on: ubuntu-latest
