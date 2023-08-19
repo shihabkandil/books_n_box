@@ -21,10 +21,21 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.1'
 }
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
-def keystorePropertiesFile = rootProject.file('key.properties')
-if (keystorePropertiesFile.exists()) {
+if (keystorePropertiesFile.exists() && !keystorePropertiesFile.isDirectory()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+} else {
+    keystoreProperties['uatStoreFile'] = 'dummy.keystore';
+    keystoreProperties['prodStoreFile'] = 'dummy.keystore';
+}
+
+if (keystoreProperties['uatStoreFile'] == null) {
+    keystoreProperties['uatStoreFile'] = 'dummy.keystore'
+}
+
+if (keystoreProperties['prodStoreFile'] == null) {
+    keystoreProperties['prodStoreFile'] = 'dummy.keystore'
 }
 
 apply plugin: 'com.android.application'
@@ -52,11 +63,18 @@ android {
     }
 
     signingConfigs {
+        debug {
+            storeFile file(keystoreProperties['uatStoreFile'])
+            storePassword keystoreProperties['uatStorePassword']
+            keyAlias keystoreProperties['uatKeyAlias']
+            keyPassword keystoreProperties['uatKeyPassword']
+        }
+
         release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-            storePassword keystoreProperties['storePassword']
+            storeFile file(keystoreProperties['prodStoreFile'])
+            storePassword keystoreProperties['prodStorePassword']
+            keyAlias keystoreProperties['prodKeyAlias']
+            keyPassword keystoreProperties['prodKeyPassword']
         }
     }
 
