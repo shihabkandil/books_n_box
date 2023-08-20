@@ -54,5 +54,5 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }}
           packageName: eg.edu.miuegypt.booksnbox
           releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
-            mappingFile: ./build/app/outputs/mapping/release/mapping.txt
+          mappingFile: ./build/app/outputs/mapping/release/mapping.txt
           track: internal
