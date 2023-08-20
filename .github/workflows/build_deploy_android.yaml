@@ -1,12 +1,12 @@
 name: Build & deploy
-  on:
-    push:
-      branches: [ "master" ]
-    pull_request:
-      branches: [ "master" ]
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
       # Allows to trigger the workflow from GitHub interfaces.
-      workflow_dispatch:
+    workflow_dispatch:
 
 # A single workflow can have multiple jobs.
 jobs:
