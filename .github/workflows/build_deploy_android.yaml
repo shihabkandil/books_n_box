@@ -1,13 +1,7 @@
-# Name of the workflow
-name: Build
-
-  # Controls what will trigger the workflow.
-  # Change it to your needs.
+name: Build & deploy
   on:
-    # A new push to the "main" branch.
     push:
       branches: [ "master" ]
-    # A new pull request to the "main" branch.
     pull_request:
       branches: [ "master" ]
 
