@@ -21,23 +21,6 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.1'
 }
 
-def keystorePropertiesFile = rootProject.file("keystore.properties")
-def keystoreProperties = new Properties()
-if (keystorePropertiesFile.exists() && !keystorePropertiesFile.isDirectory()) {
-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-} else {
-    keystoreProperties['uatStoreFile'] = 'dummy.keystore';
-    keystoreProperties['prodStoreFile'] = 'dummy.keystore';
-}
-
-if (keystoreProperties['uatStoreFile'] == null) {
-    keystoreProperties['uatStoreFile'] = 'dummy.keystore'
-}
-
-if (keystoreProperties['prodStoreFile'] == null) {
-    keystoreProperties['prodStoreFile'] = 'dummy.keystore'
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
@@ -67,9 +50,7 @@ android {
     }
 
     buildTypes {
-        release {
-            signingConfig signingConfigs.release
-        }
+        release{}
     }
 }
 
