@@ -63,19 +63,7 @@ android {
     }
 
     signingConfigs {
-        debug {
-            storeFile file(keystoreProperties['uatStoreFile'])
-            storePassword keystoreProperties['uatStorePassword']
-            keyAlias keystoreProperties['uatKeyAlias']
-            keyPassword keystoreProperties['uatKeyPassword']
-        }
-
-        release {
-            storeFile file(keystoreProperties['prodStoreFile'])
-            storePassword keystoreProperties['prodStorePassword']
-            keyAlias keystoreProperties['prodKeyAlias']
-            keyPassword keystoreProperties['prodKeyPassword']
-        }
+        release {}
     }
 
     buildTypes {
