@@ -37,6 +37,7 @@ jobs:
       - name: Build release app bundle
         run: flutter build appbundle
 
+      # Sign app bundle with keystore data
       - name: Sign App Bundle
         uses: r0adkll/sign-android-release@v1
         id: sign_app
