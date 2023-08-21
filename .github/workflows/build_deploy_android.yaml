@@ -74,6 +74,7 @@ jobs:
 
 
       - name: 📝 Edit pubspec version
+          needs: gitRelease
           run: |
             sed -Ei "s/^version: (.*)/version: ${{ needs.gitRelease.outputs.new_pubspec_version }}/g" app/pubspec.yaml
       # Get Flutter project dependencies
