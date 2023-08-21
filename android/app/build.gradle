@@ -41,8 +41,8 @@ android {
         applicationId "eg.edu.miuegypt.booksnbox"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 6
-        versionName 'v1.7'
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
     }
 
     signingConfigs {

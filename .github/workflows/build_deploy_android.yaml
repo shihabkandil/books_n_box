@@ -71,9 +71,15 @@ jobs:
           # Enables cache for flutter packages
           # Speed up the process
           cache: true
+
+
+      - name: 📝 Edit pubspec version
+          run: |
+            sed -Ei "s/^version: (.*)/version: ${{ needs.gitRelease.outputs.new_pubspec_version }}/" app/pubspec.yaml
       # Get Flutter project dependencies
       - name: Get dependencies
         run: flutter pub get
+
 
 
 
