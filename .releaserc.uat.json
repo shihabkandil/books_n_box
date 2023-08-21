@@ -2,7 +2,7 @@
   "ci": true,
   "dryRun": true,
   "branches": [
-    "main"
+    "master"
   ],
   "tagFormat": "release/prod/${version}",
   "plugins": [
