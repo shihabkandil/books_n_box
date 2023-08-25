@@ -4,7 +4,7 @@
   "branches": [
     "production"
   ],
-  "tagFormat": "release/prod/${version}",
+  "tagFormat": "release/production/${version}",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
