@@ -36,7 +36,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_AUTOMATOR_PAT }}
         with:
           semantic_version: 19
-          tag_format: "1.0.0"
       - name: 📝 Calculate complete Production version for next version
         id: get_new_pubspec_version
         run: |
@@ -87,6 +86,28 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
+      - name: Build release app bundle
+        run: flutter build appbundle
+
+      # Sign app bundle with keystore data
+      - name: Sign App Bundle
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: build/app/outputs/bundle/release/
+          signingKeyBase64: ${{ secrets.KEYSTORE_FILE_BASE64 }}
+          alias: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+
+      - name: Upload to Play Store (Production)
+        uses: r0adkll/upload-google-play@v1.0.18
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }}
+          packageName: eg.edu.miuegypt.booksnbox
+          releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
+          mappingFile: ./build/app/outputs/mapping/release/mapping.txt
+          track: internal
 
 
 
