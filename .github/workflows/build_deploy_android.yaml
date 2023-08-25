@@ -75,7 +75,7 @@ jobs:
       # but new versions will be incremented from this version
       - name: Edit pubspec version
         run: |
-          sed -Ei "s/^version: (.*)/version:  $(( ${{ needs.gitRelease.outputs.new_pubspec_version ${{ github.run_attempt  }} + 15080 }}))/g" ./pubspec.yaml
+          sed -Ei "s/^version: (.*)/version:  ${{ needs.gitRelease.outputs.new_pubspec_version}} + $(( ${{ github.run_attempt  }} + 15080 ))/g" ./pubspec.yaml
 
 
       - name: Create annotation for build error
