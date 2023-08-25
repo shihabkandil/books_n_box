@@ -81,11 +81,6 @@ jobs:
 
       - name: Create annotation for build error
         run: echo " $(( ${{ github.run_attempt  }} + 15500 ))"
-
-      - name: 🔀 Push bump commit with changelog to repository
-        uses: stefanzweifel/git-auto-commit-action@v4.16.0
-        with:
-          commit_message: "chore(*): bump to version ${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }} [skip ci]"   
     
       # Get Flutter project dependencies
       - name: Get dependencies
