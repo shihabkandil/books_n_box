@@ -76,15 +76,21 @@ jobs:
       - name: Edit pubspec version
         run: |
           sed -Ei "s/^version: (.*)/version: ${{ needs.gitRelease.outputs.new_pubspec_version }}/g" ./pubspec.yaml
-          sed -Ei "s/^versionCode: (.*)/versionCode: $(( ${{ github.run_number }} + 15080 ))/g" ./android/app/build.gradle
+          sed -Ei "s/^versionCode: (.*)/versionCode: $(( ${{ github.run_attempt  }} + 15500 ))/g" ./android/app/build.gradle
 
 
       - name: Create annotation for build error
-        run: echo " $(( ${{ github.run_number }} + 15080 ))"
+        run: echo " $(( ${{ github.run_attempt  }} + 15500 ))"
+
+      - name: 🔀 Push bump commit with changelog to repository
+        uses: stefanzweifel/git-auto-commit-action@v4.16.0
+        with:
+          commit_message: "chore(*): bump to version ${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }} [skip ci]"   
     
       # Get Flutter project dependencies
       - name: Get dependencies
         run: flutter pub get
+
 
       - name: Build release app bundle
         run: flutter build appbundle
@@ -108,6 +114,5 @@ jobs:
           releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
           mappingFile: ./build/app/outputs/mapping/release/mapping.txt
           track: internal
-
 
 
