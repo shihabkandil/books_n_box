@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "467996030180",
+    "project_id": "quixotic-booth-341714",
+    "storage_bucket": "quixotic-booth-341714.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467996030180:android:2e2649a877bc35cafb28f1",
+        "android_client_info": {
+          "package_name": "eg.edu.miuegypt.booksnbox.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467996030180-856gnbt1p7gs3n7cm7hge93flatkljgs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-gOtfIoNdJVN1a1MTk_jO3QH_bBFcZe8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467996030180-856gnbt1p7gs3n7cm7hge93flatkljgs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
