@@ -47,20 +47,26 @@ android {
 
     signingConfigs {
         release {}
+        debug{}
     }
 
     buildTypes {
-        
-productFlavors {
+        release{}
+        debug{}
+    }
+
+    flavorDimensions "version"
+
+    productFlavors {
     prod {
-        
+        dimension "version"
     }
     dev {
+        dimension "version"
         applicationIdSuffix ".dev"
         versionNameSuffix " Dev"
     }
 }
-    }
 }
 
 
