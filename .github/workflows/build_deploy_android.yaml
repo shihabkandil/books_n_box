@@ -1,4 +1,4 @@
-name: Build & deploy to production
+name: Build & deploy for Nugttah Manager staging Firebase
 on:
   push:
     branches: [ "staging" ]
@@ -8,10 +8,9 @@ on:
 
 # A single workflow can have multiple jobs.
 jobs:
-
-
+  environment: CI
   gitRelease:
-    name: Create git release for Production app
+    name: Create git release for Staging app
     runs-on: ubuntu-latest
     outputs:
       new_pubspec_version: "${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
@@ -87,7 +86,7 @@ jobs:
 
 
       - name: Build release app bundle
-        run: flutter build appbundle
+        run: flutter build appbundle --flavor prod
 
       # Sign app bundle with keystore data
       - name: Sign App Bundle
