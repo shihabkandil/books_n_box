@@ -2,7 +2,6 @@ name: Build & deploy for Nugttah Manager staging Firebase
 on:
   push:
     branches: [ "staging" ]
-
       # Allows to trigger the workflow from GitHub interfaces.
     workflow_dispatch:
 
@@ -46,6 +45,7 @@ jobs:
           tag: "release/production/${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
           message: "Production release ${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
           github_token: ${{ secrets.RELEASE_AUTOMATOR_PAT }}
+          
   # 'A new job is defined with the name: "build_android"
   build_android:
     needs: gitRelease
@@ -76,7 +76,6 @@ jobs:
         run: |
           sed -Ei "s/^version: (.*)/version: ${{ needs.gitRelease.outputs.new_pubspec_version}}+$((${{github.run_attempt}}+15080))/g" ./pubspec.yaml
 
-
       - name: Create annotation for build error
         run: echo " $(( ${{ github.run_attempt  }} + 20000 ))"
     
@@ -84,7 +83,7 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-
+      # Build release aab with production flavor
       - name: Build release app bundle
         run: flutter build appbundle --flavor prod
 
@@ -93,7 +92,7 @@ jobs:
         uses: r0adkll/sign-android-release@v1
         id: sign_app
         with:
-          releaseDirectory: build/app/outputs/bundle/release/
+          releaseDirectory: build/app/outputs/bundle/prodRelease/
           signingKeyBase64: ${{ secrets.KEYSTORE_FILE_BASE64 }}
           alias: ${{ secrets.KEYSTORE_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -104,7 +103,6 @@ jobs:
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           serviceCredentialsFileContent: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }}
-          groups:  n-testers
+          groups: n-testers
           file: ${{steps.sign_app.outputs.signedReleaseFile}}
-
 
