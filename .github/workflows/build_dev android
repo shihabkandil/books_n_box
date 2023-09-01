@@ -10,7 +10,7 @@ on:
 jobs:
   gitRelease:
     name: Create git release for Staging app
-    environment: staging
+    environment: development
     runs-on: ubuntu-latest
     outputs:
       new_pubspec_version: "${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
@@ -19,11 +19,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: 🏷️🧪 Get latest Production release
+      - name: 🏷️🧪 Get latest Development release
         id: get_latest_production_release
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
         with:
-          prefix: "release/staging/"
+          prefix: "release/staging/dev/"
           fallback: 1.0.0
       - name: ⚙️ Prepare semantic release configuration
         run: |
@@ -38,14 +38,14 @@ jobs:
       - name: 📝 Calculate complete Production version for next version
         id: get_new_pubspec_version
         run: |
-          last_production_release=$(echo "${{ steps.get_latest_production_release.outputs.tag }}" | sed -E "s/release\/staging\/(.*)/\1/")
+          last_production_release=$(echo "${{ steps.get_latest_production_release.outputs.tag }}" | sed -E "s/release\/staging\/dev\/(.*)/\1/")
           next_pubspec_version=$(./scripts/semver.sh "$last_production_release" "${{ steps.semantic_release_info.outputs.new_release_version }}")
           echo "next_pubspec_version=$next_pubspec_version" >> $GITHUB_OUTPUT
       - name: 🏷️✍️ Create new Production release tag
         uses: rickstaa/action-create-tag@v1
         with:
-          tag: "release/staging/${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
-          message: "Staging release ${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
+          tag: "release/staging/dev/${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
+          message: "Staging dev release ${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
           github_token: ${{ secrets.RELEASE_AUTOMATOR_PAT }}
   # 'A new job is defined with the name: "build_android"
   build_android:
@@ -80,19 +80,8 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Build release app bundle
-        run: flutter build appbundle
-
-      # Sign app bundle with keystore data
-      - name: Sign App Bundle
-        uses: r0adkll/sign-android-release@v1
-        id: sign_app
-        with:
-          releaseDirectory: build/app/outputs/bundle/release/
-          signingKeyBase64: ${{ secrets.KEYSTORE_FILE_BASE64 }}
-          alias: ${{ secrets.KEYSTORE_KEY_ALIAS }}
-          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+      - name: Build release app dev apk
+        run: flutter build apk --flavor dev
 
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
