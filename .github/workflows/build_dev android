@@ -1,0 +1,104 @@
+name: Build & deploy Nugttah Manager Dev to Firebase
+on:
+  push:
+    branches: [ "staging" ]
+
+      # Allows to trigger the workflow from GitHub interfaces.
+    workflow_dispatch:
+
+# A single workflow can have multiple jobs.
+jobs:
+  gitRelease:
+    name: Create git release for Staging app
+    environment: staging
+    runs-on: ubuntu-latest
+    outputs:
+      new_pubspec_version: "${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
+    steps:
+      - name: ⬇️ Checkout repository with tags
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: 🏷️🧪 Get latest Production release
+        id: get_latest_production_release
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        with:
+          prefix: "release/staging/"
+          fallback: 1.0.0
+      - name: ⚙️ Prepare semantic release configuration
+        run: |
+          mv .releaserc.uat.json .releaserc.json
+      - name: 🏷️🔮 Get next Production release semver version
+        id: semantic_release_info
+        uses: cycjimmy/semantic-release-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_AUTOMATOR_PAT }}
+        with:
+          semantic_version: 19
+      - name: 📝 Calculate complete Production version for next version
+        id: get_new_pubspec_version
+        run: |
+          last_production_release=$(echo "${{ steps.get_latest_production_release.outputs.tag }}" | sed -E "s/release\/staging\/(.*)/\1/")
+          next_pubspec_version=$(./scripts/semver.sh "$last_production_release" "${{ steps.semantic_release_info.outputs.new_release_version }}")
+          echo "next_pubspec_version=$next_pubspec_version" >> $GITHUB_OUTPUT
+      - name: 🏷️✍️ Create new Production release tag
+        uses: rickstaa/action-create-tag@v1
+        with:
+          tag: "release/staging/${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
+          message: "Staging release ${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
+          github_token: ${{ secrets.RELEASE_AUTOMATOR_PAT }}
+  # 'A new job is defined with the name: "build_android"
+  build_android:
+    needs: gitRelease
+    # Defines what operating system will be used for the actions.
+    # For android, we will use Linux GitHub-Hosted Runner.
+    runs-on: ubuntu-22.04
+    # Defines what step should be passed for successful run
+    steps:
+      # Checkout to the selected branch
+      - name: Checkout
+        uses: actions/checkout@v3
+      # Download and install flutter packages
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          # Define which stable flutter version should be used
+          flutter-version: "3.7.0"
+          channel: 'stable'
+          # Enables cache for flutter packages
+          # Speed up the process
+          cache: true
+
+      # Updating pubspec version + versionCode for each release
+      # version code is added to 15080 as old versions were pushed with these number length
+      # but new versions will be incremented from this version
+      - name: Edit pubspec version
+        run: |
+          sed -Ei "s/^version: (.*)/version: ${{ needs.gitRelease.outputs.new_pubspec_version}}+$((${{github.run_attempt}}))/g" ./pubspec.yaml
+    
+      # Get Flutter project dependencies
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build release app bundle
+        run: flutter build appbundle
+
+      # Sign app bundle with keystore data
+      - name: Sign App Bundle
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: build/app/outputs/bundle/release/
+          signingKeyBase64: ${{ secrets.KEYSTORE_FILE_BASE64 }}
+          alias: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+
+      - name: upload artifact to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          serviceCredentialsFileContent: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }}
+          groups:  n-testers
+          file: ${{steps.sign_app.outputs.signedReleaseFile}}
+
