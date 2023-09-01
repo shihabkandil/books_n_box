@@ -8,7 +8,6 @@ on:
 
 # A single workflow can have multiple jobs.
 jobs:
-  environment: CI
   gitRelease:
     name: Create git release for Staging app
     runs-on: ubuntu-latest
@@ -50,6 +49,7 @@ jobs:
   # 'A new job is defined with the name: "build_android"
   build_android:
     needs: gitRelease
+    environment: staging
     # Defines what operating system will be used for the actions.
     # For android, we will use Linux GitHub-Hosted Runner.
     runs-on: ubuntu-22.04
