@@ -100,13 +100,12 @@ jobs:
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
 
-      - name: Upload to Play Store (Production)
-        uses: r0adkll/upload-google-play@v1.0.18
+      - name: upload artifact to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
-          serviceAccountJsonPlainText: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }}
-          packageName: eg.edu.miuegypt.booksnbox
-          releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
-          mappingFile: ./build/app/outputs/mapping/release/mapping.txt
-          track: internal
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          serviceCredentialsFileContent: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }}
+          groups: testers
+          file: ${{steps.sign_app.outputs.signedReleaseFile}}
 
 
