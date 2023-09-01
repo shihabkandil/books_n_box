@@ -50,7 +50,7 @@ jobs:
   # 'A new job is defined with the name: "build_android"
   build_android:
     needs: gitRelease
-    environment: developemnt
+    environment: development
     # Defines what operating system will be used for the actions.
     # For android, we will use Linux GitHub-Hosted Runner.
     runs-on: ubuntu-22.04
