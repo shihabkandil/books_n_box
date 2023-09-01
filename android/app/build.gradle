@@ -50,21 +50,19 @@ android {
     }
 
     buildTypes {
-        release{}
-    }
-}
-
-flavorDimensions "default"
+        
 productFlavors {
     prod {
-        dimension "default"
+        
     }
     dev {
-        dimension "default"
         applicationIdSuffix ".dev"
         versionNameSuffix " Dev"
     }
 }
+    }
+}
+
 
 flutter {
     source '../..'
