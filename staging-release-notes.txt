@@ -1,0 +1,2 @@
+- Fixes to UI in authentication flow.
+- Changes to Profile editing.

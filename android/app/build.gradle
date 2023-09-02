@@ -60,11 +60,12 @@ android {
     productFlavors {
     prod {
         dimension "version"
+        resValue "string", "app_name", "Books N Box SG"
     }
     dev {
         dimension "version"
+        resValue "string", "app_name", "Books N Box Dev"
         applicationIdSuffix ".dev"
-        versionNameSuffix " Dev"
     }
 }
 }
