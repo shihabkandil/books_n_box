@@ -1,4 +1,4 @@
-name: Build & deploy to Firebase (Prod flavor)
+name: Build & deploy to Firebase (Prod flavor) :rocket:
 on:
   push:
     branches: [ "staging" ]
