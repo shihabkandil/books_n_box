@@ -2,9 +2,9 @@
   "ci": true,
   "dryRun": true,
   "branches": [
-    "master"
+    "staging"
   ],
-  "tagFormat": "release/prod/${version}",
+  "tagFormat": "release/staging/dev/${version}",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
