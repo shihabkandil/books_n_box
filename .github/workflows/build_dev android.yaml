@@ -84,6 +84,17 @@ jobs:
       - name: Build release app dev apk
         run: flutter build apk --flavor dev
 
+              # Sign app bundle with keystore data
+      - name: Sign App Bundle
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: build/app/outputs/bundle/devRelease/
+          signingKeyBase64: ${{ secrets.KEYSTORE_FILE_BASE64 }}
+          alias: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
