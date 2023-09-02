@@ -1,4 +1,4 @@
-name: Build & deploy Nugttah Manager Dev to Firebase
+name: Build & deploy to Firebase
 on:
   push:
     branches: [ "staging" ]
