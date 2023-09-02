@@ -102,4 +102,5 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }}
           groups: n-testers
           file: ${{steps.sign_app.outputs.signedReleaseFile}}
+          releaseNotesFile: ./staging-release-notes.txt
 
