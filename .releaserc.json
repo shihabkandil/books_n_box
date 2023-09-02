@@ -2,17 +2,17 @@
   "ci": true,
   "dryRun": true,
   "branches": [
-    "master"
+    "staging"
   ],
-  "tagFormat": "release/prod/${version}",
+  "tagFormat": "release/production/${version}",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     [
       "@semantic-release/changelog",
       {
-        "changelogFile": "CHANGELOG.md",
-        "changelogTitle": "# CHANGELOG"
+        "changelogFile": "CHANGELOG_PRODUCTION.md",
+        "changelogTitle": "# CHANGELOG PRODUCTION"
       }
     ]
   ]

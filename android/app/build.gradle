@@ -47,12 +47,29 @@ android {
 
     signingConfigs {
         release {}
+        debug{}
     }
 
     buildTypes {
         release{}
+        debug{}
+    }
+
+    flavorDimensions "version"
+
+    productFlavors {
+    prod {
+        dimension "version"
+        resValue "string", "app_name", "Books N Box SG"
+    }
+    dev {
+        dimension "version"
+        resValue "string", "app_name", "Books N Box Dev"
+        applicationIdSuffix ".dev"
     }
 }
+}
+
 
 flutter {
     source '../..'

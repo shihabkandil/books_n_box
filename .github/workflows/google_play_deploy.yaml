@@ -1,14 +1,14 @@
-name: 🚀 Build & deploy to Firebase (Prod flavor) 🚀
+name: Build & deploy to Google Play Store 🚀
 on:
   push:
-    branches: [ "staging" ]
+    branches: [ "master" ]
       # Allows to trigger the workflow from GitHub interfaces.
     workflow_dispatch:
 
 # A single workflow can have multiple jobs.
 jobs:
   gitRelease:
-    name: Create git release for Staging app
+    name: Create git release for Production app
     runs-on: ubuntu-latest
     outputs:
       new_pubspec_version: "${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
@@ -21,7 +21,7 @@ jobs:
         id: get_latest_production_release
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
         with:
-          prefix: "release/production/"
+          prefix: "release/play_store/"
           fallback: 1.6.0
       - name: ⚙️ Prepare semantic release configuration
         run: |
@@ -36,7 +36,7 @@ jobs:
       - name: 📝 Calculate complete Production version for next version
         id: get_new_pubspec_version
         run: |
-          last_production_release=$(echo "${{ steps.get_latest_production_release.outputs.tag }}" | sed -E "s/release\/production\/(.*)/\1/")
+          last_production_release=$(echo "${{ steps.get_latest_production_release.outputs.tag }}" | sed -E "s/release\/play_store\/(.*)/\1/")
           next_pubspec_version=$(./scripts/semver.sh "$last_production_release" "${{ steps.semantic_release_info.outputs.new_release_version }}")
           echo "next_pubspec_version=$next_pubspec_version" >> $GITHUB_OUTPUT
       - name: 🏷️✍️ Create new Production release tag
@@ -49,7 +49,7 @@ jobs:
   # 'A new job is defined with the name: "build_android"
   build_android:
     needs: gitRelease
-    environment: staging
+    environment: PlayStore
     # Defines what operating system will be used for the actions.
     # For android, we will use Linux GitHub-Hosted Runner.
     runs-on: ubuntu-22.04
@@ -94,13 +94,12 @@ jobs:
           alias: ${{ secrets.KEYSTORE_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
-
-      - name: upload artifact to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
+          
+      - name: Upload to Play Store (Internal track)
+        uses: r0adkll/upload-google-play@v1.0.18
         with:
-          appId: ${{secrets.FIREBASE_APP_ID}}
-          serviceCredentialsFileContent: ${{ secrets.ANDROID_SERVICE_ACCOUNT_JSON }}
-          groups: n-testers
-          file: ${{steps.sign_app.outputs.signedReleaseFile}}
-          releaseNotesFile: ./staging-release-notes.txt
-
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
+          packageName: eg.edu.miuegypt.booksnbox
+          releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
+          mappingFile: ./build/app/outputs/mapping/release/mapping.txt
+          track: internal
