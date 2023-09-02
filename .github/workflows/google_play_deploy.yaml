@@ -42,8 +42,8 @@ jobs:
       - name: 🏷️✍️ Create new Production release tag
         uses: rickstaa/action-create-tag@v1
         with:
-          tag: "release/production/${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
-          message: "Production release ${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
+          tag: "release/play_store/${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
+          message: "Playstore release ${{ steps.get_new_pubspec_version.outputs.next_pubspec_version }}"
           github_token: ${{ secrets.RELEASE_AUTOMATOR_PAT }}
           
   # 'A new job is defined with the name: "build_android"
