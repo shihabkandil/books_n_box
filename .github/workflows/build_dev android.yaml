@@ -1,4 +1,4 @@
-name: Build & deploy to Firebase
+name: Build & deploy to Firebase (dev)
 on:
   push:
     branches: [ "staging" ]
@@ -75,7 +75,7 @@ jobs:
       # but new versions will be incremented from this version
       - name: Edit pubspec version
         run: |
-          sed -Ei "s/^version: (.*)/version: ${{ needs.gitRelease.outputs.new_pubspec_version}}+$((${{github.run_attempt}}))/g" ./pubspec.yaml
+          sed -Ei "s/^version: (.*)/version: ${{ needs.gitRelease.outputs.new_pubspec_version}}+$((${{github.run_number}}))/g" ./pubspec.yaml
     
       # Get Flutter project dependencies
       - name: Get dependencies
