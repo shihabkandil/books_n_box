@@ -25,9 +25,6 @@ jobs:
         with:
           prefix: "release/staging/dev/"
           fallback: 1.0.0
-      - name: ⚙️ Prepare semantic release configuration
-        run: |
-          mv .releaserc.uat.json .releaserc.json
       - name: 🏷️🔮 Get next Production release semver version
         id: semantic_release_info
         uses: cycjimmy/semantic-release-action@v3
