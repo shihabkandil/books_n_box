@@ -19,6 +19,9 @@ List<CameraDescription> cameras = [];
 CameraDescription? firstCamera;
 
 void main() async {
+
+
+  
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
